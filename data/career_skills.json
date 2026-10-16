@@ -1,0 +1,35 @@
+
+{
+  "Python Developer": [
+    "python",
+    "git",
+    "sql",
+    "fastapi",
+    "testing",
+    "docker"
+  ],
+  "Data Analyst": [
+    "sql",
+    "python",
+    "excel",
+    "power bi",
+    "statistics",
+    "data visualization"
+  ],
+  "AI Engineer": [
+    "python",
+    "machine learning",
+    "deep learning",
+    "sql",
+    "git",
+    "docker"
+  ],
+  "Web Developer": [
+    "html",
+    "css",
+    "javascript",
+    "git",
+    "api development",
+    "testing"
+  ]
+}
