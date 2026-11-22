@@ -2,7 +2,7 @@
 from backend.graphs.state import CareerState
 from backend.services.career_service import get_required_skills
 from backend.services.resume_service import analyze_resume_text
-from backend.services.skill_gap_service import analyze_skill_gap
+from backend.services.semantic_skill_gap_service import analyze_skill_gap
 from backend.utils.resume_parser import extract_resume_text
 
 

@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException
 
 from backend.schemas.skill_gap import SkillGapRequest, SkillGapResponse
 from backend.services.career_service import get_required_skills
-from backend.services.skill_gap_service import analyze_skill_gap
+from backend.services.semantic_skill_gap_service import analyze_skill_gap
 
 router = APIRouter(prefix="/skills", tags=["Skill Gap Analysis"])
 

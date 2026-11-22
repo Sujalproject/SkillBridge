@@ -1,5 +1,5 @@
 
-from backend.services.skill_gap_service import analyze_skill_gap
+from backend.services.semantic_skill_gap_service import analyze_skill_gap
 
 
 def test_skill_gap():

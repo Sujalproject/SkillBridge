@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillBridge — AI Career Readiness & Learning Roadmap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Ambient background lighting meshes -->
+  <div class="ambient-glow glow-top-left"></div>
+  <div class="ambient-glow glow-top-right"></div>
+  <div class="ambient-glow glow-center"></div>
+
+  <!-- Header / Navigation -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <div class="logo-wrapper">
+          <img src="images/SkillBridge Student Growth Logo.png" alt="SkillBridge Logo" class="brand-logo" />
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">SkillBridge</span>
+          <span class="brand-badge">Agentic AI</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <div class="system-status" id="systemStatus">
+          <span class="status-dot"></span>
+          <span class="status-label">Checking API...</span>
+        </div>
+        <a href="#analyzeSection" class="btn btn-secondary btn-sm">
+          <i class="fa-solid fa-bolt"></i> Quick Analyze
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="main-wrapper">
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-tag">
+        <i class="fa-solid fa-sparkles"></i>
+        <span>AI-Powered Career Intelligence & Roadmap Engine</span>
+      </div>
+      <h1 class="hero-title">
+        Bridge the gap between your <span class="gradient-text">resume</span> and your <span class="gradient-accent">dream career</span>.
+      </h1>
+      <p class="hero-subtitle">
+        Upload your resume and select your target tech role. Our multi-agent intelligence diagnoses your skill gaps, sequences a personalized week-by-week learning roadmap, and curates live web resources.
+      </p>
+
+      <div class="hero-pills">
+        <div class="hero-pill">
+          <i class="fa-solid fa-brain"></i>
+          <span>Groq Ultra-Fast Inference</span>
+        </div>
+        <div class="hero-pill">
+          <i class="fa-solid fa-magnifying-glass-location"></i>
+          <span>Live Web Research (Tavily)</span>
+        </div>
+        <div class="hero-pill">
+          <i class="fa-solid fa-file-excel"></i>
+          <span>Interactive Excel (.xlsx) Export</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 1: Ingestion Studio (Bento Card) -->
+    <section id="analyzeSection" class="section-container">
+      <div class="studio-card bento-card">
+        <div class="studio-header">
+          <div class="step-indicator">
+            <span class="step-num">01</span>
+            <span class="step-title">Configure Analysis</span>
+          </div>
+          <span class="studio-desc">Select your target trajectory and upload your resume file (PDF or DOCX, max 5MB).</span>
+        </div>
+
+        <form id="analysisForm" class="studio-grid">
+          <!-- Target Role Column -->
+          <div class="form-column">
+            <label class="field-label" for="careerSelect">
+              <i class="fa-solid fa-bullseye"></i> Target Career Role
+            </label>
+            <div class="custom-select-wrapper">
+              <select id="careerSelect" class="custom-select" required>
+                <option value="" disabled selected>Loading available career paths...</option>
+              </select>
+              <i class="fa-solid fa-chevron-down select-chevron"></i>
+            </div>
+
+            <!-- Quick Career Chips -->
+            <div class="quick-chips-wrapper">
+              <span class="chips-label">Popular paths:</span>
+              <div class="quick-chips" id="quickChipsContainer">
+                <button type="button" class="chip-btn" data-role="AI Engineer">AI Engineer</button>
+                <button type="button" class="chip-btn" data-role="Python Developer">Python Developer</button>
+                <button type="button" class="chip-btn" data-role="Data Analyst">Data Analyst</button>
+                <button type="button" class="chip-btn" data-role="Web Developer">Web Developer</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resume Upload Column -->
+          <div class="form-column">
+            <label class="field-label">
+              <i class="fa-solid fa-file-arrow-up"></i> Candidate Resume
+            </label>
+
+            <div class="dropzone" id="dropzone">
+              <input type="file" id="resumeFile" accept=".pdf,.docx" class="file-input" />
+              <div class="dropzone-content" id="dropzonePrompt">
+                <div class="upload-icon-wrapper">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+                <div class="dropzone-text">
+                  <span class="primary-text">Click to browse or drop file here</span>
+                  <span class="secondary-text">Supported formats: PDF or DOCX (Up to 5 MB)</span>
+                </div>
+              </div>
+
+              <!-- Selected File Card Preview -->
+              <div class="selected-file-card hidden" id="selectedFileCard">
+                <div class="file-card-icon">
+                  <i class="fa-solid fa-file-lines" id="fileTypeIcon"></i>
+                </div>
+                <div class="file-card-details">
+                  <span class="file-name" id="fileNameLabel">resume.pdf</span>
+                  <span class="file-size" id="fileSizeLabel">1.2 MB</span>
+                </div>
+                <button type="button" class="file-remove-btn" id="removeFileBtn" title="Remove file">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit CTA Row -->
+          <div class="form-action-row">
+            <button type="submit" class="btn btn-primary btn-glow" id="submitBtn">
+              <span class="btn-text">
+                <i class="fa-solid fa-compass-drafting"></i> Analyze Career Readiness
+              </span>
+              <span class="btn-spinner hidden" id="submitSpinner">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Processing...
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Animated Analysis Stepper (Visible during submission) -->
+    <section class="stepper-section hidden" id="stepperSection">
+      <div class="stepper-card bento-card">
+        <div class="stepper-title-row">
+          <div class="pulse-loader"></div>
+          <div>
+            <h3 class="stepper-title">Evaluating Candidate Profile</h3>
+            <p class="stepper-subtitle" id="stepperStatusText">Extracting resume text and compiling skills...</p>
+          </div>
+        </div>
+
+        <div class="stepper-steps">
+          <div class="step-item active" id="step1">
+            <span class="step-icon"><i class="fa-solid fa-file-lines"></i></span>
+            <span class="step-text">Resume Parsing</span>
+          </div>
+          <div class="step-item" id="step2">
+            <span class="step-icon"><i class="fa-solid fa-microchip"></i></span>
+            <span class="step-text">LLM Profile Profiling</span>
+          </div>
+          <div class="step-item" id="step3">
+            <span class="step-icon"><i class="fa-solid fa-chart-pie"></i></span>
+            <span class="step-text">Skill Gap Diagnosis</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Results & Readiness Dashboard (Bento Grid) -->
+    <section class="dashboard-section hidden" id="dashboardSection">
+      <div class="section-header">
+        <div class="section-title-wrapper">
+          <span class="section-eyebrow">Diagnostic Report</span>
+          <h2 class="section-heading">Career Readiness Matrix</h2>
+        </div>
+        <div class="dashboard-meta-pills">
+          <span class="meta-pill" id="metaRolePill">
+            <i class="fa-solid fa-briefcase"></i> <span id="metaRoleText">Python Developer</span>
+          </span>
+          <span class="meta-pill" id="metaFilePill">
+            <i class="fa-solid fa-file"></i> <span id="metaFileText">resume.pdf</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Bento Grid Container -->
+      <div class="bento-grid">
+
+        <!-- Bento 1: Match Score Spotlight (2 Columns Wide on Desktop) -->
+        <div class="bento-card card-spotlight">
+          <div class="card-inner">
+            <div class="spotlight-left">
+              <span class="card-badge">Readiness Score</span>
+              <div class="score-container">
+                <div class="score-circle-wrapper">
+                  <svg class="score-svg" viewBox="0 0 120 120">
+                    <circle class="score-bg-circle" cx="60" cy="60" r="50"></circle>
+                    <circle class="score-progress-circle" id="scoreCircle" cx="60" cy="60" r="50"></circle>
+                  </svg>
+                  <div class="score-text">
+                    <span class="score-number" id="matchPercentage">0%</span>
+                    <span class="score-caption">Fit</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="spotlight-right">
+              <div class="readiness-grade" id="readinessGradeBadge">Evaluation Ready</div>
+              <p class="readiness-summary" id="readinessSummaryText">
+                Analyzing required competencies against demonstrated experience.
+              </p>
+
+              <div class="stat-mini-grid">
+                <div class="stat-mini-box stat-matched">
+                  <div class="stat-mini-icon"><i class="fa-solid fa-circle-check"></i></div>
+                  <div>
+                    <span class="stat-mini-value" id="matchedCount">0</span>
+                    <span class="stat-mini-label">Matched Skills</span>
+                  </div>
+                </div>
+                <div class="stat-mini-box stat-missing">
+                  <div class="stat-mini-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                  <div>
+                    <span class="stat-mini-value" id="missingCount">0</span>
+                    <span class="stat-mini-label">Skills to Learn</span>
+                  </div>
+                </div>
+                <div class="stat-mini-box stat-total">
+                  <div class="stat-mini-icon"><i class="fa-solid fa-list-check"></i></div>
+                  <div>
+                    <span class="stat-mini-value" id="totalRequiredCount">0</span>
+                    <span class="stat-mini-label">Role Skills</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento 2: Candidate Snapshot Card -->
+        <div class="bento-card card-candidate">
+          <div class="card-header-clean">
+            <i class="fa-solid fa-user-astronaut card-icon-indigo"></i>
+            <h3 class="card-title">Candidate Profile</h3>
+          </div>
+
+          <div class="candidate-info">
+            <div class="candidate-avatar" id="candidateAvatar">JS</div>
+            <div class="candidate-meta">
+              <h4 class="candidate-name" id="candidateName">Candidate Name</h4>
+              <span class="candidate-email" id="candidateEmail"><i class="fa-regular fa-envelope"></i> email@example.com</span>
+            </div>
+          </div>
+
+          <div class="candidate-sections">
+            <div class="candidate-subgroup">
+              <span class="subgroup-title"><i class="fa-solid fa-graduation-cap"></i> Education</span>
+              <div class="subgroup-items" id="candidateEducation">
+                <span class="pill-item">Computer Science</span>
+              </div>
+            </div>
+
+            <div class="candidate-subgroup">
+              <span class="subgroup-title"><i class="fa-solid fa-quote-left"></i> Summary</span>
+              <p class="candidate-bio" id="candidateSummary">Profile summary extracted from resume.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento 3: Full Width Interactive Skill Matrix Card -->
+        <div class="bento-card card-skills-matrix">
+          <div class="matrix-header">
+            <div>
+              <div class="card-header-clean">
+                <i class="fa-solid fa-layer-group card-icon-blue"></i>
+                <h3 class="card-title">Skill Gap Breakdown</h3>
+              </div>
+              <p class="matrix-desc">Explore demonstrated proficiencies versus the benchmark expectations for this job track.</p>
+            </div>
+
+            <div class="matrix-controls">
+              <!-- Filter Tabs -->
+              <div class="tab-group" id="skillTabs">
+                <button type="button" class="tab-btn active" data-filter="all">All Skills</button>
+                <button type="button" class="tab-btn" data-filter="missing">Missing (<span id="missingTabCount">0</span>)</button>
+                <button type="button" class="tab-btn" data-filter="matched">Matched (<span id="matchedTabCount">0</span>)</button>
+              </div>
+
+              <!-- Skill Search -->
+              <div class="skill-search-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="skillSearchInput" placeholder="Filter skills..." class="skill-search-input" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Skill Badges Container -->
+          <div class="skills-tag-cloud" id="skillsTagCloud">
+            <!-- Dynamic skills injected here -->
+          </div>
+        </div>
+
+        <!-- Bento 4: Extracted Experience & Projects Card -->
+        <div class="bento-card card-experience">
+          <div class="card-header-clean">
+            <i class="fa-solid fa-code-branch card-icon-emerald"></i>
+            <h3 class="card-title">Demonstrated Projects & Experience</h3>
+          </div>
+          <div class="timeline-container" id="experienceTimeline">
+            <!-- Dynamic timeline items -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Section 3: Personalized Learning Roadmap Studio -->
+      <div class="roadmap-studio-section" id="roadmapStudioSection">
+        <div class="roadmap-banner-card bento-card">
+          <div class="roadmap-banner-left">
+            <div class="banner-badge">Next Evolution</div>
+            <h3 class="banner-title">Turn Skill Gaps into a Mastered Curriculum</h3>
+            <p class="banner-desc">
+              Generate a structured, week-by-week learning plan for your missing skills with verified documentation, free courses, and hands-on portfolio projects.
+            </p>
+          </div>
+          <div class="roadmap-banner-right">
+            <button type="button" class="btn btn-primary btn-glow btn-lg" id="generateRoadmapBtn">
+              <span class="btn-text">
+                <i class="fa-solid fa-route"></i> Generate Learning Roadmap
+              </span>
+              <span class="btn-spinner hidden" id="roadmapSpinner">
+                <i class="fa-solid fa-circle-notch fa-spin"></i> Researching Resources...
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Roadmap Content Container (Visible after generation) -->
+        <div class="roadmap-display-wrapper hidden" id="roadmapDisplayWrapper">
+          <div class="roadmap-header-row">
+            <div>
+              <span class="section-eyebrow">Action Plan</span>
+              <h3 class="roadmap-heading" id="roadmapHeading">Your Personalized Learning Roadmap</h3>
+            </div>
+
+            <!-- Export to Excel Button -->
+            <button type="button" class="btn btn-excel btn-glow" id="exportExcelBtn">
+              <i class="fa-solid fa-file-excel"></i> Export Roadmap (.xlsx)
+            </button>
+          </div>
+
+          <!-- Roadmap Summary Stats -->
+          <div class="roadmap-stats-bar bento-card">
+            <div class="roadmap-stat-item">
+              <span class="roadmap-stat-num" id="roadmapTotalWeeks">0</span>
+              <span class="roadmap-stat-label">Estimated Weeks</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="roadmap-stat-item">
+              <span class="roadmap-stat-num" id="roadmapTotalMilestones">0</span>
+              <span class="roadmap-stat-label">Skills to Master</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="roadmap-stat-item">
+              <span class="roadmap-stat-num" id="roadmapTotalHours">0 hrs</span>
+              <span class="roadmap-stat-label">Total Study Time</span>
+            </div>
+          </div>
+
+          <!-- Milestones Timeline Container -->
+          <div class="milestones-stream" id="milestonesStream">
+            <!-- Dynamic Milestones Injected Here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img src="images/SkillBridge Student Growth Logo.png" alt="SkillBridge Logo" class="footer-logo" />
+        <span>SkillBridge Career Agent</span>
+      </div>
+      <p class="footer-note">
+        Powered by LangGraph Workflow, Groq LLM Inference & Tavily Live Web Intelligence.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Anchor -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
