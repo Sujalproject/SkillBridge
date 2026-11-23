@@ -24,7 +24,7 @@
 ## 📑 Table of Contents
 
 - [Key Features](#-key-features)
-- [System Architecture](#-system-architecture)
+- [Application Workflow](#-application-workflow)
 - [Tech Stack](#-tech-stack)
 - [Directory Structure](#-directory-structure)
 - [Getting Started](#-getting-started)
@@ -58,58 +58,36 @@
 
 ---
 
-## 🏗️ System Architecture
+## 🔄 Application Workflow
 
 ```mermaid
 flowchart TD
-    subgraph Client["Frontend Client (Bento UI)"]
-        UI["Modern Web Interface\n(HTML5 / CSS3 / Vanilla JS)"]
-    end
-
-    subgraph API["FastAPI Backend Service"]
-        direction TB
-        CORS["CORS & Static Files Mount\n(/, /images, /styles.css, /app.js)"]
-        RouterCareer["/careers Router"]
-        RouterAgent["/career-agent Router"]
-        RouterRoadmap["/roadmap Router"]
-        RouterSkills["/skills Router"]
-    end
-
-    subgraph Workflow["LangGraph Orchestration Pipeline"]
-        direction TB
-        N1["1. extract_resume\n(PyMuPDF / python-docx)"]
-        N2["2. analyze_resume\n(Groq LLM Extraction)"]
-        Decision{"Route Branch\n(JD provided?)"}
-        N3A["3a. extract_jd_skills\n(Groq LLM JD Parsing)"]
-        N3B["3b. load_predefined_skills\n(career_skills.json)"]
-        N4["4. analyze_skill_gap\n(Semantic Matching Engine)"]
-
-        N1 --> N2 --> Decision
-        Decision -- "Has JD" --> N3A --> N4
-        Decision -- "No JD" --> N3B --> N4
-    end
-
-    subgraph Intelligence["External Intelligence & Storage"]
-        Groq["Groq API\n(Llama / GPT-OSS)"]
-        Tavily["Tavily Search API\n(Verified Web Resources)"]
-        Taxonomy[("career_skills.json\nBenchmark Taxonomy")]
-    end
-
-    UI -->|"Upload Resume + (Role or JD)"| RouterAgent
-    RouterAgent --> Workflow
-    N2 <--> Groq
-    N3A <--> Groq
-    N3B <--> Taxonomy
-    N4 <--> Groq
-    Workflow -->|"JSON Diagnostic Result"| UI
-
-    UI -->|"POST /roadmap/generate"| RouterRoadmap
-    RouterRoadmap <--> Tavily
-    RouterRoadmap <--> Groq
-    RouterRoadmap -->|"Structured Roadmap JSON"| UI
-
-    UI -->|"POST /roadmap/export"| RouterRoadmap
-    RouterRoadmap -->|"Download .xlsx Spreadsheet"| UI
+    Start(["Candidate Uploads Resume\n+ Selects Target Role or Pastes Job Description"])
+    
+    Extract["1. Document Text Extraction\n(PyMuPDF / python-docx)"]
+    Profile["2. Candidate Profile Parsing\n(Extracts atomic skills, experience, and education via Groq LLM)"]
+    
+    Branch{"Job Description\nProvided?"}
+    
+    JDSkills["3a. Dynamic JD Skill Extraction\n(Extracts mandatory & preferred skills via LLM)"]
+    CatalogSkills["3b. Load Career Taxonomy\n(Fetches role standards from career_skills.json)"]
+    
+    GapEngine["4. Semantic Skill Gap Engine\n(Multi-stage exact, alias, and LLM competency matching)"]
+    
+    Dashboard["📊 Career Readiness Matrix\n(Match Percentage, Matched Skills, and Learning Priorities)"]
+    Roadmap["🗺️ Personalized Learning Roadmap\n(Week-by-week study plan with verified Tavily web resources)"]
+    Export["📥 Downloadable Excel Plan\n(Formatted .xlsx workbook with clickable links)"]
+    
+    Start --> Extract
+    Extract --> Profile
+    Profile --> Branch
+    Branch -- "Yes (Custom JD)" --> JDSkills
+    Branch -- "No (Standard Role)" --> CatalogSkills
+    JDSkills --> GapEngine
+    CatalogSkills --> GapEngine
+    GapEngine --> Dashboard
+    Dashboard --> Roadmap
+    Roadmap --> Export
 ```
 
 ---
