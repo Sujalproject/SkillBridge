@@ -42,14 +42,19 @@
 
 - **Multi-Format Resume Ingestion**: Fast, local text extraction from `.pdf` and `.docx` resumes using PyMuPDF and python-docx without saving sensitive files to disk.
 - **LLM-Powered Profile Extraction**: Leverages Groq ultra-low latency inference to parse candidate identity, work experience, education, projects, and demonstrated technical proficiencies into structured Pydantic models.
-- **Semantic Skill Gap Engine**: Replaces fragile keyword-matching with a 3-tier hybrid evaluation engine:
-  - *Tier 1*: Direct normalized exact matching.
-  - *Tier 2*: Canonical alias and acronym mapping (`K8s` ➔ `Kubernetes`, `JS` ➔ `JavaScript`, `Docker Containers` ➔ `Docker`).
-  - *Tier 3*: LLM semantic equivalence (e.g., recognizes that `PostgreSQL` satisfies `SQL`, `AWS EC2/S3` satisfies `Cloud Computing`, or `FastAPI` satisfies `REST APIs`).
+- **Dual-Mode Target Benchmarking (Conditional Workflow)**:
+  - *Standard Mode*: Benchmark against curated industry role standards loaded from the local career taxonomy catalog.
+  - *Custom Job Description (JD) Mode*: Paste any arbitrary job posting text. The system automatically detects role seniority, extracts atomic required and preferred skills, and dynamically matches the candidate against that specific job.
+- **LangGraph Conditional Routing**: Graph-based multi-agent execution with dynamic conditional edges that route analysis dynamically based on whether a JD was provided.
+- **Domain-Agnostic Semantic Skill Gap Engine**: Evaluates candidate competencies across all engineering domains (Web, DevOps, Backend, Cloud, Data, AI) through a robust 4-stage pipeline:
+  - *Stage 1 (Universal Normalization)*: Resolves standard technical acronyms and canonical aliases (`K8s` ➔ `Kubernetes`, `JS` ➔ `JavaScript`, `LLM` ➔ `Large Language Models`, `CI/CD` ➔ `CICD`).
+  - *Stage 2 (Exact Set Matching)*: Fast deterministic match against normalized required benchmarks.
+  - *Stage 3 (LLM Competency Evaluation)*: Groq-powered contextual reasoning using a 4-tier relationship scale (`exact_match`, `strong_evidence`, `related_but_insufficient`, `no_evidence`). Recognizes when a specific technology demonstrates a broader competency (e.g. `Docker` ➔ `Containerization`, `React` ➔ `Frontend Frameworks`, `PostgreSQL` ➔ `SQL`, `Terraform` ➔ `Infrastructure as Code`) without false-positive token guessing.
+  - *Stage 4 (Display Name Preservation)*: Preserves the original Job Description or benchmark casing (`Containerization`, `REST APIs`, `FastAPI`) for clean UI presentation.
 - **Personalized Learning Roadmap**: Formulates an actionable, week-by-week curriculum sequenced from foundational to advanced milestones, complete with estimated study hours, difficulty ratings, and hands-on capstone project prompts.
 - **Live Web Research (Tavily)**: Dynamically verifies and fetches official documentation, top-rated tutorials, and free video courses for each missing skill.
 - **Interactive Excel (.xlsx) Export**: Generates a downloadable, multi-tab styled Excel workbook complete with schedule timelines, study checklists, and clickable resource hyperlinks.
-- **Modern Bento Grid Web Interface**: Handcrafted in vanilla HTML5, CSS3, and modern JavaScript—featuring obsidian dark mode, tactile glassmorphism, animated SVG progress rings, search filters, and real-time backend status indicators.
+- **Modern Bento Grid Web Interface**: Handcrafted in vanilla HTML5, CSS3, and modern JavaScript—featuring obsidian dark mode, tactile glassmorphism, animated SVG progress rings, dual-mode tabs (Career Benchmark vs. Paste Job Description), search filters, and real-time backend status indicators.
 
 ---
 
@@ -74,8 +79,14 @@ flowchart TD
         direction TB
         N1["1. extract_resume\n(PyMuPDF / python-docx)"]
         N2["2. analyze_resume\n(Groq LLM Extraction)"]
-        N3["3. analyze_skill_gap\n(Semantic Matching Engine)"]
-        N1 --> N2 --> N3
+        Decision{"Route Branch\n(JD provided?)"}
+        N3A["3a. extract_jd_skills\n(Groq LLM JD Parsing)"]
+        N3B["3b. load_predefined_skills\n(career_skills.json)"]
+        N4["4. analyze_skill_gap\n(Semantic Matching Engine)"]
+
+        N1 --> N2 --> Decision
+        Decision -- "Has JD" --> N3A --> N4
+        Decision -- "No JD" --> N3B --> N4
     end
 
     subgraph Intelligence["External Intelligence & Storage"]
@@ -84,11 +95,12 @@ flowchart TD
         Taxonomy[("career_skills.json\nBenchmark Taxonomy")]
     end
 
-    UI -->|"Upload Resume & Select Role"| RouterAgent
+    UI -->|"Upload Resume + (Role or JD)"| RouterAgent
     RouterAgent --> Workflow
     N2 <--> Groq
-    N3 <--> Taxonomy
-    N3 <--> Groq
+    N3A <--> Groq
+    N3B <--> Taxonomy
+    N4 <--> Groq
     Workflow -->|"JSON Diagnostic Result"| UI
 
     UI -->|"POST /roadmap/generate"| RouterRoadmap
@@ -140,6 +152,7 @@ skillbridge_starter/
 │   │   └── skill_gap.py           # Skill gap request & response schemas
 │   ├── services/
 │   │   ├── career_service.py      # Skill taxonomy queries
+│   │   ├── jd_service.py          # LLM Job Description parsing & skill extraction
 │   │   ├── resume_service.py      # LLM profile extraction service
 │   │   ├── roadmap_service.py     # Tavily search & curriculum planner
 │   │   └── semantic_skill_gap_service.py # 3-tier semantic matching engine
@@ -153,12 +166,13 @@ skillbridge_starter/
 │   ├── images/
 │   │   └── SkillBridge Student Growth Logo.png
 │   ├── app.js                     # Client UI controller & API integration
-│   ├── index.html                 # Bento Grid single-page layout
+│   ├── index.html                 # Bento Grid single-page layout (with dual JD/Role modes)
 │   └── styles.css                 # Custom design system & glassmorphism
 ├── tests/
 │   ├── test_api.py                # Health & API route test suite
-│   └── test_resume_parser.py      # Document parsing unit tests
-├── test_skill.py                  # Standalone semantic skill gap tests
+│   ├── test_jd_pipeline.py        # LangGraph conditional branch & JD parsing tests
+│   ├── test_resume_parser.py      # Document parsing unit tests
+│   └── test_sujal_pipeline.py     # End-to-end resume extraction verification
 ├── requirements.txt               # Pinned project dependencies
 └── README.md                      # Project documentation
 ```
@@ -238,7 +252,7 @@ Once started:
 | `GET` | `/health` | Service health status check |
 | `GET` | `/careers` | Returns list of configured career paths |
 | `GET` | `/careers/{name}/skills` | Returns required benchmark skills for a role |
-| `POST` | `/career-agent/analyze` | Full LangGraph agent execution: extracts text, parses profile, and executes semantic skill gap analysis |
+| `POST` | `/career-agent/analyze` | Full LangGraph agent execution: conditional routing on optional `job_description` vs. role catalog, parses profile, and executes semantic skill gap analysis |
 | `POST` | `/skills/analyze` | Standalone semantic skill gap diagnostic |
 | `POST` | `/roadmap/generate` | Generates a sequenced, week-by-week curriculum with Tavily resources |
 | `POST` | `/roadmap/export` | Generates and streams a formatted `.xlsx` workbook |

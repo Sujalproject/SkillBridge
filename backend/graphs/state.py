@@ -10,6 +10,10 @@ class CareerState(TypedDict):
     selected_career: str
     filename: str
     file_content: bytes
+    job_description: NotRequired[str | None]
+
+    # Produced by job description analysis (if JD provided)
+    jd_analysis: NotRequired[dict]
 
     # Produced by resume analysis
     profile: NotRequired[dict]

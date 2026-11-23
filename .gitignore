@@ -1,8 +1,41 @@
-.venv/
+# Python Bytecode & Cache
 __pycache__/
-.pytest_cache/
-.env
-.streamlit/secrets.toml
 *.py[cod]
+*$py.class
+*.so
+
+# Environments & Virtual Environments
+.env
+.env.*
+.venv/
+venv/
+ENV/
+env/
+
+# Testing & Quality
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# IDE & Editor Configurations
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Operating System Files
 .DS_Store
+Thumbs.db
+Desktop.ini
+
+# Output Files & Temporary User Data
+*.xlsx
+*.log
+sample.md
+Sujal_Kumar_Patwa_Resume.pdf
 images/*
+
+# Streamlit (optional legacy secrets)
+.streamlit/secrets.toml

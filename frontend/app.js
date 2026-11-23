@@ -17,6 +17,7 @@ const state = {
   selectedFile: null,
   careers: [],
   selectedCareer: "",
+  activeMode: "career", // "career" | "jd"
   analysisResult: null,
   roadmapData: null,
   activeSkillFilter: "all",
@@ -28,6 +29,11 @@ const state = {
 const elements = {
   systemStatus: document.getElementById("systemStatus"),
   analysisForm: document.getElementById("analysisForm"),
+  modeCareerBtn: document.getElementById("modeCareerBtn"),
+  modeJdBtn: document.getElementById("modeJdBtn"),
+  careerModeWrapper: document.getElementById("careerModeWrapper"),
+  jdModeWrapper: document.getElementById("jdModeWrapper"),
+  jdTextInput: document.getElementById("jdTextInput"),
   careerSelect: document.getElementById("careerSelect"),
   quickChipsContainer: document.getElementById("quickChipsContainer"),
   dropzone: document.getElementById("dropzone"),
@@ -50,6 +56,8 @@ const elements = {
   dashboardSection: document.getElementById("dashboardSection"),
   metaRoleText: document.getElementById("metaRoleText"),
   metaFileText: document.getElementById("metaFileText"),
+  metaJdPill: document.getElementById("metaJdPill"),
+  metaJdText: document.getElementById("metaJdText"),
   scoreCircle: document.getElementById("scoreCircle"),
   matchPercentage: document.getElementById("matchPercentage"),
   readinessGradeBadge: document.getElementById("readinessGradeBadge"),
@@ -261,13 +269,43 @@ function formatBytes(bytes) {
 // ============================================================================
 
 function initFormListeners() {
+  // Mode switcher listeners
+  if (elements.modeCareerBtn && elements.modeJdBtn) {
+    elements.modeCareerBtn.addEventListener("click", () => {
+      state.activeMode = "career";
+      elements.modeCareerBtn.classList.add("active");
+      elements.modeJdBtn.classList.remove("active");
+      elements.careerModeWrapper.classList.remove("hidden");
+      elements.jdModeWrapper.classList.add("hidden");
+    });
+
+    elements.modeJdBtn.addEventListener("click", () => {
+      state.activeMode = "jd";
+      elements.modeJdBtn.classList.add("active");
+      elements.modeCareerBtn.classList.remove("active");
+      elements.jdModeWrapper.classList.remove("hidden");
+      elements.careerModeWrapper.classList.add("hidden");
+    });
+  }
+
   elements.analysisForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const career = elements.careerSelect.value;
-    if (!career) {
-      showToast("Please choose a target career path.", "error");
-      return;
+    let career = elements.careerSelect.value;
+    let jobDescription = null;
+
+    if (state.activeMode === "jd") {
+      jobDescription = (elements.jdTextInput?.value || "").trim();
+      if (!jobDescription || jobDescription.length < 30) {
+        showToast("Please paste a meaningful Job Description (at least 30 characters).", "error");
+        return;
+      }
+      career = career || "Custom Target Role";
+    } else {
+      if (!career) {
+        showToast("Please choose a target career path.", "error");
+        return;
+      }
     }
 
     if (!state.selectedFile) {
@@ -276,11 +314,11 @@ function initFormListeners() {
     }
 
     state.selectedCareer = career;
-    await runAnalysis(career, state.selectedFile);
+    await runAnalysis(career, state.selectedFile, jobDescription);
   });
 }
 
-async function runAnalysis(career, file) {
+async function runAnalysis(career, file, jobDescription = null) {
   // Toggle UI Loading
   elements.submitBtn.disabled = true;
   elements.submitSpinner.classList.remove("hidden");
@@ -295,6 +333,9 @@ async function runAnalysis(career, file) {
   const formData = new FormData();
   formData.append("career", career);
   formData.append("file", file);
+  if (jobDescription) {
+    formData.append("job_description", jobDescription);
+  }
 
   try {
     const stepperTimer1 = setTimeout(() => {
@@ -302,7 +343,10 @@ async function runAnalysis(career, file) {
     }, 1200);
 
     const stepperTimer2 = setTimeout(() => {
-      setStepperStep(3, "Matching competencies against role benchmark...");
+      const step3Msg = jobDescription
+        ? "Extracting required skills from JD & analyzing skill gap..."
+        : "Matching competencies against role benchmark...";
+      setStepperStep(3, step3Msg);
     }, 2800);
 
     const response = await fetch(`${API_BASE_URL}/career-agent/analyze`, {
@@ -365,6 +409,14 @@ function renderDashboard(data) {
   // Meta pills
   elements.metaRoleText.textContent = data.career || state.selectedCareer;
   elements.metaFileText.textContent = data.filename || state.selectedFile?.name || "Resume";
+
+  if (data.jd_analysis && elements.metaJdPill) {
+    elements.metaJdPill.classList.remove("hidden");
+    const seniority = data.jd_analysis.seniority_level ? ` • ${data.jd_analysis.seniority_level}` : "";
+    elements.metaJdText.textContent = `Job Description${seniority}`;
+  } else if (elements.metaJdPill) {
+    elements.metaJdPill.classList.add("hidden");
+  }
 
   const percentage = data.match_percentage || 0;
   const matched = data.matched_skills || [];

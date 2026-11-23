@@ -1,4 +1,3 @@
-
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 
 from backend.core.config import ALLOWED_EXTENSIONS, MAX_FILE_BYTES
@@ -9,9 +8,19 @@ router = APIRouter(prefix="/career-agent", tags=["Career Agent"])
 
 @router.post("/analyze")
 async def analyze_career(
-    career: str = Form(...),
+    career: str = Form(""),
+    job_description: str | None = Form(None),
     file: UploadFile = File(...),
 ) -> dict:
+    clean_career = career.strip()
+    clean_jd = (job_description or "").strip()
+
+    if not clean_career and not clean_jd:
+        raise HTTPException(
+            status_code=400,
+            detail="Please select a target career or paste a Job Description.",
+        )
+
     filename = file.filename or "resume"
     suffix = "." + filename.rsplit(".", 1)[-1].lower() if "." in filename else ""
 
@@ -40,7 +49,8 @@ async def analyze_career(
             {
                 "filename": filename,
                 "file_content": content,
-                "selected_career": career,
+                "selected_career": clean_career,
+                "job_description": clean_jd if clean_jd else None,
             }
         )
     except ValueError as exc:
@@ -55,10 +65,11 @@ async def analyze_career(
 
     return {
         "filename": filename,
-        "career": career,
+        "career": result.get("selected_career") or clean_career,
         "profile": result["profile"],
         "required_skills": result["required_skills"],
         "matched_skills": result["matched_skills"],
         "missing_skills": result["missing_skills"],
         "match_percentage": result["match_percentage"],
+        "jd_analysis": result.get("jd_analysis"),
     }

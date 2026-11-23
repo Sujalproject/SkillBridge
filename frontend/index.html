@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=2" />
 </head>
 <body>
   <!-- Ambient background lighting meshes -->
@@ -85,26 +85,55 @@
         </div>
 
         <form id="analysisForm" class="studio-grid">
-          <!-- Target Role Column -->
+          <!-- Target Role Column with Mode Switcher -->
           <div class="form-column">
-            <label class="field-label" for="careerSelect">
-              <i class="fa-solid fa-bullseye"></i> Target Career Role
-            </label>
-            <div class="custom-select-wrapper">
-              <select id="careerSelect" class="custom-select" required>
-                <option value="" disabled selected>Loading available career paths...</option>
-              </select>
-              <i class="fa-solid fa-chevron-down select-chevron"></i>
+            <div class="mode-header-row">
+              <label class="field-label">
+                <i class="fa-solid fa-bullseye"></i> Target Benchmark
+              </label>
+              <div class="mode-tabs">
+                <button type="button" class="mode-tab active" id="modeCareerBtn" data-mode="career">
+                  <i class="fa-solid fa-list-check"></i> Standard Role
+                </button>
+                <button type="button" class="mode-tab" id="modeJdBtn" data-mode="jd">
+                  <i class="fa-solid fa-file-pen"></i> Custom JD
+                </button>
+              </div>
             </div>
 
-            <!-- Quick Career Chips -->
-            <div class="quick-chips-wrapper">
-              <span class="chips-label">Popular paths:</span>
-              <div class="quick-chips" id="quickChipsContainer">
-                <button type="button" class="chip-btn" data-role="AI Engineer">AI Engineer</button>
-                <button type="button" class="chip-btn" data-role="Python Developer">Python Developer</button>
-                <button type="button" class="chip-btn" data-role="Data Analyst">Data Analyst</button>
-                <button type="button" class="chip-btn" data-role="Web Developer">Web Developer</button>
+            <!-- Mode A: Predefined Career Dropdown -->
+            <div id="careerModeWrapper">
+              <div class="custom-select-wrapper">
+                <select id="careerSelect" class="custom-select">
+                  <option value="" disabled selected>Loading available career paths...</option>
+                </select>
+                <i class="fa-solid fa-chevron-down select-chevron"></i>
+              </div>
+
+              <!-- Quick Career Chips -->
+              <div class="quick-chips-wrapper">
+                <span class="chips-label">Popular paths:</span>
+                <div class="quick-chips" id="quickChipsContainer">
+                  <button type="button" class="chip-btn" data-role="AI Engineer">AI Engineer</button>
+                  <button type="button" class="chip-btn" data-role="Python Developer">Python Developer</button>
+                  <button type="button" class="chip-btn" data-role="Data Analyst">Data Analyst</button>
+                  <button type="button" class="chip-btn" data-role="Web Developer">Web Developer</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mode B: Custom Job Description Textarea -->
+            <div id="jdModeWrapper" class="hidden">
+              <div class="jd-textarea-wrapper">
+                <textarea
+                  id="jdTextInput"
+                  class="custom-textarea"
+                  placeholder="Paste the job description (from LinkedIn, Indeed, etc.) here. Our AI will automatically extract mandatory and preferred skills..."
+                  rows="5"
+                ></textarea>
+                <div class="textarea-hint">
+                  <i class="fa-solid fa-wand-magic-sparkles"></i> AI extracts required skills directly from this text.
+                </div>
               </div>
             </div>
           </div>
@@ -199,6 +228,9 @@
           </span>
           <span class="meta-pill" id="metaFilePill">
             <i class="fa-solid fa-file"></i> <span id="metaFileText">resume.pdf</span>
+          </span>
+          <span class="meta-pill hidden" id="metaJdPill" style="border-color: rgba(99, 102, 241, 0.4); background: rgba(99, 102, 241, 0.12); color: #818cf8;">
+            <i class="fa-solid fa-bolt"></i> <span id="metaJdText">Job Description Mode</span>
           </span>
         </div>
       </div>
@@ -414,6 +446,6 @@
   <!-- Toast Notification Anchor -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>

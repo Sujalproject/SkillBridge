@@ -1,6 +1,6 @@
-
 from backend.graphs.state import CareerState
 from backend.services.career_service import get_required_skills
+from backend.services.jd_service import extract_skills_from_jd
 from backend.services.resume_service import analyze_resume_text
 from backend.services.semantic_skill_gap_service import analyze_skill_gap
 from backend.utils.resume_parser import extract_resume_text
@@ -21,6 +21,7 @@ def extract_resume_node(state: CareerState) -> dict:
 
     return {"resume_text": resume_text}
 
+
 def analyze_resume_node(state: CareerState) -> dict:
     """Analyze extracted resume text and save the candidate profile."""
     profile = analyze_resume_text(state["resume_text"])
@@ -30,13 +31,43 @@ def analyze_resume_node(state: CareerState) -> dict:
     }
 
 
-def analyze_skill_gap_node(state: CareerState) -> dict:
-    """Compare the candidate's skills with the selected career."""
-    profile = state["profile"]
-    career = state["selected_career"]
+def route_skill_source(state: CareerState) -> str:
+    """Conditional router: decide whether to extract skills from custom JD or load from catalog."""
+    jd = state.get("job_description")
+    if jd and isinstance(jd, str) and len(jd.strip()) >= 30:
+        return "extract_jd_skills"
+    return "load_predefined_skills"
 
+
+def extract_jd_skills_node(state: CareerState) -> dict:
+    """Extract skills dynamically from a user-supplied Job Description."""
+    jd_text = state.get("job_description", "")
+    analysis = extract_skills_from_jd(jd_text)
+
+    detected_career = analysis.get("job_title") or state.get("selected_career") or "Target Role"
+
+    return {
+        "jd_analysis": analysis,
+        "required_skills": analysis["required_skills"],
+        "selected_career": detected_career,
+    }
+
+
+def load_predefined_skills_node(state: CareerState) -> dict:
+    """Load required skills from the predefined career catalog."""
+    career = state.get("selected_career", "")
     required_skills = get_required_skills(career)
+
+    return {
+        "required_skills": required_skills,
+    }
+
+
+def analyze_skill_gap_node(state: CareerState) -> dict:
+    """Compare candidate skills with the required skills (from either branch)."""
+    profile = state.get("profile", {})
     student_skills = profile.get("skills", [])
+    required_skills = state.get("required_skills", [])
 
     result = analyze_skill_gap(
         student_skills=student_skills,
@@ -44,7 +75,6 @@ def analyze_skill_gap_node(state: CareerState) -> dict:
     )
 
     return {
-        "required_skills": required_skills,
         "matched_skills": result["matched_skills"],
         "missing_skills": result["missing_skills"],
         "match_percentage": result["match_percentage"],

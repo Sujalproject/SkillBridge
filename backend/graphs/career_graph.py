@@ -1,25 +1,42 @@
-
 from langgraph.graph import END, START, StateGraph
 
 from backend.graphs.nodes import (
     extract_resume_node,
     analyze_resume_node,
+    route_skill_source,
+    extract_jd_skills_node,
+    load_predefined_skills_node,
     analyze_skill_gap_node,
 )
 from backend.graphs.state import CareerState
 
 
 def build_career_graph():
-    """Build and compile the SkillBridge career-analysis graph."""
+    """Build and compile the SkillBridge career-analysis graph with conditional JD branching."""
     graph = StateGraph(CareerState)
-    
+
     graph.add_node("extract_resume", extract_resume_node)
     graph.add_node("analyze_resume", analyze_resume_node)
+    graph.add_node("extract_jd_skills", extract_jd_skills_node)
+    graph.add_node("load_predefined_skills", load_predefined_skills_node)
     graph.add_node("analyze_skill_gap", analyze_skill_gap_node)
 
     graph.add_edge(START, "extract_resume")
     graph.add_edge("extract_resume", "analyze_resume")
-    graph.add_edge("analyze_resume", "analyze_skill_gap")
+
+    # Conditional Branch: route based on whether a Job Description was provided
+    graph.add_conditional_edges(
+        "analyze_resume",
+        route_skill_source,
+        {
+            "extract_jd_skills": "extract_jd_skills",
+            "load_predefined_skills": "load_predefined_skills",
+        },
+    )
+
+    # Both branches converge to skill gap analysis
+    graph.add_edge("extract_jd_skills", "analyze_skill_gap")
+    graph.add_edge("load_predefined_skills", "analyze_skill_gap")
     graph.add_edge("analyze_skill_gap", END)
 
     return graph.compile()
