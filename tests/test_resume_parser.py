@@ -1,7 +1,14 @@
-from docx import Document
+import sys
 from io import BytesIO
+from pathlib import Path
+from docx import Document
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from backend.utils.resume_parser import extract_resume_text
+
 
 def test_extract_docx_text_and_table():
     buffer = BytesIO()
@@ -17,6 +24,14 @@ def test_extract_docx_text_and_table():
     assert "Alex Example" in result
     assert "Python, SQL" in result
     assert "Career matcher" in result
+
+
+def test_extract_pdf_text(sample_pdf_bytes):
+    result = extract_resume_text("resume.pdf", sample_pdf_bytes)
+    assert "Alex Rivera" in result
+    assert "FastAPI" in result
+    assert "Docker" in result
+    assert "LangGraph" in result
 
 
 def test_unsupported_file_type():

@@ -7,7 +7,7 @@
 
 // API Configuration
 const API_BASE_URL = (
-  window.location.port === "8000"
+  window.location.protocol.startsWith("http")
     ? window.location.origin
     : "http://127.0.0.1:8000"
 ).replace(/\/$/, "");
@@ -24,6 +24,77 @@ const state = {
   skillSearchTerm: "",
   checkedTopics: new Set(),
 };
+
+// Storage Keys for Controlled Persistence
+const STORAGE_KEYS = {
+  SESSION_ANALYSIS: "skillbridge_session_analysis",
+  SESSION_ROADMAP: "skillbridge_session_roadmap",
+  PREFIX_TOPICS: "skillbridge_topics_",
+};
+
+function getRoadmapStorageKey(roadmap) {
+  if (!roadmap || !roadmap.career) return `${STORAGE_KEYS.PREFIX_TOPICS}default`;
+  const careerSlug = String(roadmap.career).toLowerCase().replace(/[^a-z0-9]+/g, "_");
+  const skillsList = (roadmap.milestones || [])
+    .map((m) => String(m.skill_name || "").toLowerCase().trim())
+    .sort()
+    .join("|");
+  let hash = 0;
+  for (let i = 0; i < skillsList.length; i++) {
+    hash = (hash << 5) - hash + skillsList.charCodeAt(i);
+    hash |= 0;
+  }
+  const hashStr = Math.abs(hash).toString(36);
+  return `${STORAGE_KEYS.PREFIX_TOPICS}${careerSlug}_${hashStr}`;
+}
+
+function loadCompletedTopicsForRoadmap(roadmap) {
+  if (!roadmap) return new Set();
+  const key = getRoadmapStorageKey(roadmap);
+  try {
+    const raw = localStorage.getItem(key);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        return new Set(parsed);
+      }
+    }
+  } catch (err) {
+    console.warn("Could not load completed topics from localStorage:", err);
+  }
+  return new Set();
+}
+
+function saveCompletedTopicsForRoadmap(roadmap, checkedSet) {
+  if (!roadmap) return;
+  const key = getRoadmapStorageKey(roadmap);
+  try {
+    localStorage.setItem(key, JSON.stringify(Array.from(checkedSet)));
+  } catch (err) {
+    console.warn("Could not save completed topics to localStorage:", err);
+  }
+}
+
+function safeSessionSet(key, value) {
+  try {
+    sessionStorage.setItem(key, JSON.stringify(value));
+  } catch (err) {
+    console.warn(`Could not save ${key} to sessionStorage:`, err);
+  }
+}
+
+function safeSessionGet(key) {
+  try {
+    const item = sessionStorage.getItem(key);
+    return item ? JSON.parse(item) : null;
+  } catch (err) {
+    console.warn(`Could not parse ${key} from sessionStorage:`, err);
+    try {
+      sessionStorage.removeItem(key);
+    } catch (_) {}
+    return null;
+  }
+}
 
 // DOM Elements
 const elements = {
@@ -104,7 +175,24 @@ document.addEventListener("DOMContentLoaded", () => {
   initFormListeners();
   initFilterListeners();
   initRoadmapListeners();
+  initRestoredState();
 });
+
+function initRestoredState() {
+  const savedAnalysis = safeSessionGet(STORAGE_KEYS.SESSION_ANALYSIS);
+  if (savedAnalysis && typeof savedAnalysis === "object") {
+    state.analysisResult = savedAnalysis;
+    state.selectedCareer = savedAnalysis.career || "";
+    renderDashboard(savedAnalysis);
+
+    const savedRoadmap = safeSessionGet(STORAGE_KEYS.SESSION_ROADMAP);
+    if (savedRoadmap && typeof savedRoadmap === "object") {
+      state.roadmapData = savedRoadmap;
+      state.checkedTopics = loadCompletedTopicsForRoadmap(savedRoadmap);
+      renderRoadmap(savedRoadmap);
+    }
+  }
+}
 
 // ============================================================================
 // Backend Communication & Health
@@ -358,16 +446,24 @@ async function runAnalysis(career, file, jobDescription = null) {
     clearTimeout(stepperTimer2);
 
     if (!response.ok) {
-      let errorDetail = "Analysis request failed";
+      let errorDetail = `Analysis failed (${response.status})`;
       try {
         const err = await response.json();
-        errorDetail = err.detail || errorDetail;
-      } catch (_) {}
+        errorDetail = formatApiError(err, errorDetail);
+      } catch (_) {
+        errorDetail = `Analysis failed with status ${response.status} (${response.statusText || "Server Error"})`;
+      }
       throw new Error(errorDetail);
     }
 
     const data = await response.json();
     state.analysisResult = data;
+    safeSessionSet(STORAGE_KEYS.SESSION_ANALYSIS, data);
+    try {
+      sessionStorage.removeItem(STORAGE_KEYS.SESSION_ROADMAP);
+    } catch (_) {}
+    state.roadmapData = null;
+    elements.roadmapDisplayWrapper.classList.add("hidden");
     renderDashboard(data);
     showToast("Career diagnostic complete!", "success");
 
@@ -377,7 +473,7 @@ async function runAnalysis(career, file, jobDescription = null) {
     }, 200);
 
   } catch (err) {
-    showToast(err.message || "Failed to analyze resume.", "error");
+    showToast(getErrorMessage(err, "Failed to analyze resume."), "error");
   } finally {
     elements.submitBtn.disabled = false;
     elements.submitSpinner.classList.add("hidden");
@@ -626,16 +722,20 @@ function initRoadmapListeners() {
       });
 
       if (!response.ok) {
-        let errDetail = "Failed to generate roadmap";
+        let errDetail = `Roadmap generation failed (${response.status})`;
         try {
           const err = await response.json();
-          errDetail = err.detail || errDetail;
-        } catch (_) {}
+          errDetail = formatApiError(err, errDetail);
+        } catch (_) {
+          errDetail = `Roadmap generation failed with status ${response.status} (${response.statusText || "Server Error"})`;
+        }
         throw new Error(errDetail);
       }
 
       const roadmap = await response.json();
       state.roadmapData = roadmap;
+      state.checkedTopics = loadCompletedTopicsForRoadmap(roadmap);
+      safeSessionSet(STORAGE_KEYS.SESSION_ROADMAP, roadmap);
       renderRoadmap(roadmap);
       showToast("Personalized roadmap generated with verified resources!", "success");
 
@@ -644,7 +744,7 @@ function initRoadmapListeners() {
       }, 200);
 
     } catch (err) {
-      showToast(err.message || "Roadmap generation failed.", "error");
+      showToast(getErrorMessage(err, "Roadmap generation failed."), "error");
     } finally {
       elements.generateRoadmapBtn.disabled = false;
       elements.roadmapSpinner.classList.add("hidden");
@@ -660,13 +760,34 @@ function initRoadmapListeners() {
       elements.exportExcelBtn.disabled = true;
       elements.exportExcelBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Generating Excel...';
 
+      // Deep copy roadmapData and enrich each milestone with completed_topics
+      const exportPayload = {
+        ...state.roadmapData,
+        milestones: (state.roadmapData.milestones || []).map((m) => {
+          const completedForMilestone = (m.topics_to_learn || []).filter((topic) =>
+            state.checkedTopics.has(`${m.skill_name}:::${topic}`)
+          );
+          return {
+            ...m,
+            completed_topics: completedForMilestone,
+          };
+        }),
+      };
+
       const response = await fetch(`${API_BASE_URL}/roadmap/export`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(state.roadmapData),
+        body: JSON.stringify(exportPayload),
       });
 
-      if (!response.ok) throw new Error("Excel export failed");
+      if (!response.ok) {
+        let errDetail = `Excel export failed (${response.status})`;
+        try {
+          const err = await response.json();
+          errDetail = formatApiError(err, errDetail);
+        } catch (_) {}
+        throw new Error(errDetail);
+      }
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
@@ -681,7 +802,7 @@ function initRoadmapListeners() {
 
       showToast("Roadmap spreadsheet downloaded successfully!", "success");
     } catch (err) {
-      showToast("Could not export roadmap spreadsheet.", "error");
+      showToast(getErrorMessage(err, "Could not export roadmap spreadsheet."), "error");
     } finally {
       elements.exportExcelBtn.disabled = false;
       elements.exportExcelBtn.innerHTML = '<i class="fa-solid fa-file-excel"></i> Export Roadmap (.xlsx)';
@@ -692,6 +813,9 @@ function initRoadmapListeners() {
 function renderRoadmap(roadmap) {
   elements.roadmapDisplayWrapper.classList.remove("hidden");
   elements.roadmapHeading.textContent = `Learning Roadmap — ${roadmap.career}`;
+
+  // Make sure completed topics are loaded for this specific roadmap
+  state.checkedTopics = loadCompletedTopicsForRoadmap(roadmap);
 
   const milestones = roadmap.milestones || [];
   elements.roadmapTotalWeeks.textContent = roadmap.total_estimated_weeks || milestones.length * 2;
@@ -715,10 +839,10 @@ function renderRoadmap(roadmap) {
     // Topics list
     const topicsHtml = (m.topics_to_learn || [])
       .map((topic, tIdx) => {
-        const topicId = `topic-${index}-${tIdx}`;
-        const isChecked = state.checkedTopics.has(topicId);
+        const topicKey = `${m.skill_name}:::${topic}`;
+        const isChecked = state.checkedTopics.has(topicKey) || state.checkedTopics.has(`topic-${index}-${tIdx}`);
         return `
-          <li class="topic-item ${isChecked ? "completed" : ""}" data-topic-id="${topicId}">
+          <li class="topic-item ${isChecked ? "completed" : ""}" data-topic-key="${escapeHtml(topicKey)}">
             <input type="checkbox" class="topic-checkbox" ${isChecked ? "checked" : ""} />
             <span>${escapeHtml(topic)}</span>
           </li>
@@ -782,19 +906,20 @@ function renderRoadmap(roadmap) {
       </div>
     `;
 
-    // Add interactivity to checklist
+    // Add interactivity to checklist with persistence
     card.querySelectorAll(".topic-item").forEach((item) => {
       const checkbox = item.querySelector(".topic-checkbox");
-      const topicId = item.getAttribute("data-topic-id");
+      const topicKey = item.getAttribute("data-topic-key");
 
       checkbox.addEventListener("change", () => {
         if (checkbox.checked) {
           item.classList.add("completed");
-          state.checkedTopics.add(topicId);
+          state.checkedTopics.add(topicKey);
         } else {
           item.classList.remove("completed");
-          state.checkedTopics.delete(topicId);
+          state.checkedTopics.delete(topicKey);
         }
+        saveCompletedTopicsForRoadmap(roadmap, state.checkedTopics);
       });
     });
 
@@ -803,8 +928,58 @@ function renderRoadmap(roadmap) {
 }
 
 // ============================================================================
-// Utilities
+// Utilities & Error Helpers
 // ============================================================================
+
+function formatApiError(errData, fallbackMessage = "Request failed") {
+  if (!errData) return fallbackMessage;
+
+  // Case 1: Simple string detail
+  if (typeof errData.detail === "string" && errData.detail.trim()) {
+    return errData.detail.trim();
+  }
+
+  // Case 2: FastAPI 422 validation error array
+  if (Array.isArray(errData.detail) && errData.detail.length > 0) {
+    const messages = errData.detail
+      .map((item) => {
+        if (!item || typeof item !== "object") return null;
+        const field = Array.isArray(item.loc)
+          ? item.loc.filter((p) => p !== "body").join(".")
+          : "";
+        const msg = item.msg || "Invalid value";
+        return field ? `${field}: ${msg}` : msg;
+      })
+      .filter(Boolean);
+    if (messages.length > 0) return messages.join(" | ");
+  }
+
+  // Case 3: Error object with message property
+  if (typeof errData.message === "string" && errData.message.trim()) {
+    return errData.message.trim();
+  }
+
+  // Case 4: Detail is another object
+  if (typeof errData.detail === "object" && errData.detail !== null) {
+    try {
+      return JSON.stringify(errData.detail);
+    } catch (_) {}
+  }
+
+  return fallbackMessage;
+}
+
+function getErrorMessage(err, fallback = "An unexpected error occurred.") {
+  if (!err) return fallback;
+  if (typeof err === "string") return err;
+  if (err instanceof Error) {
+    if (err.name === "TypeError" && err.message.toLowerCase().includes("fetch")) {
+      return "Network connection error. Check that the backend server is reachable.";
+    }
+    return err.message || fallback;
+  }
+  return fallback;
+}
 
 function showToast(message, type = "info") {
   const toast = document.createElement("div");

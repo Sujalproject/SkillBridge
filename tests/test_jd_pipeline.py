@@ -1,5 +1,7 @@
 import sys
 from pathlib import Path
+from unittest.mock import MagicMock, patch
+
 import pytest
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -8,7 +10,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from backend.graphs.career_graph import career_graph
 from backend.services.jd_service import extract_skills_from_jd
-
+from tests.conftest import make_mock_groq_completion
 
 SAMPLE_JD = """
 Job Title: Senior GenAI / LLM Engineer
@@ -31,15 +33,39 @@ Preferred Qualifications:
 - Experience with LLM observability tools like LangSmith.
 """
 
-SAMPLE_RESUME_BYTES = b"%PDF-1.4 Mock resume content for testing purposes"
+MOCK_JD_PARSED = {
+    "job_title": "Senior GenAI / LLM Engineer",
+    "seniority_level": "Senior",
+    "mandatory_skills": ["Python", "FastAPI", "Docker", "Git", "RAG", "LangGraph", "Vector Databases"],
+    "preferred_skills": ["Kubernetes", "PyTorch", "AWS", "LangSmith"],
+    "summary": "Senior AI Engineer to lead agentic workflows and RAG infrastructure.",
+}
+
+MOCK_RESUME_PARSED = {
+    "full_name": "Alex Rivera",
+    "email": "alex.rivera@example.com",
+    "education": ["BS in Computer Science"],
+    "skills": ["Python", "SQL", "Docker", "Git", "FastAPI", "LangGraph", "PostgreSQL"],
+    "projects": ["Career Agent", "RAG Search Engine"],
+    "experience": ["Backend AI Developer at CloudScale Systems"],
+    "certifications": [],
+    "target_role": "AI Engineer",
+    "summary": "Passionate AI Developer building agentic workflows.",
+}
 
 
-def test_jd_service_extraction():
-    """Verify that extract_skills_from_jd accurately parses title and atomic skills."""
-    analysis = extract_skills_from_jd(SAMPLE_JD)
+@patch("backend.services.jd_service.Groq")
+def test_jd_service_extraction(mock_groq_class):
+    """Verify that extract_skills_from_jd accurately parses title and atomic skills with mocked Groq."""
+    mock_client = MagicMock()
+    mock_client.chat.completions.create.return_value = make_mock_groq_completion(MOCK_JD_PARSED)
+    mock_groq_class.return_value = mock_client
 
-    assert "job_title" in analysis
-    assert "seniority_level" in analysis
+    with patch("backend.services.jd_service.GROQ_API_KEY", "mock_key"):
+        analysis = extract_skills_from_jd(SAMPLE_JD)
+
+    assert analysis["job_title"] == "Senior GenAI / LLM Engineer"
+    assert analysis["seniority_level"] == "Senior"
     assert "required_skills" in analysis
     assert len(analysis["required_skills"]) >= 5
 
@@ -47,53 +73,65 @@ def test_jd_service_extraction():
     assert any("python" in s for s in skills_lower)
     assert any("fastapi" in s for s in skills_lower)
     assert any("docker" in s for s in skills_lower)
-    assert any("rag" in s or "retrieval" in s for s in skills_lower)
+    assert any("rag" in s for s in skills_lower)
 
 
-def test_career_graph_with_jd_branch():
+@patch("backend.services.semantic_skill_gap_service._semantic_match_with_llm", return_value={"retrieval-augmented generation", "langgraph"})
+@patch("backend.services.jd_service.Groq")
+@patch("backend.services.resume_service.Groq")
+def test_career_graph_with_jd_branch(mock_resume_groq, mock_jd_groq, mock_semantic_match, sample_pdf_bytes):
     """Verify that career_graph routes to extract_jd_skills when job_description is provided."""
-    # Mock text parser to return predictable candidate skills for the graph
-    resume_file = Path("Sujal_Kumar_Patwa_Resume.pdf")
-    if not resume_file.exists():
-        pytest.skip("Sujal_Kumar_Patwa_Resume.pdf not available for graph test")
+    # Mock resume extraction
+    mock_res_client = MagicMock()
+    mock_res_client.chat.completions.create.return_value = make_mock_groq_completion(MOCK_RESUME_PARSED)
+    mock_resume_groq.return_value = mock_res_client
 
-    result = career_graph.invoke(
-        {
-            "filename": resume_file.name,
-            "file_content": resume_file.read_bytes(),
-            "selected_career": "",
-            "job_description": SAMPLE_JD,
-        }
-    )
+    # Mock JD extraction
+    mock_jd_client = MagicMock()
+    mock_jd_client.chat.completions.create.return_value = make_mock_groq_completion(MOCK_JD_PARSED)
+    mock_jd_groq.return_value = mock_jd_client
+
+    with patch("backend.services.resume_service.GROQ_API_KEY", "mock_key"), \
+         patch("backend.services.jd_service.GROQ_API_KEY", "mock_key"):
+        result = career_graph.invoke(
+            {
+                "filename": "alex_rivera_resume.pdf",
+                "file_content": sample_pdf_bytes,
+                "selected_career": "",
+                "job_description": SAMPLE_JD,
+            }
+        )
 
     assert "jd_analysis" in result
     assert result["jd_analysis"] is not None
+    assert result["jd_analysis"]["job_title"] == "Senior GenAI / LLM Engineer"
     assert len(result["required_skills"]) > 0
     assert "matched_skills" in result
     assert "missing_skills" in result
     assert result["match_percentage"] > 0
-    print(f"\nJD Branch Match %: {result['match_percentage']}%")
-    print(f"Matched ({len(result['matched_skills'])}): {result['matched_skills']}")
 
 
-def test_career_graph_without_jd_branch():
+@patch("backend.services.semantic_skill_gap_service._semantic_match_with_llm", return_value=set())
+@patch("backend.services.resume_service.Groq")
+def test_career_graph_without_jd_branch(mock_resume_groq, mock_semantic_match, sample_pdf_bytes):
     """Verify that career_graph routes to load_predefined_skills when job_description is None."""
-    resume_file = Path("Sujal_Kumar_Patwa_Resume.pdf")
-    if not resume_file.exists():
-        pytest.skip("Sujal_Kumar_Patwa_Resume.pdf not available for graph test")
+    mock_res_client = MagicMock()
+    mock_res_client.chat.completions.create.return_value = make_mock_groq_completion(MOCK_RESUME_PARSED)
+    mock_resume_groq.return_value = mock_res_client
 
-    result = career_graph.invoke(
-        {
-            "filename": resume_file.name,
-            "file_content": resume_file.read_bytes(),
-            "selected_career": "Python Developer",
-            "job_description": None,
-        }
-    )
+    with patch("backend.services.resume_service.GROQ_API_KEY", "mock_key"):
+        result = career_graph.invoke(
+            {
+                "filename": "alex_rivera_resume.pdf",
+                "file_content": sample_pdf_bytes,
+                "selected_career": "Python Developer",
+                "job_description": None,
+            }
+        )
 
-    # When no JD is provided, jd_analysis should be absent or None
     assert result.get("jd_analysis") is None
     assert len(result["required_skills"]) > 0
+    assert "python" in [s.lower() for s in result["required_skills"]]
     assert "matched_skills" in result
     assert "missing_skills" in result
-    print(f"\nCatalog Branch Match %: {result['match_percentage']}%")
+    assert result["match_percentage"] > 0

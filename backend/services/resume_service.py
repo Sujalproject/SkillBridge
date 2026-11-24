@@ -157,15 +157,15 @@ def analyze_resume_text(resume_text: str) -> CareerProfile:
                 if content and content.strip():
                     break
             except Exception as retry_exc:
-                traceback.print_exc()
+                logger.error("Groq resume completion retry failed: %s", retry_exc, exc_info=True)
                 raise HTTPException(
                     status_code=502,
-                    detail=f"Could not analyze resume with Groq LLM: {retry_exc}",
+                    detail=f"Could not analyze resume with Groq LLM. Error type: {type(retry_exc).__name__}",
                 ) from retry_exc
         except HTTPException:
             raise
         except Exception as exc:
-            traceback.print_exc()
+            logger.error("Groq resume analysis failed: %s", exc, exc_info=True)
             raise HTTPException(
                 status_code=502,
                 detail=f"Could not analyze the resume with the LLM. Error type: {type(exc).__name__}",
@@ -183,7 +183,7 @@ def analyze_resume_text(resume_text: str) -> CareerProfile:
             parsed["skills"] = _clean_and_split_skills(parsed["skills"])
         return CareerProfile.model_validate(parsed)
     except Exception as parse_exc:
-        traceback.print_exc()
+        logger.error("Failed to parse LLM profile response: %s", parse_exc, exc_info=True)
         raise HTTPException(
             status_code=502,
             detail=f"Could not parse the LLM's profile response into valid JSON: {parse_exc}",

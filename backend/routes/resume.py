@@ -1,5 +1,6 @@
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
+from starlette.concurrency import run_in_threadpool
 
 from backend.core.config import ALLOWED_EXTENSIONS, MAX_FILE_BYTES
 from backend.schemas.resume import ResumeAnalysisResponse
@@ -37,7 +38,7 @@ async def analyze_resume(
         )
 
     try:
-        resume_text = extract_resume_text(filename, content)
+        resume_text = await run_in_threadpool(extract_resume_text, filename, content)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
@@ -50,7 +51,7 @@ async def analyze_resume(
             ),
         )
 
-    profile = analyze_resume_text(resume_text)
+    profile = await run_in_threadpool(analyze_resume_text, resume_text)
 
     return ResumeAnalysisResponse(
         filename=filename,

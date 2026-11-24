@@ -1,7 +1,8 @@
 
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
+import logging
 import os
-import traceback
 from typing import Any
 
 from fastapi import HTTPException
@@ -11,6 +12,7 @@ from tavily import TavilyClient
 from backend.core.config import GROQ_API_KEY, GROQ_MODEL
 from backend.schemas.roadmap import RoadmapResponse
 
+logger = logging.getLogger(__name__)
 
 TAVILY_API_KEY = os.getenv("TAVILY_API_KEY", "").strip()
 
@@ -33,14 +35,16 @@ def _search_resources_for_skill(skill: str, career: str) -> list[dict]:
             include_answer=False,
         )
         results = []
+        seen_urls = set()
         for item in response.get("results", []):
             title = item.get("title", skill).strip()
             url = item.get("url", "").strip()
-            if url:
+            if url and url not in seen_urls:
+                seen_urls.add(url)
                 results.append({"title": title[:80], "url": url})
         return results
     except Exception as exc:
-        print(f"Tavily search failed for '{skill}': {exc}")
+        logger.warning("Tavily search failed for '%s': %s", skill, exc)
         return []
 
 
@@ -70,10 +74,25 @@ def generate_roadmap(
     # Focus on the top missing skills to keep the roadmap actionable and within token limits
     skills_to_plan = missing_skills[:MAX_ROADMAP_SKILLS]
 
-    # Step 1: Search resources for each priority skill via Tavily
-    skill_resources: dict[str, list[dict]] = {}
-    for skill in skills_to_plan:
-        skill_resources[skill] = _search_resources_for_skill(skill, career)
+    # Step 1: Search resources concurrently for each priority skill via Tavily with bounded concurrency
+    skill_resources: dict[str, list[dict]] = {s: [] for s in skills_to_plan}
+    if TAVILY_API_KEY and skills_to_plan:
+        max_workers = min(4, len(skills_to_plan))
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            future_to_skill = {
+                executor.submit(_search_resources_for_skill, skill, career): skill
+                for skill in skills_to_plan
+            }
+            for future in as_completed(future_to_skill):
+                skill = future_to_skill[future]
+                try:
+                    skill_resources[skill] = future.result()
+                except Exception as exc:
+                    logger.warning("Error fetching Tavily resources for '%s': %s", skill, exc)
+                    skill_resources[skill] = []
+    elif skills_to_plan:
+        for skill in skills_to_plan:
+            skill_resources[skill] = _search_resources_for_skill(skill, career)
 
     # Step 2: Build the LLM prompt concisely
     resource_context = ""
@@ -89,13 +108,13 @@ def generate_roadmap(
     )
 
     system_prompt = (
-        "You are an expert career coach AI that outputs actionable learning roadmaps. "
+        "You are an expert career coach AI that outputs actionable, personalized learning roadmaps. "
         "Output ONLY valid JSON. Keep descriptions concise."
     )
 
     user_prompt = (
         f"Create a step-by-step learning roadmap for a '{career}'.\n"
-        f"Current background/skills: {student_skills_summary}\n"
+        f"Candidate Background & Existing Skills: {student_skills_summary}\n"
         f"Missing skills to learn: {', '.join(skills_to_plan)}\n\n"
         f"Verified web resources:\n{resource_context}\n"
         "Return a JSON object conforming to this schema:\n"
@@ -124,6 +143,7 @@ def generate_roadmap(
         "Rules:\n"
         f"- Exactly {len(skills_to_plan)} milestones, one for each missing skill listed above.\n"
         "- Every element of milestones must be a valid JSON object (NEVER an empty string, null, or separator).\n"
+        "- Adapt milestone content to candidate background: if the candidate already possesses prerequisite knowledge, skip basic syntax and accelerate into applied intermediate concepts; if the candidate is a beginner, provide foundational scaffolding.\n"
         "- Sequence milestones from foundational to advanced with non-overlapping sequential weeks.\n"
         "- Use the verified web resource URLs provided above where possible.\n"
         "- Keep each topic and project description concise."
@@ -190,7 +210,7 @@ def generate_roadmap(
     except HTTPException:
         raise
     except Exception as exc:
-        traceback.print_exc()
+        logger.error("Could not generate learning roadmap: %s", exc, exc_info=True)
         raise HTTPException(
             status_code=502,
             detail=(

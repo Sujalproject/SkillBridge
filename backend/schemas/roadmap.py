@@ -19,6 +19,7 @@ class SkillMilestone(BaseModel):
     estimated_hours: int = 10
     difficulty: str = "Beginner"
     topics_to_learn: list[str] = Field(default_factory=list)
+    completed_topics: list[str] = Field(default_factory=list)
     hands_on_project: str = ""
     resources: list[LearningResource] = Field(default_factory=list)
 

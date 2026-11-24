@@ -1,6 +1,7 @@
 from backend.graphs.state import CareerState
 from backend.services.career_service import get_required_skills
 from backend.services.jd_service import extract_skills_from_jd
+from backend.services.proficiency_service import assess_all_skills
 from backend.services.resume_service import analyze_resume_text
 from backend.services.semantic_skill_gap_service import analyze_skill_gap
 from backend.utils.resume_parser import extract_resume_text
@@ -49,6 +50,8 @@ def extract_jd_skills_node(state: CareerState) -> dict:
     return {
         "jd_analysis": analysis,
         "required_skills": analysis["required_skills"],
+        "mandatory_skills": analysis.get("mandatory_skills", []),
+        "preferred_skills": analysis.get("preferred_skills", []),
         "selected_career": detected_career,
     }
 
@@ -68,14 +71,32 @@ def analyze_skill_gap_node(state: CareerState) -> dict:
     profile = state.get("profile", {})
     student_skills = profile.get("skills", [])
     required_skills = state.get("required_skills", [])
+    career = state.get("selected_career", "")
+    mandatory_skills = state.get("mandatory_skills")
+    preferred_skills = state.get("preferred_skills")
 
     result = analyze_skill_gap(
         student_skills=student_skills,
         required_skills=required_skills,
+        career=career,
+        mandatory_skills=mandatory_skills,
+        preferred_skills=preferred_skills,
+    )
+
+    proficiency_assessments = assess_all_skills(
+        skills=result["matched_skills"],
+        resume_text=state.get("resume_text", ""),
+        experience_list=profile.get("experience", []),
+        projects_list=profile.get("projects", []),
+        education_list=profile.get("education", []),
     )
 
     return {
         "matched_skills": result["matched_skills"],
         "missing_skills": result["missing_skills"],
         "match_percentage": result["match_percentage"],
+        "match_explanations": result.get("match_explanations", []),
+        "scoring_breakdown": result.get("scoring_breakdown", {}),
+        "top_impact_gaps": result.get("top_impact_gaps", []),
+        "proficiency_assessments": proficiency_assessments,
     }

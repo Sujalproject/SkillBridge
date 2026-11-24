@@ -161,15 +161,15 @@ def extract_skills_from_jd(jd_text: str) -> dict[str, Any]:
                 if content and content.strip():
                     break
             except Exception as retry_exc:
-                traceback.print_exc()
+                logger.error("Groq JD completion retry failed: %s", retry_exc, exc_info=True)
                 raise HTTPException(
                     status_code=502,
-                    detail=f"Could not analyze job description with Groq LLM: {retry_exc}",
+                    detail=f"Could not analyze job description with Groq LLM. Error type: {type(retry_exc).__name__}",
                 ) from retry_exc
         except HTTPException:
             raise
         except Exception as exc:
-            traceback.print_exc()
+            logger.error("Groq JD analysis failed: %s", exc, exc_info=True)
             raise HTTPException(
                 status_code=502,
                 detail=f"Could not analyze job description with LLM. Error type: {type(exc).__name__}",

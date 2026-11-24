@@ -1,0 +1,1662 @@
+[
+  {
+    "id": "case_01_fresh_grad_cs_ai",
+    "resume_text": "Alex Mercer\nEmail: alex.mercer@univ.edu\nEducation: B.S. in Computer Science, State University, GPA 3.8\n\nTechnical Skills:\nPython, Git, PyTorch, NumPy, Pandas, Scikit-Learn, Linear Algebra, Object-Oriented Programming\n\nAcademic Projects:\nImage Classifier: Trained a Convolutional Neural Network on CIFAR-10 using PyTorch and NumPy.\nStudent Performance Predictor: Developed linear regression model with Scikit-Learn and Pandas.\n",
+    "target_career": "AI Engineer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Python",
+      "Git",
+      "PyTorch",
+      "NumPy",
+      "Pandas",
+      "Scikit-Learn",
+      "Linear Algebra",
+      "Object-Oriented Programming"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "git",
+      "pytorch",
+      "numpy",
+      "pandas",
+      "scikit-learn",
+      "linear algebra",
+      "object-oriented programming"
+    ],
+    "expected_matched_skills": [
+      "git",
+      "numpy",
+      "pandas",
+      "python",
+      "pytorch",
+      "scikit-learn"
+    ],
+    "expected_missing_skills": [
+      "docker",
+      "fastapi",
+      "langgraph",
+      "vector databases",
+      "mlops",
+      "ci/cd"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "Python",
+        "non_equivalent_to": "Deep Learning Architecture Design",
+        "reason": "Basic Python syntax does not imply Deep Learning mastery."
+      },
+      {
+        "skill": "PyTorch",
+        "non_equivalent_to": "Production MLOps",
+        "reason": "Academic training of models does not equate to production model serving or drift monitoring."
+      }
+    ],
+    "proficiency_level": "Academic / Entry-Level",
+    "explanation": "Fresh graduate with solid foundational ML/DL coursework and Python proficiency, but lacking production deployment, containerization, and agentic LLM tools."
+  },
+  {
+    "id": "case_02_backend_mid_python",
+    "resume_text": "David Chen\nEmail: david.chen@techmail.io\nEducation: B.Eng in Software Engineering, Tech Institute\n\nTechnical Skills:\nPython, FastAPI, PostgreSQL, Docker, Redis, Pytest, REST APIs, Git, Linux, SQLAlchemy\n\nExperience:\nSoftware Engineer at CoreBack Systems (3 years):\n- Built high-throughput asynchronous REST microservices using FastAPI and PostgreSQL.\n- Containerized applications using Docker and orchestrated development with Docker Compose.\n- Improved test coverage to 92% utilizing Pytest and CI/CD pipelines.\n",
+    "target_career": "Python Developer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker",
+      "Redis",
+      "Pytest",
+      "REST APIs",
+      "Git",
+      "Linux",
+      "SQLAlchemy"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "fastapi",
+      "postgresql",
+      "docker",
+      "redis",
+      "pytest",
+      "rest apis",
+      "git",
+      "linux",
+      "sqlalchemy"
+    ],
+    "expected_matched_skills": [
+      "docker",
+      "fastapi",
+      "git",
+      "linux",
+      "postgresql",
+      "pytest",
+      "python",
+      "rest apis",
+      "sqlalchemy"
+    ],
+    "expected_missing_skills": [
+      "celery",
+      "kubernetes",
+      "aws",
+      "design patterns"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "Docker",
+        "non_equivalent_to": "Kubernetes Orchestration",
+        "reason": "Single container Docker Compose is not equivalent to multi-node Kubernetes cluster management."
+      }
+    ],
+    "proficiency_level": "Mid-Level Professional",
+    "explanation": "Strong 3-year professional backend track record with FastAPI and relational databases. Matches the vast majority of Python Developer core skills."
+  },
+  {
+    "id": "case_03_intern_data_analyst",
+    "resume_text": "Sarah Jenkins\nEmail: sarah.j@analytics.net\nEducation: B.S. in Economics, Metro College\n\nTechnical Skills:\nSQL, Microsoft Excel, Tableau, Python, Pandas, Matplotlib, Data Cleaning\n\nExperience:\nData Analyst Intern at FinMetrics (6 months):\n- Executed complex SQL queries to extract quarterly revenue data from MySQL.\n- Created interactive Tableau dashboards for executive leadership.\n- Automated weekly reporting scripts using Python and Pandas.\n",
+    "target_career": "Data Analyst",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "SQL",
+      "Microsoft Excel",
+      "Tableau",
+      "Python",
+      "Pandas",
+      "Matplotlib",
+      "Data Cleaning"
+    ],
+    "expected_normalized_skills": [
+      "sql",
+      "microsoft excel",
+      "tableau",
+      "python",
+      "pandas",
+      "matplotlib",
+      "data cleaning"
+    ],
+    "expected_matched_skills": [
+      "data cleaning",
+      "matplotlib",
+      "pandas",
+      "python",
+      "sql",
+      "tableau"
+    ],
+    "expected_missing_skills": [
+      "powerbi",
+      "statistics and probability",
+      "a/b testing",
+      "data warehousing"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "Tableau",
+        "non_equivalent_to": "PowerBI",
+        "reason": "Different BI visualization platforms with distinct DAX/M computation languages."
+      },
+      {
+        "skill": "SQL",
+        "non_equivalent_to": "Data Warehouse Architecture",
+        "reason": "Writing analytic SELECT queries does not demonstrate Star Schema or Snowflake ETL architecture."
+      }
+    ],
+    "proficiency_level": "Internship / Junior",
+    "explanation": "Junior candidate with demonstrated internship experience in descriptive analytics, SQL querying, and visualization."
+  },
+  {
+    "id": "case_04_senior_cloud_devops",
+    "resume_text": "Marcus Brody\nEmail: marcus.brody@infraops.com\nEducation: B.S. in Information Technology\n\nTechnical Skills:\nKubernetes, Terraform, Docker, AWS, CI/CD, Ansible, Bash, Linux, Prometheus, Grafana, Git\n\nExperience:\nSenior Infrastructure Engineer at CloudScale Inc (6 years):\n- Architected multi-region AWS infrastructure with Terraform and EKS Kubernetes.\n- Designed automated GitOps deployment pipelines reducing release failures by 40%.\n- Configured observability stacks using Prometheus and Grafana alerting.\n",
+    "target_career": "DevOps Engineer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Kubernetes",
+      "Terraform",
+      "Docker",
+      "AWS",
+      "CI/CD",
+      "Ansible",
+      "Bash",
+      "Linux",
+      "Prometheus",
+      "Grafana",
+      "Git"
+    ],
+    "expected_normalized_skills": [
+      "kubernetes",
+      "terraform",
+      "docker",
+      "amazon web services",
+      "cicd",
+      "ansible",
+      "bash",
+      "linux",
+      "prometheus",
+      "grafana",
+      "git"
+    ],
+    "expected_matched_skills": [
+      "amazon web services",
+      "ansible",
+      "bash",
+      "cicd",
+      "docker",
+      "git",
+      "grafana",
+      "kubernetes",
+      "linux",
+      "prometheus",
+      "terraform"
+    ],
+    "expected_missing_skills": [
+      "argocd",
+      "helm",
+      "python scripting"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "Bash",
+        "non_equivalent_to": "Python Software Development",
+        "reason": "Shell scripting is not equivalent to structured software development in Python."
+      }
+    ],
+    "proficiency_level": "Senior Professional",
+    "explanation": "Senior engineer demonstrating 6 years of production cloud infrastructure and orchestration mastery across standard DevOps stacks."
+  },
+  {
+    "id": "case_05_career_switcher_frontend",
+    "resume_text": "Elena Rostova\nEmail: elena.r@codenewbie.org\nEducation: B.A. in Psychology; Full-Stack Web Development Bootcamp Certificate (24 weeks)\n\nTechnical Skills:\nHTML, CSS, JavaScript, React, Jest, Responsive Design, Git, npm\n\nProjects:\nE-Commerce Storefront: Responsive React SPA with cart state management and Jest unit tests.\nWeather Forecast App: Vanilla JavaScript app consuming OpenWeatherMap REST API.\n",
+    "target_career": "Frontend Developer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Jest",
+      "Responsive Design",
+      "Git",
+      "npm"
+    ],
+    "expected_normalized_skills": [
+      "html",
+      "css",
+      "javascript",
+      "react",
+      "jest",
+      "responsive design",
+      "git",
+      "npm"
+    ],
+    "expected_matched_skills": [
+      "css",
+      "git",
+      "html",
+      "javascript",
+      "jest",
+      "react",
+      "responsive design"
+    ],
+    "expected_missing_skills": [
+      "typescript",
+      "next.js",
+      "tailwind css",
+      "webpack",
+      "state management (redux)"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "JavaScript",
+        "non_equivalent_to": "TypeScript",
+        "reason": "Dynamic JS does not prove static typing, generics, or interface architectural proficiency."
+      }
+    ],
+    "proficiency_level": "Bootcamp / Career Switcher",
+    "explanation": "Bootcamp graduate with solid core HTML/CSS/JS/React foundations, ready for entry-level work but missing TypeScript and Next.js modern tooling."
+  },
+  {
+    "id": "case_06_fullstack_custom_jd",
+    "resume_text": "Jordan Lee\nEmail: jordan.lee@fullstacker.dev\nEducation: B.S. in Computer Science\n\nTechnical Skills:\nNode.js, React, MongoDB, Express, Git, REST APIs, Tailwind CSS\n\nExperience:\nFull Stack Developer at AppCraft (2 years):\n- Built end-to-end MERN stack web applications.\n- Implemented JWT authentication and RESTful endpoints using Express and Node.js.\n",
+    "target_career": "Senior Full Stack Engineer",
+    "job_description": "Job Title: Senior Full Stack Engineer\nRequirements:\n- Mandatory: Node.js, React, PostgreSQL, Docker, GraphQL\n- Preferred: Kubernetes, Redis, TypeScript\nResponsibilities: Build scalable multi-tenant platforms.",
+    "expected_extracted_skills": [
+      "Node.js",
+      "React",
+      "MongoDB",
+      "Express",
+      "Git",
+      "REST APIs",
+      "Tailwind CSS"
+    ],
+    "expected_normalized_skills": [
+      "node.js",
+      "react",
+      "mongodb",
+      "express",
+      "git",
+      "rest apis",
+      "tailwind css"
+    ],
+    "expected_matched_skills": [
+      "node.js",
+      "react"
+    ],
+    "expected_missing_skills": [
+      "docker",
+      "graphql",
+      "kubernetes",
+      "postgresql",
+      "redis",
+      "typescript"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "MongoDB",
+        "non_equivalent_to": "PostgreSQL",
+        "reason": "NoSQL document storage is not equivalent to relational ACID SQL databases with foreign keys and migrations."
+      }
+    ],
+    "proficiency_level": "Junior to Mid-Level",
+    "explanation": "MERN developer evaluated against custom JD requiring relational PostgreSQL, Docker containerization, and GraphQL. Significant skill gaps."
+  },
+  {
+    "id": "case_07_mlops_custom_jd",
+    "resume_text": "Amina Patel\nEmail: amina.p@mlplatform.ai\nEducation: M.S. in Data Science\n\nTechnical Skills:\nPython, Docker, MLflow, AWS, Kubernetes, Scikit-Learn, PyTorch, Linux, Git\n\nExperience:\nML Engineer at Predictive AI (3 years):\n- Deployed ML models with MLflow tracking and AWS SageMaker endpoints.\n- Built containerized training pipelines using Docker and Kubernetes.\n",
+    "target_career": "Senior MLOps Platform Engineer",
+    "job_description": "Role: Senior MLOps Platform Engineer\nMandatory Qualifications:\n- Expert in Python, Docker, Kubeflow, MLflow, CI/CD pipelines.\nPreferred:\n- Experience with Terraform, Feast Feature Store, Triton Inference Server.",
+    "expected_extracted_skills": [
+      "Python",
+      "Docker",
+      "MLflow",
+      "AWS",
+      "Kubernetes",
+      "Scikit-Learn",
+      "PyTorch",
+      "Linux",
+      "Git"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "docker",
+      "mlflow",
+      "amazon web services",
+      "kubernetes",
+      "scikit-learn",
+      "pytorch",
+      "linux",
+      "git"
+    ],
+    "expected_matched_skills": [
+      "docker",
+      "mlflow",
+      "python"
+    ],
+    "expected_missing_skills": [
+      "ci/cd",
+      "feast feature store",
+      "kubeflow",
+      "terraform",
+      "triton inference server"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "MLflow",
+        "non_equivalent_to": "Kubeflow",
+        "reason": "MLflow is focused on experiment tracking/model registry; Kubeflow is dedicated Kubernetes pipeline orchestration."
+      }
+    ],
+    "proficiency_level": "Mid-Level Professional",
+    "explanation": "Competent ML engineer with model tracking and Docker experience; lacks Kubeflow orchestration and Terraform IaC required by the custom JD."
+  },
+  {
+    "id": "case_08_minimal_evidence_grad",
+    "resume_text": "Tom Miller\nEmail: tom.miller@mail.com\nEducation: High School Diploma, Certificate in IT Basics\n\nSkills:\nPython, Git, Microsoft Word\n\nExperience:\nCustomer Support Associate (1 year): Assisted customers with login issues.",
+    "target_career": "Software Engineer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Python",
+      "Git",
+      "Microsoft Word"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "git",
+      "microsoft word"
+    ],
+    "expected_matched_skills": [
+      "git",
+      "python"
+    ],
+    "expected_missing_skills": [
+      "data structures and algorithms",
+      "object-oriented programming",
+      "unit testing",
+      "sql",
+      "rest apis",
+      "ci/cd"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "Python",
+        "non_equivalent_to": "Software Engineering Architecture",
+        "reason": "Basic syntax knowledge does not demonstrate algorithms, system design, or scalable engineering."
+      }
+    ],
+    "proficiency_level": "Insufficient Evidence / Absolute Beginner",
+    "explanation": "Minimal evidence candidate with no software development employment history or projects; matches only 2 base skills."
+  },
+  {
+    "id": "case_09_overlapping_skills_data_engineer",
+    "resume_text": "Kavita Raman\nEmail: kavita.raman@bigdata.io\nEducation: B.Tech in Information Science\n\nTechnical Skills:\nApache Spark, PySpark, SQL, Apache Airflow, Apache Kafka, PostgreSQL, Python, Docker, AWS S3\n\nExperience:\nData Engineer at Enterprise Pipeline (4 years):\n- Built distributed ETL pipelines processing 5TB/day using PySpark and Kafka.\n- Scheduled and orchestrated DAGs using Apache Airflow.\n",
+    "target_career": "Data Engineer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Apache Spark",
+      "PySpark",
+      "SQL",
+      "Apache Airflow",
+      "Apache Kafka",
+      "PostgreSQL",
+      "Python",
+      "Docker",
+      "AWS S3"
+    ],
+    "expected_normalized_skills": [
+      "apache spark",
+      "pyspark",
+      "sql",
+      "apache airflow",
+      "apache kafka",
+      "postgresql",
+      "python",
+      "docker",
+      "amazon web services"
+    ],
+    "expected_matched_skills": [
+      "apache airflow",
+      "apache kafka",
+      "apache spark",
+      "docker",
+      "postgresql",
+      "pyspark",
+      "python",
+      "sql"
+    ],
+    "expected_missing_skills": [
+      "data modeling",
+      "dbt",
+      "snowflake",
+      "ci/cd"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "SQL",
+        "non_equivalent_to": "Dimensional Data Modeling",
+        "reason": "Writing analytic joins does not imply knowledge of Kimball dimensional modeling or Data Vault."
+      }
+    ],
+    "proficiency_level": "Experienced Professional",
+    "explanation": "Strong data engineering practitioner with solid distributed systems, batch, and streaming experience."
+  },
+  {
+    "id": "case_10_related_non_equivalent_sql_dba",
+    "resume_text": "Brian O'Connor\nEmail: brian.oc@backendworks.com\nEducation: B.S. in Computer Science\n\nTechnical Skills:\nPython, Django, SQL, PostgreSQL, REST APIs, Git\n\nExperience:\nBackend Developer at AppVibe (2 years):\n- Wrote Django ORM queries and raw SQL for customer reporting.\n",
+    "target_career": "Database Administrator",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Python",
+      "Django",
+      "SQL",
+      "PostgreSQL",
+      "REST APIs",
+      "Git"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "django",
+      "sql",
+      "postgresql",
+      "rest apis",
+      "git"
+    ],
+    "expected_matched_skills": [
+      "postgresql",
+      "sql"
+    ],
+    "expected_missing_skills": [
+      "backup and recovery",
+      "database performance tuning",
+      "replication and high availability",
+      "user access management",
+      "storage engine optimization"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "SQL",
+        "non_equivalent_to": "Database Performance Tuning",
+        "reason": "Query authoring does not equate to query execution plan optimization, index tuning, or memory buffer management."
+      },
+      {
+        "skill": "PostgreSQL",
+        "non_equivalent_to": "Replication and High Availability",
+        "reason": "Using PostgreSQL as an application backend does not prove experience configuring WAL replication, failover, or Patroni clusters."
+      }
+    ],
+    "proficiency_level": "Junior Developer (Non-DBA)",
+    "explanation": "Critical test case: Backend developer writing queries must NOT receive credit for DBA operational infrastructure skills."
+  },
+  {
+    "id": "case_11_related_non_equivalent_python_ml",
+    "resume_text": "Jessica Taylor\nEmail: jessica.t@scripting.dev\nEducation: B.A. in Mathematics\n\nTechnical Skills:\nPython, Selenium, Beautiful Soup, Web Scraping, Git, Excel Automation\n\nExperience:\nAutomation Specialist at DataCrawl (2 years):\n- Automated lead extraction scripts using Python and Selenium.\n",
+    "target_career": "Machine Learning Engineer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Python",
+      "Selenium",
+      "Beautiful Soup",
+      "Web Scraping",
+      "Git",
+      "Excel Automation"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "selenium",
+      "beautiful soup",
+      "web scraping",
+      "git",
+      "excel automation"
+    ],
+    "expected_matched_skills": [
+      "git",
+      "python"
+    ],
+    "expected_missing_skills": [
+      "machine learning algorithms",
+      "scikit-learn",
+      "deep learning",
+      "pytorch",
+      "model evaluation and validation",
+      "feature engineering",
+      "mlops"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "Python",
+        "non_equivalent_to": "Machine Learning Algorithms",
+        "reason": "Python language fluency does NOT demonstrate mathematical comprehension of gradient descent, backpropagation, or classification."
+      },
+      {
+        "skill": "Web Scraping",
+        "non_equivalent_to": "Feature Engineering",
+        "reason": "Collecting raw HTML data is not equivalent to statistical transformation, scaling, or encoding."
+      }
+    ],
+    "proficiency_level": "Automation Scripter (Non-ML)",
+    "explanation": "Critical test case: General Python scripting proficiency must NOT falsely match Machine Learning or Data Science core competencies."
+  },
+  {
+    "id": "case_12_related_non_equivalent_k8s_docker",
+    "resume_text": "Lucas Silva\nEmail: lucas.s@clouddev.com\nEducation: B.S. in Computer Engineering\n\nTechnical Skills:\nDocker, Linux, Python, Git, CI/CD, Nginx\n\nExperience:\nJunior DevOps at HostPro (1.5 years):\n- Containerized web applications into Docker images.\n- Set up Nginx reverse proxy configurations.\n",
+    "target_career": "Kubernetes Administrator",
+    "job_description": "Job Title: Kubernetes Administrator\nRequired Skills:\n- Mandatory: Kubernetes, Helm, CNI Networking, ETCD Backup, Cluster Security, Linux\n- Preferred: Istio Service Mesh, Prometheus",
+    "expected_extracted_skills": [
+      "Docker",
+      "Linux",
+      "Python",
+      "Git",
+      "CI/CD",
+      "Nginx"
+    ],
+    "expected_normalized_skills": [
+      "docker",
+      "linux",
+      "python",
+      "git",
+      "cicd",
+      "nginx"
+    ],
+    "expected_matched_skills": [
+      "linux"
+    ],
+    "expected_missing_skills": [
+      "cluster security",
+      "cni networking",
+      "etcd backup",
+      "helm",
+      "istio service mesh",
+      "kubernetes",
+      "prometheus"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "Docker",
+        "non_equivalent_to": "Kubernetes Cluster Administration",
+        "reason": "Containerization (Docker) is necessary for containers but does NOT substitute for Kubernetes cluster scheduling, ingress controllers, CNI, or etcd."
+      }
+    ],
+    "proficiency_level": "Junior DevOps",
+    "explanation": "Critical test case: Docker container knowledge must NOT falsely match Kubernetes cluster administration requirements."
+  },
+  {
+    "id": "case_13_nlp_engineer_candidate",
+    "resume_text": "Rohan Gupta\nEmail: rohan.nlp@research.ai\nEducation: M.S. in Computer Science (NLP Specialization)\n\nTechnical Skills:\nPython, PyTorch, HuggingFace Transformers, SpaCy, NLTK, BERT, Word2Vec, Git\n\nProjects:\nClinical Entity Extraction: Fine-tuned BioBERT model using HuggingFace and PyTorch for medical token classification.\nSentiment Pipeline: Built text preprocessing and classification pipeline with SpaCy and NLTK.\n",
+    "target_career": "NLP Engineer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Python",
+      "PyTorch",
+      "HuggingFace Transformers",
+      "SpaCy",
+      "NLTK",
+      "BERT",
+      "Word2Vec",
+      "Git"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "pytorch",
+      "huggingface transformers",
+      "spacy",
+      "nltk",
+      "bert",
+      "word2vec",
+      "git"
+    ],
+    "expected_matched_skills": [
+      "bert",
+      "git",
+      "huggingface transformers",
+      "nltk",
+      "python",
+      "pytorch",
+      "spacy",
+      "word2vec"
+    ],
+    "expected_missing_skills": [
+      "vector databases",
+      "llm fine-tuning",
+      "langchain",
+      "prompt engineering"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "NLTK",
+        "non_equivalent_to": "Large Language Model Architecture",
+        "reason": "Classical tokenizers and rule-based NLP do not imply expertise in modern transformer-based LLMs."
+      }
+    ],
+    "proficiency_level": "Academic / Specialized NLP Practitioner",
+    "explanation": "Strong candidate in classical and transformer-based NLP with PyTorch and HuggingFace."
+  },
+  {
+    "id": "case_14_cybersecurity_analyst",
+    "resume_text": "Samantha Vance\nEmail: s.vance@secdefense.org\nEducation: B.S. in Cybersecurity\n\nTechnical Skills:\nWireshark, Nmap, SIEM (Splunk), Linux, Cryptography, Metasploit, Snort, Network Security, Python\n\nExperience:\nSOC Analyst at CyberShield (2 years):\n- Monitored security incident logs in Splunk SIEM.\n- Performed vulnerability assessments using Nmap and Wireshark packet captures.\n",
+    "target_career": "Cybersecurity Analyst",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Wireshark",
+      "Nmap",
+      "SIEM (Splunk)",
+      "Linux",
+      "Cryptography",
+      "Metasploit",
+      "Snort",
+      "Network Security",
+      "Python"
+    ],
+    "expected_normalized_skills": [
+      "wireshark",
+      "nmap",
+      "splunk",
+      "linux",
+      "cryptography",
+      "metasploit",
+      "snort",
+      "network security",
+      "python"
+    ],
+    "expected_matched_skills": [
+      "cryptography",
+      "linux",
+      "metasploit",
+      "network security",
+      "nmap",
+      "python",
+      "snort",
+      "wireshark"
+    ],
+    "expected_missing_skills": [
+      "incident response planning",
+      "penetration testing methodology",
+      "security compliance (soc 2 / iso 27001)"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "Nmap",
+        "non_equivalent_to": "Full Penetration Testing",
+        "reason": "Port scanning with Nmap is only reconnaissance and does not constitute full offensive penetration testing."
+      }
+    ],
+    "proficiency_level": "Mid-Level Security Analyst",
+    "explanation": "Experienced SOC analyst with defensive monitoring, network analysis, and basic penetration tooling."
+  },
+  {
+    "id": "case_15_embedded_iot_engineer",
+    "resume_text": "Dmitri Ivanov\nEmail: d.ivanov@embedsys.de\nEducation: B.S. in Electrical and Computer Engineering\n\nTechnical Skills:\nC, C++, FreeRTOS, STM32, ARM Cortex-M, SPI, I2C, UART, Git, Oscilloscope, Embedded Linux\n\nExperience:\nFirmware Engineer at IoT Motion (3 years):\n- Programmed bare-metal and FreeRTOS drivers in C/C++ for STM32 microcontrollers.\n- Interfaced sensor arrays over SPI and I2C buses with sub-millisecond real-time timing.\n",
+    "target_career": "Embedded Systems Engineer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "C",
+      "C++",
+      "FreeRTOS",
+      "STM32",
+      "ARM Cortex-M",
+      "SPI",
+      "I2C",
+      "UART",
+      "Git",
+      "Oscilloscope",
+      "Embedded Linux"
+    ],
+    "expected_normalized_skills": [
+      "c",
+      "c++",
+      "freertos",
+      "stm32",
+      "arm cortex-m",
+      "spi",
+      "i2c",
+      "uart",
+      "git",
+      "oscilloscope",
+      "embedded linux"
+    ],
+    "expected_matched_skills": [
+      "arm cortex-m",
+      "c",
+      "c++",
+      "embedded linux",
+      "freertos",
+      "git",
+      "i2c",
+      "spi",
+      "stm32",
+      "uart"
+    ],
+    "expected_missing_skills": [
+      "pcb design",
+      "device tree configuration",
+      "can bus"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "C++",
+        "non_equivalent_to": "Enterprise Software Architecture",
+        "reason": "Embedded C++ for microcontrollers is constrained and distinct from modern cloud enterprise C++."
+      }
+    ],
+    "proficiency_level": "Mid-Level Embedded Engineer",
+    "explanation": "Strong candidate in firmware, real-time operating systems, and hardware communication protocols."
+  },
+  {
+    "id": "case_16_mobile_react_native",
+    "resume_text": "Carlos Gomez\nEmail: carlos.g@mobileapps.co\nEducation: B.S. in Software Development\n\nTechnical Skills:\nReact Native, JavaScript, TypeScript, Redux, iOS, Android, REST APIs, Git, Fastlane\n\nExperience:\nMobile Developer at AppBoutique (2.5 years):\n- Published 3 cross-platform mobile apps to Apple App Store and Google Play.\n- Integrated native device APIs and push notifications using React Native.\n",
+    "target_career": "Mobile App Developer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "React Native",
+      "JavaScript",
+      "TypeScript",
+      "Redux",
+      "iOS",
+      "Android",
+      "REST APIs",
+      "Git",
+      "Fastlane"
+    ],
+    "expected_normalized_skills": [
+      "react native",
+      "javascript",
+      "typescript",
+      "redux",
+      "ios",
+      "android",
+      "rest apis",
+      "git",
+      "fastlane"
+    ],
+    "expected_matched_skills": [
+      "android",
+      "git",
+      "ios",
+      "javascript",
+      "react native",
+      "rest apis",
+      "typescript"
+    ],
+    "expected_missing_skills": [
+      "swift",
+      "kotlin",
+      "mobile ui/ux design",
+      "offline synchronization"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "React Native",
+        "non_equivalent_to": "Native Swift / Kotlin Development",
+        "reason": "Cross-platform bridging is not equivalent to deep native iOS Swift or Android Kotlin development."
+      }
+    ],
+    "proficiency_level": "Mid-Level Mobile Developer",
+    "explanation": "Solid cross-platform mobile developer with published apps on both major app stores."
+  },
+  {
+    "id": "case_17_bi_analyst_powerbi",
+    "resume_text": "Rachel Green\nEmail: rachel.green@bizintel.com\nEducation: B.B.A. in Management Information Systems\n\nTechnical Skills:\nMicrosoft Power BI, DAX, Power Query, SQL, Snowflake, Data Warehousing, ETL, Excel\n\nExperience:\nBI Developer at RetailData (4 years):\n- Designed enterprise Power BI semantic models and complex DAX measures.\n- Built ETL pipelines loading POS transactions from Snowflake data warehouse.\n",
+    "target_career": "Business Intelligence Analyst",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Microsoft Power BI",
+      "DAX",
+      "Power Query",
+      "SQL",
+      "Snowflake",
+      "Data Warehousing",
+      "ETL",
+      "Excel"
+    ],
+    "expected_normalized_skills": [
+      "power bi",
+      "dax",
+      "power query",
+      "sql",
+      "snowflake",
+      "data warehousing",
+      "etl",
+      "excel"
+    ],
+    "expected_matched_skills": [
+      "dax",
+      "data warehousing",
+      "etl",
+      "power bi",
+      "snowflake",
+      "sql"
+    ],
+    "expected_missing_skills": [
+      "predictive modeling",
+      "looker",
+      "python for analytics"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "DAX",
+        "non_equivalent_to": "Statistical Machine Learning",
+        "reason": "DAX calculation formulas are not equivalent to predictive statistical modeling."
+      }
+    ],
+    "proficiency_level": "Senior BI Analyst",
+    "explanation": "Extensive experience in corporate business intelligence, Snowflake data modeling, and DAX calculations."
+  },
+  {
+    "id": "case_18_technical_writer",
+    "resume_text": "Liam Nelson\nEmail: liam.nelson@docuwriter.io\nEducation: B.A. in English; Minor in Computer Science\n\nTechnical Skills:\nMarkdown, Git, DITA, API Documentation, Confluence, Swagger / OpenAPI, HTML, Static Site Generators\n\nExperience:\nTechnical Writer at SaaS Docs (3 years):\n- Authored developer guides and OpenAPI 3.0 specifications for REST endpoints.\n- Maintained documentation site using Docusaurus and Git pull request reviews.\n",
+    "target_career": "Technical Writer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Markdown",
+      "Git",
+      "DITA",
+      "API Documentation",
+      "Confluence",
+      "Swagger / OpenAPI",
+      "HTML",
+      "Static Site Generators"
+    ],
+    "expected_normalized_skills": [
+      "markdown",
+      "git",
+      "dita",
+      "api documentation",
+      "confluence",
+      "openapi",
+      "html",
+      "static site generators"
+    ],
+    "expected_matched_skills": [
+      "api documentation",
+      "confluence",
+      "dita",
+      "git",
+      "html",
+      "markdown",
+      "openapi"
+    ],
+    "expected_missing_skills": [
+      "user journey mapping",
+      "video tutorial production",
+      "information architecture"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "API Documentation",
+        "non_equivalent_to": "API Software Implementation",
+        "reason": "Documenting endpoint contracts is distinct from coding the backend server logic."
+      }
+    ],
+    "proficiency_level": "Professional Writer",
+    "explanation": "Skilled documentation professional specializing in developer docs, API references, and docs-as-code workflows."
+  },
+  {
+    "id": "case_19_qa_automation_tester",
+    "resume_text": "Priya Nair\nEmail: priya.nair@quality assurance.org\nEducation: B.Tech in Computer Science\n\nTechnical Skills:\nSelenium WebDriver, Cypress, Pytest, Python, Postman, JIRA, TestRail, CI/CD, Git\n\nExperience:\nQA Automation Engineer at FinTech Labs (3 years):\n- Automated 400+ regression end-to-end test suites using Cypress and Pytest.\n- Integrated automated test suites into GitHub Actions CI pipelines.\n",
+    "target_career": "QA Engineer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Selenium WebDriver",
+      "Cypress",
+      "Pytest",
+      "Python",
+      "Postman",
+      "JIRA",
+      "TestRail",
+      "CI/CD",
+      "Git"
+    ],
+    "expected_normalized_skills": [
+      "selenium",
+      "cypress",
+      "pytest",
+      "python",
+      "postman",
+      "jira",
+      "testrail",
+      "cicd",
+      "git"
+    ],
+    "expected_matched_skills": [
+      "cicd",
+      "cypress",
+      "git",
+      "jira",
+      "postman",
+      "pytest",
+      "python",
+      "selenium",
+      "testrail"
+    ],
+    "expected_missing_skills": [
+      "load and performance testing (jmeter)",
+      "security testing",
+      "mobile app testing (appium)"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "Cypress",
+        "non_equivalent_to": "Mobile Device Testing",
+        "reason": "Web DOM browser automation does not prove capability in iOS/Android native mobile automation with Appium."
+      }
+    ],
+    "proficiency_level": "Experienced Automation QA",
+    "explanation": "Solid automation specialist with strong Web and API test coverage in continuous integration environments."
+  },
+  {
+    "id": "case_20_site_reliability_sre",
+    "resume_text": "Vikram Malhotra\nEmail: v.malhotra@sreworld.com\nEducation: B.S. in Information Systems\n\nTechnical Skills:\nLinux, Python, Go, Docker, Kubernetes, Grafana, Terraform, Incident Management, SLO/SLI, Ansible\n\nExperience:\nSite Reliability Engineer at CloudStream (4 years):\n- Managed 99.99% availability for critical microservices across Kubernetes clusters.\n- Defined SLOs, error budgets, and alerting rules in Prometheus and Grafana.\n- Led post-mortem investigations and on-call rotations.\n",
+    "target_career": "Site Reliability Engineer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Linux",
+      "Python",
+      "Go",
+      "Docker",
+      "Kubernetes",
+      "Grafana",
+      "Terraform",
+      "Incident Management",
+      "SLO/SLI",
+      "Ansible"
+    ],
+    "expected_normalized_skills": [
+      "linux",
+      "python",
+      "go",
+      "docker",
+      "kubernetes",
+      "grafana",
+      "terraform",
+      "incident management",
+      "slo/sli",
+      "ansible"
+    ],
+    "expected_matched_skills": [
+      "ansible",
+      "docker",
+      "go",
+      "grafana",
+      "incident management",
+      "kubernetes",
+      "linux",
+      "python",
+      "slo/sli",
+      "terraform"
+    ],
+    "expected_missing_skills": [
+      "chaos engineering",
+      "capacity planning",
+      "distributed tracing (opentelemetry)"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "Grafana",
+        "non_equivalent_to": "Chaos Engineering",
+        "reason": "Observability dashboards do not equate to intentional fault injection or chaos mesh testing."
+      }
+    ],
+    "proficiency_level": "Senior SRE",
+    "explanation": "Accomplished reliability engineer with production experience in distributed systems, incident response, and SLI/SLO tracking."
+  },
+  {
+    "id": "case_21_custom_jd_genai_architect",
+    "resume_text": "Dr. Aris Thorne\nEmail: aris.thorne@llmlabs.org\nEducation: Ph.D. in Computer Science\n\nTechnical Skills:\nLangGraph, LangChain, Groq, Vector Databases, Python, FastAPI, RAG, PyTorch, Ollama\n\nExperience:\nPrincipal AI Architect at Cognition AI (4 years):\n- Designed agentic multi-actor workflows using LangGraph and Groq hardware inference.\n- Implemented hybrid search RAG pipelines indexing 10M+ technical documents.\n",
+    "target_career": "Principal GenAI Systems Architect",
+    "job_description": "Job Title: Principal GenAI Systems Architect\nRequired Qualifications:\n- Mandatory: LangGraph, Agentic Workflows, RAG, Vector Databases, Python, LLM Evaluation\n- Preferred: vLLM, TensorRT-LLM, Guardrails AI, Groq LPU",
+    "expected_extracted_skills": [
+      "LangGraph",
+      "LangChain",
+      "Groq",
+      "Vector Databases",
+      "Python",
+      "FastAPI",
+      "RAG",
+      "PyTorch",
+      "Ollama"
+    ],
+    "expected_normalized_skills": [
+      "langgraph",
+      "langchain",
+      "groq",
+      "vector databases",
+      "python",
+      "fastapi",
+      "retrieval-augmented generation",
+      "pytorch",
+      "ollama"
+    ],
+    "expected_matched_skills": [
+      "groq",
+      "langgraph",
+      "python",
+      "retrieval-augmented generation",
+      "vector databases"
+    ],
+    "expected_missing_skills": [
+      "guardrails ai",
+      "llm evaluation",
+      "tensorrt-llm",
+      "vllm"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "LangChain",
+        "non_equivalent_to": "TensorRT-LLM Inference Acceleration",
+        "reason": "Framework orchestration is not equivalent to GPU kernel compilation or low-level C++ inference engines."
+      }
+    ],
+    "proficiency_level": "Principal / Staff Level",
+    "explanation": "Advanced candidate with demonstrated agentic workflow implementation and RAG pipeline engineering matching the custom JD."
+  },
+  {
+    "id": "case_22_custom_jd_fintech_backend",
+    "resume_text": "Tobias Becker\nEmail: t.becker@fintechsecure.de\nEducation: B.S. in Computer Science, TU Munich\n\nTechnical Skills:\nJava, Spring Boot, PostgreSQL, Apache Kafka, Microservices, JUnit, Maven, Docker, Git\n\nExperience:\nSenior Backend Engineer at PayFlow (5 years):\n- Developed event-driven ledger microservices processing EUR 100M+ monthly transactions.\n- Implemented distributed transactional consistency with Kafka and PostgreSQL.\n",
+    "target_career": "Lead Financial Systems Engineer",
+    "job_description": "Position: Lead Financial Systems Engineer\nMandatory:\n- Java, Spring Boot, Apache Kafka, PostgreSQL, Distributed Transactions\nPreferred:\n- Kubernetes, AWS, HashiCorp Vault, SOC 2 compliance",
+    "expected_extracted_skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "Apache Kafka",
+      "Microservices",
+      "JUnit",
+      "Maven",
+      "Docker",
+      "Git"
+    ],
+    "expected_normalized_skills": [
+      "java",
+      "spring boot",
+      "postgresql",
+      "apache kafka",
+      "microservices",
+      "junit",
+      "maven",
+      "docker",
+      "git"
+    ],
+    "expected_matched_skills": [
+      "apache kafka",
+      "java",
+      "microservices",
+      "postgresql",
+      "spring boot"
+    ],
+    "expected_missing_skills": [
+      "amazon web services",
+      "hashicorp vault",
+      "kubernetes",
+      "soc 2 compliance"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "PostgreSQL",
+        "non_equivalent_to": "HashiCorp Vault Secrets Management",
+        "reason": "Database persistence is not equivalent to cryptographic secret storage, key leasing, and transit encryption."
+      }
+    ],
+    "proficiency_level": "Senior Enterprise Engineer",
+    "explanation": "Veteran Java enterprise engineer matching core banking ledger and streaming infrastructure requirements."
+  },
+  {
+    "id": "case_23_junior_web_developer",
+    "resume_text": "Chloe Dupont\nEmail: chloe.dupont@webstarter.fr\nEducation: Associate Degree in Web Development\n\nTechnical Skills:\nHTML5, CSS3, JavaScript, Bootstrap, Git, jQuery, Responsive Web Design\n\nProjects:\nBakery Landing Page: Created responsive website using Bootstrap and semantic HTML5.\nInteractive Quiz App: Developed DOM manipulation quiz using JavaScript and jQuery.\n",
+    "target_career": "Web Developer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Bootstrap",
+      "Git",
+      "jQuery",
+      "Responsive Web Design"
+    ],
+    "expected_normalized_skills": [
+      "html",
+      "css",
+      "javascript",
+      "bootstrap",
+      "git",
+      "jquery",
+      "responsive design"
+    ],
+    "expected_matched_skills": [
+      "bootstrap",
+      "css",
+      "git",
+      "html",
+      "javascript",
+      "jquery",
+      "responsive design"
+    ],
+    "expected_missing_skills": [
+      "modern frontend framework (react/vue)",
+      "package manager (npm)",
+      "rest api consumption",
+      "css preprocessor (sass)"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "jQuery",
+        "non_equivalent_to": "Modern React Framework",
+        "reason": "Direct DOM manipulation via jQuery is fundamentally different from reactive declarative component lifecycles in React or Vue."
+      }
+    ],
+    "proficiency_level": "Entry-Level / Junior",
+    "explanation": "Traditional web developer with basic HTML/CSS/jQuery; needs modernization into modern reactive frameworks."
+  },
+  {
+    "id": "case_24_abbreviation_heavy_resume",
+    "resume_text": "Zane Sterling\nEmail: zane.s@fastacronym.io\nEducation: B.S. in Software Systems\n\nTechnical Skills:\nPy, K8s, PG, JS, TS, AWS, GCP, CI/CD, RAG, LLMs, DL, ML, Git\n\nProjects:\nRAG Q&A Engine: Deployed hybrid search with PG vector and Py on AWS with CI/CD.\n",
+    "target_career": "AI Engineer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Py",
+      "K8s",
+      "PG",
+      "JS",
+      "TS",
+      "AWS",
+      "GCP",
+      "CI/CD",
+      "RAG",
+      "LLMs",
+      "DL",
+      "ML",
+      "Git"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "kubernetes",
+      "postgresql",
+      "javascript",
+      "typescript",
+      "amazon web services",
+      "google cloud",
+      "cicd",
+      "retrieval-augmented generation",
+      "large language models",
+      "deep learning",
+      "machine learning",
+      "git"
+    ],
+    "expected_matched_skills": [
+      "amazon web services",
+      "cicd",
+      "deep learning",
+      "git",
+      "large language models",
+      "machine learning",
+      "python",
+      "retrieval-augmented generation"
+    ],
+    "expected_missing_skills": [
+      "docker",
+      "fastapi",
+      "langgraph",
+      "vector databases",
+      "mlops"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "PG",
+        "non_equivalent_to": "Vector Databases (Pinecone/Milvus)",
+        "reason": "Standard PostgreSQL tables are not specialized vector database clusters, even if pgvector extension exists."
+      }
+    ],
+    "proficiency_level": "Mid-Level with Acronym Heavy Resume",
+    "explanation": "Critical test case for Stage 1 normalization: verifies that acronyms like Py, PG, JS, TS, K8s, RAG, LLMs resolve accurately."
+  },
+  {
+    "id": "case_25_unrelated_background_chef",
+    "resume_text": "Antonio Rossi\nEmail: antonio.rossi@pastachef.it\nEducation: Culinary Arts Diploma, Italian Culinary Institute (2018)\n\nExperience:\nHead Chef at Trattoria Bella (5 years):\n- Managed kitchen inventory, menu design, and staff scheduling.\n- Prepared artisanal pasta and maintained strict food safety standards.\n\nRecent Education:\nPython Programming Basics Certificate (12 weeks, Coursera)\n- Learned variables, loops, functions, and basic Python syntax.",
+    "target_career": "Python Developer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Python",
+      "Inventory Management",
+      "Menu Design",
+      "Food Safety Standards"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "inventory management",
+      "menu design",
+      "food safety standards"
+    ],
+    "expected_matched_skills": [
+      "python"
+    ],
+    "expected_missing_skills": [
+      "fastapi",
+      "django",
+      "postgresql",
+      "docker",
+      "git",
+      "rest apis",
+      "unit testing",
+      "linux",
+      "object-oriented programming"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "Python Basics Certificate",
+        "non_equivalent_to": "Professional Backend Architecture",
+        "reason": "Introductory syntax exercises do not demonstrate professional software engineering capability."
+      }
+    ],
+    "proficiency_level": "Beginner / Unrelated Background",
+    "explanation": "Career switcher with extensive non-technical hospitality experience and only introductory Python coursework. Should have very low match percentage (~2-4%) and receive fundamental prerequisite roadmap."
+  },
+  {
+    "id": "case_26_custom_jd_mandatory_only",
+    "resume_text": "Nathan Drake\nEmail: nathan.d@adventuredat.io\nTechnical Skills:\nPython, FastAPI, PostgreSQL, Docker\n\nExperience:\nBackend Engineer at RelicOps (3 years):\n- Built REST APIs with FastAPI and PostgreSQL.\n- Containerized backend microservices using Docker.\n",
+    "target_career": "Lead Python Microservices Architect",
+    "job_description": "Job Title: Lead Python Microservices Architect\nMandatory:\n- Python, FastAPI, PostgreSQL, Docker\nPreferred:\n- Kubernetes, AWS, Apache Kafka",
+    "mandatory_skills": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "preferred_skills": [
+      "Kubernetes",
+      "AWS",
+      "Apache Kafka"
+    ],
+    "expected_extracted_skills": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "fastapi",
+      "postgresql",
+      "docker"
+    ],
+    "expected_matched_skills": [
+      "docker",
+      "fastapi",
+      "postgresql",
+      "python"
+    ],
+    "expected_missing_skills": [
+      "amazon web services",
+      "apache kafka",
+      "kubernetes"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "Docker",
+        "non_equivalent_to": "Kubernetes",
+        "reason": "Container runtime is not multi-node Kubernetes orchestration."
+      }
+    ],
+    "proficiency_level": "Professional",
+    "expected_score": 70,
+    "explanation": "Candidate satisfies 100% of mandatory requirements (70% weight) and 0% of preferred requirements (30% weight). Final calibrated score must equal 70%."
+  },
+  {
+    "id": "case_27_custom_jd_preferred_only",
+    "resume_text": "Claire Redfield\nEmail: claire.r@terrasave.org\nTechnical Skills:\nKubernetes, AWS, Apache Kafka\n\nExperience:\nCloud Infrastructure Support (2 years):\n- Managed AWS EKS clusters and monitored Kafka message streams.\n",
+    "target_career": "Lead Python Microservices Architect",
+    "job_description": "Job Title: Lead Python Microservices Architect\nMandatory:\n- Python, FastAPI, PostgreSQL, Docker\nPreferred:\n- Kubernetes, AWS, Apache Kafka",
+    "mandatory_skills": [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "preferred_skills": [
+      "Kubernetes",
+      "AWS",
+      "Apache Kafka"
+    ],
+    "expected_extracted_skills": [
+      "Kubernetes",
+      "AWS",
+      "Apache Kafka"
+    ],
+    "expected_normalized_skills": [
+      "kubernetes",
+      "amazon web services",
+      "apache kafka"
+    ],
+    "expected_matched_skills": [
+      "amazon web services",
+      "apache kafka",
+      "kubernetes"
+    ],
+    "expected_missing_skills": [
+      "docker",
+      "fastapi",
+      "postgresql",
+      "python"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "AWS",
+        "non_equivalent_to": "Python Backend Architecture",
+        "reason": "Cloud hosting does not substitute for core Python programming."
+      }
+    ],
+    "proficiency_level": "Professional (DevOps Support)",
+    "expected_score": 30,
+    "explanation": "Candidate satisfies 0% of mandatory requirements and 100% of preferred requirements (30% weight). Final score must equal 30%, and all missing mandatory skills must be highlighted as critical gaps."
+  },
+  {
+    "id": "case_28_custom_jd_no_preferred_in_jd",
+    "resume_text": "Leon Kennedy\nEmail: leon.k@specialops.gov\nTechnical Skills:\nPython, FastAPI, Docker\n\nExperience:\nSoftware Developer at Defense Systems (2 years):\n- Developed tactical microservices in FastAPI with Docker.\n",
+    "target_career": "FastAPI Backend Specialist",
+    "job_description": "Role: FastAPI Backend Specialist\nMandatory Requirements:\n- Python, FastAPI, Docker\nPreferred Requirements: None.",
+    "mandatory_skills": [
+      "Python",
+      "FastAPI",
+      "Docker"
+    ],
+    "preferred_skills": [],
+    "expected_extracted_skills": [
+      "Python",
+      "FastAPI",
+      "Docker"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "fastapi",
+      "docker"
+    ],
+    "expected_matched_skills": [
+      "docker",
+      "fastapi",
+      "python"
+    ],
+    "expected_missing_skills": [],
+    "related_non_equivalent_skills": [],
+    "proficiency_level": "Professional",
+    "expected_score": 100,
+    "explanation": "When a custom JD defines only mandatory skills, mandatory weight automatically scales to 1.0 (100%). Matching all yields 100%."
+  },
+  {
+    "id": "case_29_custom_jd_no_mandatory_in_jd",
+    "resume_text": "Jill Valentine\nEmail: jill.v@stars.police\nTechnical Skills:\nPython, Docker\n\nExperience:\nIT Specialist (1 year): Scripted automation with Python and Docker.\n",
+    "target_career": "General Technology Consultant",
+    "job_description": "Position: General Technology Consultant\nPreferred Qualifications:\n- Python, Docker, Git\n",
+    "mandatory_skills": [],
+    "preferred_skills": [
+      "Python",
+      "Docker",
+      "Git"
+    ],
+    "expected_extracted_skills": [
+      "Python",
+      "Docker"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "docker"
+    ],
+    "expected_matched_skills": [
+      "docker",
+      "python"
+    ],
+    "expected_missing_skills": [
+      "git"
+    ],
+    "related_non_equivalent_skills": [],
+    "proficiency_level": "Junior IT",
+    "expected_score": 67,
+    "explanation": "When only preferred skills exist, preferred weight scales to 1.0. Candidate matches 2 of 3 preferred skills, yielding 67%."
+  },
+  {
+    "id": "case_30_critical_vs_secondary_python_dev",
+    "resume_text": "Ada Wong\nEmail: ada.w@espionage.net\nTechnical Skills:\nPython, Object-Oriented Programming, Data Structures and Algorithms, Exception Handling\n\nExperience:\nCore Python Developer (3 years):\n- Built algorithmic processing engines in Python with rigorous OOP and exception handling.\n",
+    "target_career": "Python Developer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Python",
+      "Object-Oriented Programming",
+      "Data Structures and Algorithms",
+      "Exception Handling"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "object-oriented programming",
+      "data structures and algorithms",
+      "exception handling"
+    ],
+    "expected_matched_skills": [
+      "data structures and algorithms",
+      "exception handling",
+      "object-oriented programming",
+      "python"
+    ],
+    "expected_missing_skills": [
+      "fastapi",
+      "django",
+      "postgresql",
+      "docker"
+    ],
+    "related_non_equivalent_skills": [],
+    "proficiency_level": "Experienced Core Programmer",
+    "explanation": "Demonstrates critical foundational Python Developer skills (Tier 1, 3x weight). Contributes disproportionately more to score than peripheral linters."
+  },
+  {
+    "id": "case_31_academic_only_ai_candidate",
+    "resume_text": "Arthur Morgan\nEmail: arthur.m@campus.edu\nEducation: B.S. in Computer Science (Graduation: May 2026), GPA 3.95\nRelevant Coursework: Advanced Python Programming, CS480 Deep Learning with PyTorch\n\nTechnical Skills:\nPython, PyTorch, NumPy\n",
+    "target_career": "AI Engineer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Python",
+      "PyTorch",
+      "NumPy"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "pytorch",
+      "numpy"
+    ],
+    "expected_matched_skills": [
+      "numpy",
+      "python",
+      "pytorch"
+    ],
+    "expected_missing_skills": [
+      "docker",
+      "fastapi",
+      "langgraph",
+      "vector databases",
+      "mlops"
+    ],
+    "related_non_equivalent_skills": [],
+    "proficiency_level": "Academic / Coursework Only",
+    "explanation": "Candidate with purely academic coursework evidence. Proficiency evaluator must classify evidence as academic or project-level with 'likely' confidence, not professional."
+  },
+  {
+    "id": "case_32_professional_backend_fastapi",
+    "resume_text": "John Marston\nEmail: john.m@frontierbackend.com\nEducation: B.S. in Computer Science\n\nTechnical Skills:\nFastAPI, PostgreSQL, Docker, Python\n\nExperience:\nSenior Backend Engineer at CloudFrontier (4 years):\n- Designed, deployed and maintained asynchronous REST APIs in FastAPI with PostgreSQL.\n- Managed Docker container deployments in production.\n",
+    "target_career": "Python Developer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "FastAPI",
+      "PostgreSQL",
+      "Docker",
+      "Python"
+    ],
+    "expected_normalized_skills": [
+      "fastapi",
+      "postgresql",
+      "docker",
+      "python"
+    ],
+    "expected_matched_skills": [
+      "docker",
+      "fastapi",
+      "postgresql",
+      "python"
+    ],
+    "expected_missing_skills": [
+      "celery",
+      "kubernetes",
+      "aws"
+    ],
+    "related_non_equivalent_skills": [],
+    "proficiency_level": "Senior Professional",
+    "explanation": "Candidate with verified 4-year professional employment narrative. Proficiency engine must identify 'professional' evidence tier with 'confirmed' confidence."
+  },
+  {
+    "id": "case_33_duplicate_ambiguous_jd_requirements",
+    "resume_text": "Sadie Adler\nEmail: sadie.a@bountyops.org\nTechnical Skills:\nPython, Docker, Git\n\nExperience:\nDevOps Engineer (2 years): Automated container deployments with Python and Docker.\n",
+    "target_career": "DevOps Engineer",
+    "job_description": "Job Title: DevOps Engineer\nMandatory:\n- Python, python, Python 3, Docker\nPreferred:\n- Docker, Git, git\n",
+    "mandatory_skills": [
+      "Python",
+      "python",
+      "Python 3",
+      "Docker"
+    ],
+    "preferred_skills": [
+      "Docker",
+      "Git",
+      "git"
+    ],
+    "expected_extracted_skills": [
+      "Python",
+      "Docker",
+      "Git"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "docker",
+      "git"
+    ],
+    "expected_matched_skills": [
+      "docker",
+      "git",
+      "python"
+    ],
+    "expected_missing_skills": [],
+    "related_non_equivalent_skills": [],
+    "proficiency_level": "Professional",
+    "expected_score": 100,
+    "explanation": "Evaluates duplicate and redundant requirements: 'Docker' appears in both mandatory and preferred (assigned to mandatory), while casing duplicates deduplicate cleanly."
+  },
+  {
+    "id": "case_34_shallow_keyword_stuffed_resume",
+    "resume_text": "Micah Bell\nEmail: micah.b@ratmail.com\nEducation: High School Diploma\n\nTechnical Skills:\nPython, Java, C++, Docker, Kubernetes, AWS, GCP, Azure, React, Angular, Vue, GraphQL, Spark, Hadoop, Kafka, Redis, Elasticsearch, PyTorch, TensorFlow\n\nExperience:\nOffice Assistant (6 months): General administrative paperwork and telephone answering.\n",
+    "target_career": "Python Developer",
+    "job_description": null,
+    "expected_extracted_skills": [
+      "Python",
+      "Java",
+      "C++",
+      "Docker",
+      "Kubernetes",
+      "AWS",
+      "GCP",
+      "Azure",
+      "React",
+      "Angular",
+      "Vue",
+      "GraphQL",
+      "Spark",
+      "Hadoop",
+      "Kafka",
+      "Redis",
+      "Elasticsearch",
+      "PyTorch",
+      "TensorFlow"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "java",
+      "c++",
+      "docker",
+      "kubernetes",
+      "amazon web services",
+      "google cloud",
+      "microsoft azure",
+      "react",
+      "angular",
+      "vue",
+      "graphql",
+      "spark",
+      "hadoop",
+      "kafka",
+      "redis",
+      "elasticsearch",
+      "pytorch",
+      "tensorflow"
+    ],
+    "expected_matched_skills": [
+      "docker",
+      "python"
+    ],
+    "expected_missing_skills": [
+      "fastapi",
+      "django",
+      "postgresql",
+      "pytest"
+    ],
+    "related_non_equivalent_skills": [
+      {
+        "skill": "Keyword Stuffing",
+        "non_equivalent_to": "Verified Professional Experience",
+        "reason": "Listing 20 technologies without a single sentence of application evidence must be classified as mentioned only."
+      }
+    ],
+    "proficiency_level": "Keyword Stuffed / Insufficient Context",
+    "explanation": "Negative test for proficiency: 20 technologies listed without a single narrative project or experience sentence. Evaluator must flag evidence as 'mentioned' rather than 'professional'."
+  },
+  {
+    "id": "case_35_custom_jd_classification_error",
+    "resume_text": "Dutch van der Linde\nEmail: dutch@tahitiplan.com\nTechnical Skills:\nPython, Docker\n\nExperience:\nTechnical Lead (3 years): Orchestrated Python services and Docker container pipelines.\n",
+    "target_career": "Cloud Microservices Lead",
+    "job_description": "Job Title: Cloud Microservices Lead\nMandatory:\n- Git\nPreferred:\n- Python, Docker\n",
+    "mandatory_skills": [
+      "Git"
+    ],
+    "preferred_skills": [
+      "Python",
+      "Docker"
+    ],
+    "expected_extracted_skills": [
+      "Python",
+      "Docker"
+    ],
+    "expected_normalized_skills": [
+      "python",
+      "docker"
+    ],
+    "expected_matched_skills": [
+      "docker",
+      "python"
+    ],
+    "expected_missing_skills": [
+      "git"
+    ],
+    "related_non_equivalent_skills": [],
+    "proficiency_level": "Professional",
+    "expected_score": 30,
+    "explanation": "Evaluates inverted JD classification where non-core skill is mandatory (0% matched) and core skills are preferred (100% matched). Score strictly respects 70/30 weighting without crashing."
+  }
+]

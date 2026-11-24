@@ -8,6 +8,7 @@ from typing import Any
 from groq import BadRequestError, Groq, RateLimitError
 
 from backend.core.config import GROQ_API_KEY, GROQ_MODEL
+from backend.core.skill_importance import ROLE_SKILL_IMPORTANCE, get_skill_importance
 
 logger = logging.getLogger(__name__)
 
@@ -17,12 +18,31 @@ COMMON_ALIASES: dict[str, str] = {
     "js": "javascript",
     "ts": "typescript",
     "py": "python",
+    "python3": "python",
+    "python 3": "python",
     "golang": "go",
     "nodejs": "node.js",
     "node": "node.js",
+    "html5": "html",
+    "css3": "css",
+    "es6": "javascript",
+    "ecmascript": "javascript",
+    "cpp": "c++",
+    "csharp": "c#",
+    "reactjs": "react",
+    "react.js": "react",
+    "vuejs": "vue",
+    "vue.js": "vue",
+    "angularjs": "angular",
+    "angular.js": "angular",
+    "expressjs": "express",
+    "express.js": "express",
+    "nextjs": "next.js",
     # Databases & Storage
     "postgres": "postgresql",
     "pg": "postgresql",
+    "postgre": "postgresql",
+    "psql": "postgresql",
     "mongo": "mongodb",
     # Cloud Platforms
     "aws": "amazon web services",
@@ -42,7 +62,15 @@ COMMON_ALIASES: dict[str, str] = {
     "rest apis": "rest apis",
     "rest api development": "rest apis",
     "rest api design": "rest apis",
-    # General AI / ML Acronyms
+    "swagger": "openapi",
+    "swagger / openapi": "openapi",
+    "openapi 3.0": "openapi",
+    # Data & Analytics
+    "power bi": "power bi",
+    "powerbi": "power bi",
+    "microsoft power bi": "power bi",
+    "power-bi": "power bi",
+    # Machine Learning & AI
     "ml": "machine learning",
     "dl": "deep learning",
     "nlp": "natural language processing",
@@ -54,6 +82,14 @@ COMMON_ALIASES: dict[str, str] = {
     "gen ai": "generative ai",
     "rag": "retrieval-augmented generation",
     "retrieval augmented generation": "retrieval-augmented generation",
+    "scikitlearn": "scikit-learn",
+    "scikit learn": "scikit-learn",
+    "sklearn": "scikit-learn",
+    "huggingface": "huggingface transformers",
+    "hugging face": "huggingface transformers",
+    # Security & QA
+    "siem": "security information and event management",
+    "selenium webdriver": "selenium",
     # Version Control
     "git / github": "git",
     "github or gitlab": "git",
@@ -216,13 +252,16 @@ Return only valid JSON."""
 def analyze_skill_gap(
     student_skills: list[str],
     required_skills: list[str],
+    career: str | None = None,
+    mandatory_skills: list[str] | None = None,
+    preferred_skills: list[str] | None = None,
 ) -> dict:
-    """Compare student skills with the skills required for any role using a domain-agnostic 3-stage pipeline:
+    """Compare student skills with the skills required for any role using a domain-agnostic 4-stage pipeline:
 
     Stage 1: Universal normalization & standard acronym aliases.
-    Stage 2: Deterministic exact set matching.
+    Stage 2: Deterministic exact set & disjunctive matching.
     Stage 3: LLM-powered semantic relationship evaluation (exact_match & strong_evidence only).
-    Stage 4: Original name preservation for accurate frontend presentation.
+    Stage 4: Original name preservation & calibrated deterministic scoring.
     """
     clean_student = [s.strip() for s in student_skills if s and s.strip()]
     clean_required = [r.strip() for r in required_skills if r and r.strip()]
@@ -232,6 +271,13 @@ def analyze_skill_gap(
             "matched_skills": [],
             "missing_skills": [],
             "match_percentage": 0,
+            "match_explanations": [],
+            "scoring_breakdown": {
+                "scoring_model": "empty",
+                "matched_count": 0,
+                "total_count": 0,
+            },
+            "top_impact_gaps": [],
         }
 
     # Map normalized forms to original required skill representation (preserving display casing)
@@ -242,10 +288,87 @@ def analyze_skill_gap(
             required_norm_map[norm] = r
 
     all_required_norm = set(required_norm_map.keys())
-    student_norm_set = {normalize_skill(s) for s in clean_student}
+
+    # Map normalized forms to original student skill tokens
+    student_norm_map: dict[str, str] = {}
+    for s in clean_student:
+        norm = normalize_skill(s)
+        if norm not in student_norm_map:
+            student_norm_map[norm] = s
+
+    student_norm_set = set(student_norm_map.keys())
+
+    # Detailed match explanations dictionary: norm_key -> explanation dict
+    match_details: dict[str, dict[str, Any]] = {}
 
     # Stage 1 & 2: Direct normalized exact matches
-    matched_norm_set = student_norm_set & all_required_norm
+    matched_norm_set = set()
+    for norm_k in (student_norm_set & all_required_norm):
+        matched_norm_set.add(norm_k)
+        orig_s = student_norm_map[norm_k]
+        orig_r = required_norm_map[norm_k]
+        match_type = "exact_match" if orig_s.lower().strip() == orig_r.lower().strip() else "alias_match"
+        match_details[norm_k] = {
+            "skill": orig_r,
+            "match_type": match_type,
+            "matched_by": orig_s,
+            "confidence": "confirmed",
+        }
+
+    # Deterministic disjunction and root competency resolution for catalog benchmarks
+    unmatched_req = all_required_norm - matched_norm_set
+    for req_k in unmatched_req:
+        orig_r = required_norm_map[req_k]
+
+        # 1. Multi-option skill resolution (e.g., "flutter or react native", "postgresql or mysql", "splunk or sentinel")
+        if " or " in req_k:
+            options = [normalize_skill(opt.strip()) for opt in req_k.split(" or ")]
+            matched_opt = next((opt for opt in options if opt in student_norm_set), None)
+            if matched_opt:
+                matched_norm_set.add(req_k)
+                match_details[req_k] = {
+                    "skill": orig_r,
+                    "match_type": "disjunction_match",
+                    "matched_by": student_norm_map[matched_opt],
+                    "confidence": "confirmed",
+                }
+                continue
+
+        # 2. Direct root competency resolution (e.g., candidate has "cryptography", required is "cryptography fundamentals")
+        matched_root = False
+        for suffix in (" fundamentals", " basics", " administration"):
+            if req_k.endswith(suffix):
+                root = req_k[:-len(suffix)].strip()
+                if root in student_norm_set:
+                    matched_norm_set.add(req_k)
+                    match_details[req_k] = {
+                        "skill": orig_r,
+                        "match_type": "root_competency_match",
+                        "matched_by": student_norm_map[root],
+                        "confidence": "confirmed",
+                    }
+                    matched_root = True
+                    break
+        if matched_root:
+            continue
+
+        # 3. Direct suffix extension resolution
+        if req_k == "responsive web design" and "responsive design" in student_norm_set:
+            matched_norm_set.add(req_k)
+            match_details[req_k] = {
+                "skill": orig_r,
+                "match_type": "root_competency_match",
+                "matched_by": student_norm_map["responsive design"],
+                "confidence": "confirmed",
+            }
+        elif req_k in {"rest api integration", "rest api consumption", "rest api design"} and "rest apis" in student_norm_set:
+            matched_norm_set.add(req_k)
+            match_details[req_k] = {
+                "skill": orig_r,
+                "match_type": "root_competency_match",
+                "matched_by": student_norm_map["rest apis"],
+                "confidence": "confirmed",
+            }
 
     # Stage 3: LLM semantic evaluation for remaining unmatched skills across any engineering domain
     still_unmatched = sorted(all_required_norm - matched_norm_set)
@@ -255,23 +378,141 @@ def analyze_skill_gap(
             candidate_skills=clean_student,
             unmatched_required=unmatched_original,
         )
-        matched_norm_set.update(semantic_matches_norm)
+        for k in semantic_matches_norm:
+            if k in all_required_norm:
+                matched_norm_set.add(k)
+                if k not in match_details:
+                    match_details[k] = {
+                        "skill": required_norm_map[k],
+                        "match_type": "semantic_match",
+                        "matched_by": "Demonstrated competency in related candidate skills",
+                        "confidence": "likely",
+                    }
 
     # Stage 4: Compile final results using original JD/catalog display names
     missing_norm_set = all_required_norm - matched_norm_set
 
     # Map back to original display names
-    matched_list = sorted([required_norm_map[k] for k in matched_norm_set], key=lambda x: x.lower())
-    missing_list = sorted([required_norm_map[k] for k in missing_norm_set], key=lambda x: x.lower())
+    matched_list = sorted([required_norm_map[k] for k in matched_norm_set if k in required_norm_map], key=lambda x: x.lower())
+    missing_list = sorted([required_norm_map[k] for k in missing_norm_set if k in required_norm_map], key=lambda x: x.lower())
 
-    match_percentage = (
-        round(len(matched_norm_set) / len(all_required_norm) * 100)
-        if all_required_norm
-        else 0
-    )
+    # Build ordered explanations list
+    match_explanations = [match_details[normalize_skill(s)] for s in matched_list if normalize_skill(s) in match_details]
+
+    # --- Calibrated Deterministic Scoring ---
+    scoring_breakdown: dict[str, Any] = {}
+    top_impact_gaps: list[str] = []
+
+    # Branch 1: Custom Job Description with Mandatory vs Preferred weighting
+    if mandatory_skills is not None or preferred_skills is not None:
+        clean_mand = [normalize_skill(s) for s in (mandatory_skills or []) if s and s.strip()]
+        clean_pref = [normalize_skill(s) for s in (preferred_skills or []) if s and s.strip()]
+
+        # Resolve duplicates: mandatory takes priority
+        mand_set = set(clean_mand)
+        pref_set = set(clean_pref) - mand_set
+
+        mand_matched = mand_set & matched_norm_set
+        pref_matched = pref_set & matched_norm_set
+
+        len_mand = len(mand_set)
+        len_pref = len(pref_set)
+
+        if len_mand > 0 and len_pref > 0:
+            w_mand = 0.70
+            w_pref = 0.30
+            r_mand = len(mand_matched) / len_mand
+            r_pref = len(pref_matched) / len_pref
+            final_score = round((w_mand * r_mand + w_pref * r_pref) * 100)
+        elif len_mand > 0:
+            w_mand = 1.00
+            w_pref = 0.00
+            r_mand = len(mand_matched) / len_mand
+            r_pref = 0.0
+            final_score = round(r_mand * 100)
+        elif len_pref > 0:
+            w_mand = 0.00
+            w_pref = 1.00
+            r_mand = 0.0
+            r_pref = len(pref_matched) / len_pref
+            final_score = round(r_pref * 100)
+        else:
+            final_score = 0
+            w_mand, w_pref, r_mand, r_pref = 0.0, 0.0, 0.0, 0.0
+
+        match_percentage = max(0, min(100, final_score))
+
+        missing_mand = sorted([required_norm_map[k] for k in (mand_set - mand_matched) if k in required_norm_map], key=lambda x: x.lower())
+        missing_pref = sorted([required_norm_map[k] for k in (pref_set - pref_matched) if k in required_norm_map], key=lambda x: x.lower())
+        top_impact_gaps = missing_mand[:5] if missing_mand else missing_pref[:5]
+
+        scoring_breakdown = {
+            "scoring_model": "weighted_custom_jd",
+            "mandatory_weight": w_mand,
+            "preferred_weight": w_pref,
+            "mandatory_matched": len(mand_matched),
+            "mandatory_total": len_mand,
+            "preferred_matched": len(pref_matched),
+            "preferred_total": len_pref,
+            "missing_mandatory": missing_mand,
+            "missing_preferred": missing_pref,
+        }
+
+    # Branch 2: Predefined Role with Skill Importance Tiers
+    elif career and career in ROLE_SKILL_IMPORTANCE:
+        total_weight = 0.0
+        matched_weight = 0.0
+        critical_missing = []
+        core_missing = []
+
+        for req_k in all_required_norm:
+            info = get_skill_importance(career, req_k)
+            w = info["weight"]
+            total_weight += w
+            if req_k in matched_norm_set:
+                matched_weight += w
+            else:
+                orig_name = required_norm_map.get(req_k, req_k)
+                if info["tier"] == "critical":
+                    critical_missing.append(orig_name)
+                elif info["tier"] == "core":
+                    core_missing.append(orig_name)
+
+        match_percentage = round((matched_weight / total_weight) * 100) if total_weight > 0 else 0
+        match_percentage = max(0, min(100, match_percentage))
+
+        top_impact_gaps = (critical_missing + core_missing)[:5]
+
+        scoring_breakdown = {
+            "scoring_model": "tier_weighted_predefined",
+            "total_weight": round(total_weight, 1),
+            "matched_weight": round(matched_weight, 1),
+            "critical_gaps_count": len(critical_missing),
+            "core_gaps_count": len(core_missing),
+            "critical_gaps": critical_missing,
+        }
+
+    # Branch 3: Standard Equal-Weighted Fallback (Preserves 100% exact baseline)
+    else:
+        match_percentage = (
+            round(len(matched_norm_set) / len(all_required_norm) * 100)
+            if all_required_norm
+            else 0
+        )
+        match_percentage = max(0, min(100, match_percentage))
+        top_impact_gaps = missing_list[:5]
+
+        scoring_breakdown = {
+            "scoring_model": "equal_weighted",
+            "matched_count": len(matched_norm_set),
+            "total_count": len(all_required_norm),
+        }
 
     return {
         "matched_skills": matched_list,
         "missing_skills": missing_list,
         "match_percentage": match_percentage,
+        "match_explanations": match_explanations,
+        "scoring_breakdown": scoring_breakdown,
+        "top_impact_gaps": top_impact_gaps,
     }

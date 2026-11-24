@@ -1,4 +1,5 @@
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+from starlette.concurrency import run_in_threadpool
 
 from backend.core.config import ALLOWED_EXTENSIONS, MAX_FILE_BYTES
 from backend.graphs.career_graph import career_graph
@@ -45,13 +46,14 @@ async def analyze_career(
         )
 
     try:
-        result = career_graph.invoke(
+        result = await run_in_threadpool(
+            career_graph.invoke,
             {
                 "filename": filename,
                 "file_content": content,
                 "selected_career": clean_career,
                 "job_description": clean_jd if clean_jd else None,
-            }
+            },
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
@@ -72,4 +74,8 @@ async def analyze_career(
         "missing_skills": result["missing_skills"],
         "match_percentage": result["match_percentage"],
         "jd_analysis": result.get("jd_analysis"),
+        "match_explanations": result.get("match_explanations", []),
+        "scoring_breakdown": result.get("scoring_breakdown", {}),
+        "top_impact_gaps": result.get("top_impact_gaps", []),
+        "proficiency_assessments": result.get("proficiency_assessments", []),
     }

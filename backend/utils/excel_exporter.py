@@ -92,8 +92,10 @@ def generate_roadmap_excel(roadmap: RoadmapExportRequest) -> BytesIO:
     # Data rows
     for i, milestone in enumerate(roadmap.milestones):
         row = 5 + i
+        completed_set = set(milestone.completed_topics or [])
         topics_text = "\n".join(
-            f"• {t}" for t in milestone.topics_to_learn
+            f"• [{'✓' if t in completed_set else ' '}] {t}"
+            for t in milestone.topics_to_learn
         )
 
         style_data_cell(ws_plan, row, 1, milestone.week_label)
