@@ -148,6 +148,11 @@ const elements = {
   matchedTabCount: document.getElementById("matchedTabCount"),
   skillSearchInput: document.getElementById("skillSearchInput"),
   skillsTagCloud: document.getElementById("skillsTagCloud"),
+  evidenceInspector: document.getElementById("evidenceInspector"),
+  evidenceSkillName: document.getElementById("evidenceSkillName"),
+  evidenceTierPill: document.getElementById("evidenceTierPill"),
+  evidenceQuoteText: document.getElementById("evidenceQuoteText"),
+  evidenceCloseBtn: document.getElementById("evidenceCloseBtn"),
   experienceTimeline: document.getElementById("experienceTimeline"),
 
   roadmapStudioSection: document.getElementById("roadmapStudioSection"),
@@ -654,6 +659,15 @@ function initFilterListeners() {
     state.skillSearchTerm = e.target.value.trim().toLowerCase();
     renderSkillsCloud();
   });
+
+  if (elements.evidenceCloseBtn) {
+    elements.evidenceCloseBtn.addEventListener("click", () => {
+      if (elements.evidenceInspector) {
+        elements.evidenceInspector.classList.add("hidden");
+      }
+      elements.skillsTagCloud.querySelectorAll(".skill-pill").forEach((p) => p.classList.remove("selected"));
+    });
+  }
 }
 
 function renderSkillsCloud() {
@@ -661,7 +675,20 @@ function renderSkillsCloud() {
 
   const matched = state.analysisResult.matched_skills || [];
   const missing = state.analysisResult.missing_skills || [];
+  const assessments = state.analysisResult.proficiency_assessments || [];
+
+  // Map proficiency assessment details by normalized skill name
+  const profMap = new Map();
+  assessments.forEach((item) => {
+    if (item && item.skill) {
+      profMap.set(item.skill.toLowerCase().trim(), item);
+    }
+  });
+
   elements.skillsTagCloud.innerHTML = "";
+  if (elements.evidenceInspector) {
+    elements.evidenceInspector.classList.add("hidden");
+  }
 
   const allSkills = [
     ...matched.map((s) => ({ name: s, type: "matched" })),
@@ -687,9 +714,79 @@ function renderSkillsCloud() {
     const span = document.createElement("span");
     span.className = `skill-pill ${skill.type}`;
     const icon = skill.type === "matched" ? "fa-check" : "fa-plus";
-    span.innerHTML = `<i class="fa-solid ${icon}"></i> ${escapeHtml(skill.name)}`;
+
+    let badgeHtml = "";
+    const prof = profMap.get(skill.name.toLowerCase().trim());
+
+    if (skill.type === "matched" && prof) {
+      const tier = (prof.evidence_tier || "mentioned").toLowerCase();
+      let tierLabel = "Listed";
+      let tierIcon = "fa-list-ul";
+
+      if (tier === "professional") {
+        tierLabel = "Work";
+        tierIcon = "fa-briefcase";
+      } else if (tier === "project") {
+        tierLabel = "Project";
+        tierIcon = "fa-code";
+      } else if (tier === "internship") {
+        tierLabel = "Intern";
+        tierIcon = "fa-user-graduate";
+      } else if (tier === "academic") {
+        tierLabel = "Course";
+        tierIcon = "fa-book-open";
+      }
+
+      badgeHtml = `<span class="evidence-badge tier-${tier}"><i class="fa-solid ${tierIcon}"></i> ${tierLabel}</span>`;
+      span.title = `Evidence: ${prof.confidence || 'confirmed'} in ${tierLabel}. Click to inspect exact quote.`;
+    } else if (skill.type === "missing") {
+      span.title = `Click to inspect skill gap details.`;
+    }
+
+    span.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${escapeHtml(skill.name)}</span> ${badgeHtml}`;
+
+    span.addEventListener("click", () => {
+      elements.skillsTagCloud.querySelectorAll(".skill-pill").forEach((p) => p.classList.remove("selected"));
+      span.classList.add("selected");
+      showEvidenceInspector(skill.name, prof, skill.type);
+    });
+
     elements.skillsTagCloud.appendChild(span);
   });
+}
+
+function showEvidenceInspector(skillName, prof, skillType) {
+  if (!elements.evidenceInspector) return;
+
+  elements.evidenceSkillName.textContent = skillName;
+
+  if (skillType === "matched" && prof) {
+    const tier = (prof.evidence_tier || "mentioned").toLowerCase();
+    const conf = (prof.confidence || "confirmed").toUpperCase();
+
+    let tierHuman = "Skills Inventory Listing";
+    if (tier === "professional") tierHuman = "Employment History";
+    else if (tier === "project") tierHuman = "Practical Project Implementation";
+    else if (tier === "internship") tierHuman = "Internship Experience";
+    else if (tier === "academic") tierHuman = "Academic Coursework";
+
+    elements.evidenceTierPill.textContent = `${conf} • ${tierHuman}`;
+    elements.evidenceTierPill.style.color = (tier === "professional" || tier === "project") ? "var(--accent-emerald)" : "var(--accent-cyan)";
+    elements.evidenceQuoteText.textContent = prof.supporting_evidence
+      ? `"${prof.supporting_evidence}"`
+      : "Verified across candidate profile credentials.";
+  } else if (skillType === "matched") {
+    elements.evidenceTierPill.textContent = "MATCHED COMPETENCY";
+    elements.evidenceTierPill.style.color = "var(--accent-emerald)";
+    elements.evidenceQuoteText.textContent = "Demonstrated across candidate resume credentials.";
+  } else {
+    elements.evidenceTierPill.textContent = "TARGET SKILL GAP";
+    elements.evidenceTierPill.style.color = "var(--accent-amber)";
+    elements.evidenceQuoteText.textContent = "This required competency was not found in your resume. Check your generated learning roadmap below for tailored study milestones and verified learning resources.";
+  }
+
+  elements.evidenceInspector.classList.remove("hidden");
+  elements.evidenceInspector.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 // ============================================================================

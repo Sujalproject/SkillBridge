@@ -8,7 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="styles.css?v=2" />
+  <link rel="icon" type="image/png" href="images/SkillBridge Student Growth Logo.png" />
+  <link rel="stylesheet" href="styles.css?v=3" />
 </head>
 <body>
   <!-- Ambient background lighting meshes -->
@@ -351,6 +352,24 @@
           <div class="skills-tag-cloud" id="skillsTagCloud">
             <!-- Dynamic skills injected here -->
           </div>
+
+          <!-- Evidence-Based Proficiency Inspector -->
+          <div id="evidenceInspector" class="evidence-inspector hidden">
+            <div class="evidence-inspector-header">
+              <div class="evidence-title-group">
+                <span class="evidence-icon"><i class="fa-solid fa-file-shield"></i></span>
+                <div>
+                  <h4 class="evidence-skill-name" id="evidenceSkillName">Skill Name</h4>
+                  <span class="evidence-tier-pill" id="evidenceTierPill">Confirmed • Practical Project</span>
+                </div>
+              </div>
+              <button type="button" class="evidence-close-btn" id="evidenceCloseBtn" aria-label="Close Evidence Inspector">&times;</button>
+            </div>
+            <div class="evidence-quote-box">
+              <span class="quote-label"><i class="fa-solid fa-quote-left"></i> Verified Resume Evidence:</span>
+              <p class="evidence-quote-text" id="evidenceQuoteText">"Evidence text quote from resume"</p>
+            </div>
+          </div>
         </div>
 
         <!-- Bento 4: Extracted Experience & Projects Card -->
@@ -446,6 +465,6 @@
   <!-- Toast Notification Anchor -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <script src="app.js?v=2"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>
