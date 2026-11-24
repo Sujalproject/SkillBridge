@@ -200,29 +200,46 @@ Interactive request schemas and response details are available in the FastAPI Sw
 
 ## 🧪 Evaluation & testing
 
-SkillBridge includes a custom evaluation framework and a pytest suite.
+SkillBridge includes a custom evaluation framework with **35 synthetic evaluation cases** covering skill normalization, semantic skill matching, score integrity, and proficiency evidence classification.
 
-The evaluation code covers areas such as:
+### Latest evaluation snapshot
 
-- Skill normalization and matching quality
-- Precision, recall, and F1
-- False-positive tracking
-- Match-score properties
-- Proficiency evidence classification
+| Metric | Result |
+|---|---:|
+| Evaluation cases | **35** |
+| Normalization precision | **99.27%** |
+| Normalization recall | **99.27%** |
+| Normalization F1 | **99.27%** |
+| Skill-matching precision | **93.47%** |
+| Skill-matching recall | **80.62%** |
+| Skill-matching F1 | **84.99%** |
+| False positives recorded | **0** |
+| Scoring anomalies | **0** |
+| Scoring property checks | **Passed** |
 
-Run the test suite from the repository root:
+### What is evaluated?
+
+- **Normalization:** whether extracted skill names and aliases are normalized correctly.
+- **Semantic matching:** precision, recall, F1, and false-positive tracking for matched skills.
+- **Scoring integrity:** boundedness, score monotonicity, neutrality to unrelated skills, and duplicate resilience.
+- **Proficiency evidence:** classification of resume evidence, such as project experience or keyword-only mentions.
+
+The current report records 18 cases as **Project Experience** and 17 as **Mentioned / Keyword Listing**. The scoring models represented are tier-weighted predefined profiles (10 cases), equal-weighted profiles (19 cases), and weighted custom job descriptions (6 cases).
+
+> **Evaluation note:** These results are from the repository's synthetic test dataset. They are a repeatable development baseline, not a claim of production accuracy or validation against recruiter decisions. Results can vary when LLM-assisted semantic matching or the evaluation dataset changes.
+
+[View the complete evaluation report](evaluation/results/evaluation_report.json).
+
+### Run the tests and evaluation
+
+From the repository root:
 
 ```bash
 pytest
-```
-
-Run the evaluation pipeline:
-
-```bash
 python -m evaluation.run
 ```
 
-Check the evaluation module for the available dataset and output configuration before comparing runs.
+The evaluation runner writes the detailed JSON report to `evaluation/results/evaluation_report.json` by default. Use `python -m evaluation.run --verbose` to print per-case matching metrics.
 
 ## ⚖️ Design considerations & current limitations
 
