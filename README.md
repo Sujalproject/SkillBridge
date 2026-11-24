@@ -202,6 +202,12 @@ Interactive request schemas and response details are available in the FastAPI Sw
 
 SkillBridge includes a custom evaluation framework with **35 synthetic evaluation cases** covering skill normalization, semantic skill matching, score integrity, and proficiency evidence classification.
 
+### Evaluation dashboard
+
+<p align="center">
+  <img src="docs/assets/evaluation-dashboard.svg" alt="SkillBridge evaluation dashboard showing normalization and semantic matching metrics across 35 synthetic test cases" width="100%">
+</p>
+
 ### Latest evaluation snapshot
 
 | Metric | Result |
