@@ -30,6 +30,8 @@ def print_banner():
 def print_summary_table(summary: dict):
     norm_m = summary["normalization_metrics"]
     match_m = summary["matching_metrics"]
+    # P5 FIX — micro metrics from aggregated TP/FN/FP counts
+    micro_m = summary.get("micro_matching_metrics", {})
     scoring_models = summary.get("scoring_models", {})
     prof_dist = summary.get("proficiency_distribution", {})
 
@@ -43,9 +45,18 @@ def print_summary_table(summary: dict):
     print(f"    • Mean F1 Score  : {norm_m['mean_f1'] * 100:.2f}%")
     print("-" * 80)
     print(" 2. Semantic Skill Matching Performance:")
-    print(f"    • Mean Precision : {match_m['mean_precision'] * 100:.2f}%")
-    print(f"    • Mean Recall    : {match_m['mean_recall'] * 100:.2f}%")
-    print(f"    • Mean F1 Score  : {match_m['mean_f1'] * 100:.2f}%")
+    print(f"    ── Macro (equal weight per case) ──")
+    print(f"    • Macro Precision : {match_m['mean_precision'] * 100:.2f}%")
+    print(f"    • Macro Recall    : {match_m['mean_recall'] * 100:.2f}%")
+    print(f"    • Macro F1 Score  : {match_m['mean_f1'] * 100:.2f}%")
+    print(f"    ── Micro (weighted by skill count) ──")
+    print(f"    • Micro Precision : {micro_m.get('precision', 0) * 100:.2f}%")
+    print(f"    • Micro Recall    : {micro_m.get('recall', 0) * 100:.2f}%")
+    print(f"    • Micro F1 Score  : {micro_m.get('f1', 0) * 100:.2f}%")
+    print(f"    ── Counts ──")
+    print(f"    • Total TP : {micro_m.get('total_tp', 0)}")
+    print(f"    • Total FN : {micro_m.get('total_fn', 0)}")
+    print(f"    • Total FP : {micro_m.get('total_fp', 0)}")
     print(f"    • False Positives Detected : {summary['false_positive_count']}")
     print("-" * 80)
     print(" 3. Career Match Scoring Calibration & Property Integrity:")

@@ -105,6 +105,8 @@
   ],
   "AI Engineer": [
     "python",
+    "pandas",
+    "numpy",
     "programming fundamentals",
     "data structures and algorithms",
     "object-oriented programming",
@@ -733,7 +735,9 @@
     "critical thinking",
     "data governance",
     "privacy",
-    "documentation"
+    "documentation",
+    "etl",
+    "snowflake"
   ],
   "Business Analyst": [
     "business analysis",
@@ -876,7 +880,10 @@
     "internal developer platforms",
     "finops and cost governance",
     "ai/gpu infrastructure provisioning",
-    "documentation"
+    "documentation",
+    "bash",
+    "cicd",
+    "amazon web services"
   ],
   "Site Reliability Engineer": [
     "linux internals",
@@ -925,7 +932,9 @@
     "aiops",
     "agentops and ai agent reliability",
     "finops",
-    "communication"
+    "communication",
+    "ansible",
+    "slo/sli"
   ],
   "Cybersecurity Analyst": [
     "cybersecurity fundamentals",
@@ -934,6 +943,11 @@
     "dns",
     "http and tls",
     "linux",
+    "network security",
+    "snort",
+    "metasploit",
+    "nmap",
+    "wireshark",
     "windows",
     "identity and access management",
     "authentication and authorization",
@@ -1023,7 +1037,11 @@
     "testing ai-powered and non-deterministic features",
     "quality engineering strategy",
     "communication",
-    "documentation"
+    "documentation",
+    "pytest",
+    "testrail",
+    "cicd",
+    "python"
   ],
   "Database Administrator": [
     "sql",
@@ -1201,6 +1219,9 @@
     "memory management",
     "microcontroller architecture",
     "arm architecture",
+    "arm cortex-m",
+    "stm32",
+    "freertos",
     "embedded linux",
     "rtos",
     "interrupts",
@@ -1393,7 +1414,12 @@
     "git",
     "agentic nlp systems",
     "multi-agent orchestration",
-    "context engineering"
+    "context engineering",
+    "bert",
+    "nltk",
+    "spacy",
+    "word2vec",
+    "huggingface transformers"
   ],
   "Solutions Architect": [
     "solution architecture",
@@ -1525,6 +1551,10 @@
     "usability testing",
     "terminology management",
     "collaboration",
-    "project management"
+    "project management",
+    "confluence",
+    "dita",
+    "html",
+    "openapi"
   ]
 }

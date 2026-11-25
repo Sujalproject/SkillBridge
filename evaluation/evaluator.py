@@ -136,6 +136,7 @@ class SkillBridgeEvaluator:
             career=target_career,
             mandatory_skills=mandatory_skills,
             preferred_skills=preferred_skills,
+            use_llm=False,
         )
         base_score = base_res["match_percentage"]
 
@@ -154,6 +155,7 @@ class SkillBridgeEvaluator:
                 career=target_career,
                 mandatory_skills=mandatory_skills,
                 preferred_skills=preferred_skills,
+                use_llm=False,
             )
             added_skill_score = aug_res["match_percentage"]
             monotonicity_preserved = added_skill_score >= base_score
@@ -166,6 +168,7 @@ class SkillBridgeEvaluator:
             career=target_career,
             mandatory_skills=mandatory_skills,
             preferred_skills=preferred_skills,
+            use_llm=False,
         )
         neutrality_preserved = (unrelated_res["match_percentage"] == base_score)
 
@@ -177,6 +180,7 @@ class SkillBridgeEvaluator:
             career=target_career,
             mandatory_skills=mandatory_skills,
             preferred_skills=preferred_skills,
+            use_llm=False,
         )
         dedup_preserved = (dup_res["match_percentage"] == base_score)
 
@@ -258,10 +262,19 @@ class SkillBridgeEvaluator:
         total_match_recall = 0.0
         total_match_f1 = 0.0
 
+        # P5 FIX — micro metric accumulators (weighted by skill count per case)
+        micro_tp = 0
+        micro_fn = 0
+        micro_fp = 0
+
         total_false_positives = 0
         total_scoring_anomalies = 0
 
-        for case in self.cases:
+        n = len(self.cases)
+        for i, case in enumerate(self.cases, 1):
+            cid = case["id"]
+            print(f"[{i:02d}/{n:02d}] Evaluating {cid}...", flush=True)
+
             norm_res = self.evaluate_normalization(case)
             norm_results.append(norm_res)
             total_norm_precision += norm_res["metrics"]["precision"]
@@ -274,6 +287,11 @@ class SkillBridgeEvaluator:
             total_match_recall += match_res["match_metrics"]["recall"]
             total_match_f1 += match_res["match_metrics"]["f1"]
             total_false_positives += len(match_res["false_positive_matches"])
+
+            # P5 FIX — accumulate raw counts for micro averaging
+            micro_tp += match_res["match_metrics"]["tp_count"]
+            micro_fn += match_res["match_metrics"]["fn_count"]
+            micro_fp += match_res["match_metrics"]["fp_count"]
 
             score_res = self.audit_scoring_properties(case)
             scoring_results.append(score_res)
@@ -302,6 +320,15 @@ class SkillBridgeEvaluator:
             cls_name = p.get("detected_classification", "Unknown")
             proficiency_dist[cls_name] = proficiency_dist.get(cls_name, 0) + 1
 
+        # P5 FIX — compute micro precision, recall, F1
+        micro_precision = micro_tp / (micro_tp + micro_fp) if (micro_tp + micro_fp) > 0 else 0.0
+        micro_recall = micro_tp / (micro_tp + micro_fn) if (micro_tp + micro_fn) > 0 else 0.0
+        micro_f1 = (
+            (2 * micro_precision * micro_recall) / (micro_precision + micro_recall)
+            if (micro_precision + micro_recall) > 0
+            else 0.0
+        )
+
         summary = {
             "total_cases": n,
             "normalization_metrics": {
@@ -313,6 +340,15 @@ class SkillBridgeEvaluator:
                 "mean_precision": round(total_match_precision / n, 4) if n else 0.0,
                 "mean_recall": round(total_match_recall / n, 4) if n else 0.0,
                 "mean_f1": round(total_match_f1 / n, 4) if n else 0.0,
+            },
+            # P5 FIX — micro metrics alongside macro
+            "micro_matching_metrics": {
+                "precision": round(micro_precision, 4),
+                "recall": round(micro_recall, 4),
+                "f1": round(micro_f1, 4),
+                "total_tp": micro_tp,
+                "total_fn": micro_fn,
+                "total_fp": micro_fp,
             },
             "false_positive_count": total_false_positives,
             "scoring_anomalies": total_scoring_anomalies,

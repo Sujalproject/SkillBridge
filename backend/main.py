@@ -1,4 +1,5 @@
 
+import uuid
 from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,6 +10,9 @@ from backend.routes.skill_gap import router as skill_gap_router
 from backend.routes.career import router as career_router
 from backend.routes.career_agent import router as career_agent_router
 from backend.routes.roadmap import router as roadmap_router
+
+# Unique ID generated on each server startup/restart
+SERVER_BOOT_ID = str(uuid.uuid4())
 
 app = FastAPI(
     title="SkillBridge API",
@@ -27,7 +31,7 @@ app.add_middleware(
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok", "service": "skillbridge-api"}
+    return {"status": "ok", "service": "skillbridge-api", "boot_id": SERVER_BOOT_ID}
 
 app.include_router(career_agent_router)
 app.include_router(resume_router)

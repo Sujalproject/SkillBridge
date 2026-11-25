@@ -1,14 +1,22 @@
 {
   "total_cases": 35,
   "normalization_metrics": {
-    "mean_precision": 0.9927,
-    "mean_recall": 0.9927,
-    "mean_f1": 0.9927
+    "mean_precision": 0.9968,
+    "mean_recall": 0.9968,
+    "mean_f1": 0.9968
   },
   "matching_metrics": {
-    "mean_precision": 0.9347,
-    "mean_recall": 0.8062,
-    "mean_f1": 0.8499
+    "mean_precision": 0.9818,
+    "mean_recall": 0.9544,
+    "mean_f1": 0.9664
+  },
+  "micro_matching_metrics": {
+    "precision": 0.9739,
+    "recall": 0.9385,
+    "f1": 0.9559,
+    "total_tp": 336,
+    "total_fn": 22,
+    "total_fp": 9
   },
   "false_positive_count": 0,
   "scoring_anomalies": 0,
@@ -457,8 +465,8 @@
             "network security",
             "nmap",
             "python",
-            "siem (splunk",
             "snort",
+            "splunk or sentinel",
             "wireshark"
           ],
           "false_positives": [],
@@ -470,7 +478,7 @@
         "actual_normalized": [
           "wireshark",
           "nmap",
-          "siem (splunk",
+          "splunk or sentinel",
           "linux",
           "cryptography",
           "metasploit",
@@ -527,10 +535,10 @@
           "true_positives": [
             "android",
             "fastlane",
+            "flutter or react native",
             "git",
             "ios",
             "javascript",
-            "react native",
             "redux",
             "rest apis",
             "typescript"
@@ -542,7 +550,7 @@
           "fn_count": 0
         },
         "actual_normalized": [
-          "react native",
+          "flutter or react native",
           "javascript",
           "typescript",
           "redux",
@@ -764,26 +772,23 @@
       {
         "case_id": "case_23_junior_web_developer",
         "metrics": {
-          "precision": 0.8571,
-          "recall": 0.8571,
-          "f1": 0.8571,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
           "true_positives": [
             "bootstrap",
             "css",
             "git",
             "html",
             "javascript",
-            "jquery"
-          ],
-          "false_positives": [
-            "responsive web design"
-          ],
-          "false_negatives": [
+            "jquery",
             "responsive design"
           ],
-          "tp_count": 6,
-          "fp_count": 1,
-          "fn_count": 1
+          "false_positives": [],
+          "false_negatives": [],
+          "tp_count": 7,
+          "fp_count": 0,
+          "fn_count": 0
         },
         "actual_normalized": [
           "html",
@@ -792,7 +797,7 @@
           "bootstrap",
           "git",
           "jquery",
-          "responsive web design"
+          "responsive design"
         ]
       },
       {
@@ -1132,31 +1137,47 @@
       {
         "case_id": "case_01_fresh_grad_cs_ai",
         "match_metrics": {
-          "precision": 0.6667,
-          "recall": 0.6667,
-          "f1": 0.6667,
+          "precision": 1.0,
+          "recall": 0.9375,
+          "f1": 0.9677,
           "true_positives": [
+            "deep learning",
+            "exploratory data analysis",
+            "feature engineering",
             "git",
+            "linear algebra",
+            "machine learning",
+            "model evaluation",
+            "neural networks",
+            "numpy",
+            "object oriented programming",
+            "pandas",
+            "programming fundamentals",
             "python",
             "pytorch",
             "scikit learn"
           ],
-          "false_positives": [
-            "linear algebra",
-            "object oriented programming"
-          ],
+          "false_positives": [],
           "false_negatives": [
-            "numpy",
-            "pandas"
+            "hyperparameter tuning"
           ],
-          "tp_count": 4,
-          "fp_count": 2,
-          "fn_count": 2
+          "tp_count": 15,
+          "fp_count": 0,
+          "fn_count": 1
         },
         "actual_matched": [
+          "deep learning",
+          "exploratory data analysis",
+          "feature engineering",
           "git",
           "linear algebra",
+          "machine learning",
+          "model evaluation",
+          "neural networks",
+          "numpy",
           "object-oriented programming",
+          "pandas",
+          "programming fundamentals",
           "python",
           "pytorch",
           "scikit-learn"
@@ -1174,13 +1195,10 @@
           "data preprocessing",
           "data privacy",
           "data structures and algorithms",
-          "deep learning",
           "docker",
           "embeddings",
           "experiment tracking",
-          "exploratory data analysis",
           "fastapi",
-          "feature engineering",
           "fine-tuning",
           "hyperparameter tuning",
           "inference optimization",
@@ -1188,17 +1206,13 @@
           "large language models",
           "linux",
           "llm evaluation",
-          "machine learning",
           "mlops fundamentals",
-          "model evaluation",
           "model monitoring",
           "model quantization",
           "multi-agent orchestration",
           "natural language processing",
-          "neural networks",
           "probability",
           "problem solving",
-          "programming fundamentals",
           "prompt engineering",
           "prompt injection and llm security",
           "reranking",
@@ -1217,23 +1231,39 @@
           "unsupervised learning",
           "vector databases"
         ],
-        "match_percentage": 14,
+        "match_percentage": 31,
         "scoring_breakdown": {
           "scoring_model": "tier_weighted_predefined",
-          "total_weight": 83.0,
-          "matched_weight": 12.0,
-          "critical_gaps_count": 6,
-          "core_gaps_count": 5,
+          "total_weight": 85.0,
+          "matched_weight": 26.0,
+          "critical_gaps_count": 4,
+          "core_gaps_count": 4,
           "critical_gaps": [
-            "tensorflow",
-            "retrieval augmented generation",
-            "large language models",
             "vector databases",
-            "machine learning",
-            "deep learning"
+            "large language models",
+            "retrieval augmented generation",
+            "tensorflow"
           ]
         },
         "match_explanations": [
+          {
+            "skill": "deep learning",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "exploratory data analysis",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "feature engineering",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "git",
             "match_type": "exact_match",
@@ -1247,10 +1277,46 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "machine learning",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "model evaluation",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "neural networks",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "numpy",
+            "match_type": "exact_match",
+            "matched_by": "NumPy",
+            "confidence": "confirmed"
+          },
+          {
             "skill": "object-oriented programming",
             "match_type": "exact_match",
             "matched_by": "Object-Oriented Programming",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "pandas",
+            "match_type": "exact_match",
+            "matched_by": "Pandas",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "programming fundamentals",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           },
           {
             "skill": "python",
@@ -1272,11 +1338,11 @@
           }
         ],
         "top_impact_gaps": [
-          "tensorflow",
-          "retrieval augmented generation",
-          "large language models",
           "vector databases",
-          "machine learning"
+          "large language models",
+          "retrieval augmented generation",
+          "tensorflow",
+          "mlops fundamentals"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -1297,37 +1363,57 @@
       {
         "case_id": "case_02_backend_mid_python",
         "match_metrics": {
-          "precision": 0.875,
-          "recall": 0.7778,
-          "f1": 0.8235,
+          "precision": 1.0,
+          "recall": 0.95,
+          "f1": 0.9744,
           "true_positives": [
+            "container fundamentals",
+            "database transactions",
+            "debugging",
+            "decorators",
+            "dependency management",
             "docker",
             "fastapi",
+            "functions and modules",
             "git",
+            "http fundamentals",
+            "json",
+            "linux command line",
+            "orm concepts",
             "postgresql",
             "pytest",
             "python",
+            "rest api design",
+            "sql",
             "sqlalchemy"
           ],
-          "false_positives": [
-            "rest api design"
-          ],
+          "false_positives": [],
           "false_negatives": [
-            "linux",
-            "rest apis"
+            "linux"
           ],
-          "tp_count": 7,
-          "fp_count": 1,
-          "fn_count": 2
+          "tp_count": 19,
+          "fp_count": 0,
+          "fn_count": 1
         },
         "actual_matched": [
+          "container fundamentals",
+          "database transactions",
+          "debugging",
+          "decorators",
+          "dependency management",
           "docker",
           "fastapi",
+          "functions and modules",
           "git",
+          "http fundamentals",
+          "json",
+          "linux command line",
+          "orm concepts",
           "postgresql",
           "pytest",
           "python",
           "rest api design",
+          "sql",
           "sqlalchemy"
         ],
         "actual_missing": [
@@ -1342,29 +1428,19 @@
           "collaboration",
           "communication",
           "configuration management",
-          "container fundamentals",
           "context managers",
           "control flow",
           "data structures and algorithms",
           "data types and collections",
-          "database transactions",
-          "debugging",
-          "decorators",
-          "dependency management",
           "design patterns",
           "environment variables",
           "exception handling",
           "file handling",
-          "functions and modules",
-          "http fundamentals",
           "iterators and generators",
-          "json",
-          "linux command line",
           "llm api integration basics",
           "logging",
           "memory management",
           "object-oriented programming",
-          "orm concepts",
           "performance profiling",
           "pip and packaging",
           "problem solving",
@@ -1372,7 +1448,6 @@
           "relational database concepts",
           "request validation",
           "ruff or modern linting",
-          "sql",
           "standard library",
           "technical documentation",
           "test-driven development",
@@ -1381,24 +1456,53 @@
           "uv or modern python packaging",
           "virtual environments"
         ],
-        "match_percentage": 19,
+        "match_percentage": 36,
         "scoring_breakdown": {
           "scoring_model": "tier_weighted_predefined",
           "total_weight": 83.0,
-          "matched_weight": 16.0,
-          "critical_gaps_count": 7,
-          "core_gaps_count": 4,
+          "matched_weight": 30.0,
+          "critical_gaps_count": 6,
+          "core_gaps_count": 3,
           "critical_gaps": [
+            "object-oriented programming",
+            "exception handling",
             "data structures and algorithms",
             "control flow",
-            "data types and collections",
-            "object-oriented programming",
             "python syntax and semantics",
-            "exception handling",
-            "functions and modules"
+            "data types and collections"
           ]
         },
         "match_explanations": [
+          {
+            "skill": "container fundamentals",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "database transactions",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "debugging",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "decorators",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "dependency management",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "docker",
             "match_type": "exact_match",
@@ -1412,10 +1516,40 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "functions and modules",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "git",
             "match_type": "exact_match",
             "matched_by": "Git",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "http fundamentals",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "json",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "linux command line",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "orm concepts",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           },
           {
             "skill": "postgresql",
@@ -1442,6 +1576,12 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "sql",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "sqlalchemy",
             "match_type": "exact_match",
             "matched_by": "SQLAlchemy",
@@ -1449,10 +1589,10 @@
           }
         ],
         "top_impact_gaps": [
+          "object-oriented programming",
+          "exception handling",
           "data structures and algorithms",
           "control flow",
-          "data types and collections",
-          "object-oriented programming",
           "python syntax and semantics"
         ],
         "false_positive_matches": [],
@@ -1469,12 +1609,20 @@
         "case_id": "case_03_intern_data_analyst",
         "match_metrics": {
           "precision": 1.0,
-          "recall": 0.8333,
-          "f1": 0.9091,
+          "recall": 0.9286,
+          "f1": 0.963,
           "true_positives": [
+            "dashboard design",
             "data cleaning",
+            "data visualization",
+            "data wrangling",
+            "joins and subqueries",
+            "missing data treatment",
             "pandas",
             "python",
+            "relational database concepts",
+            "reporting",
+            "spreadsheet formulas",
             "sql",
             "tableau"
           ],
@@ -1482,14 +1630,22 @@
           "false_negatives": [
             "matplotlib"
           ],
-          "tp_count": 5,
+          "tp_count": 13,
           "fp_count": 0,
           "fn_count": 1
         },
         "actual_matched": [
+          "dashboard design",
           "data cleaning",
+          "data visualization",
+          "data wrangling",
+          "joins and subqueries",
+          "missing data treatment",
           "pandas",
           "python",
+          "relational database concepts",
+          "reporting",
+          "spreadsheet formulas",
           "sql",
           "tableau"
         ],
@@ -1498,12 +1654,9 @@
           "common table expressions",
           "correlation and regression",
           "critical thinking",
-          "dashboard design",
           "data modeling",
           "data quality assessment",
           "data storytelling",
-          "data visualization",
-          "data wrangling",
           "dax",
           "descriptive statistics",
           "documentation",
@@ -1511,8 +1664,6 @@
           "exploratory data analysis",
           "hypothesis testing",
           "inferential statistics",
-          "joins and subqueries",
-          "missing data treatment",
           "numpy",
           "outlier analysis",
           "pivot tables",
@@ -1522,28 +1673,55 @@
           "privacy and data governance",
           "probability",
           "query optimization",
-          "relational database concepts",
-          "reporting",
           "requirements gathering",
           "sampling",
-          "spreadsheet formulas",
           "stakeholder communication",
           "star schema",
           "version control basics",
           "window functions"
         ],
-        "match_percentage": 12,
+        "match_percentage": 31,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 5,
+          "matched_count": 13,
           "total_count": 42
         },
         "match_explanations": [
+          {
+            "skill": "dashboard design",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "data cleaning",
             "match_type": "exact_match",
             "matched_by": "Data Cleaning",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "data visualization",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "data wrangling",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "joins and subqueries",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "missing data treatment",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           },
           {
             "skill": "pandas",
@@ -1556,6 +1734,24 @@
             "match_type": "exact_match",
             "matched_by": "Python",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "relational database concepts",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "reporting",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "spreadsheet formulas",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           },
           {
             "skill": "sql",
@@ -1575,7 +1771,7 @@
           "common table expressions",
           "correlation and regression",
           "critical thinking",
-          "dashboard design"
+          "data modeling"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -1596,56 +1792,71 @@
       {
         "case_id": "case_04_senior_cloud_devops",
         "match_metrics": {
-          "precision": 0.8889,
-          "recall": 0.7273,
-          "f1": 0.8,
+          "precision": 1.0,
+          "recall": 0.8261,
+          "f1": 0.9048,
           "true_positives": [
+            "alerting",
             "ansible",
+            "automation",
+            "aws or azure or google cloud",
+            "ci/cd pipelines",
+            "configuration management",
+            "containerization",
             "docker",
             "git",
             "grafana",
+            "infrastructure as code",
             "kubernetes",
             "linux administration",
+            "monitoring",
+            "platform engineering",
             "prometheus",
-            "terraform"
+            "reliability engineering",
+            "terraform",
+            "version control"
           ],
-          "false_positives": [
-            "aws or azure or google cloud"
-          ],
+          "false_positives": [],
           "false_negatives": [
             "amazon web services",
             "bash",
-            "cicd"
+            "cicd",
+            "linux"
           ],
-          "tp_count": 8,
-          "fp_count": 1,
-          "fn_count": 3
+          "tp_count": 19,
+          "fp_count": 0,
+          "fn_count": 4
         },
         "actual_matched": [
+          "alerting",
           "ansible",
+          "automation",
           "aws or azure or google cloud",
+          "ci/cd pipelines",
+          "configuration management",
+          "containerization",
           "docker",
           "git",
           "grafana",
+          "infrastructure as code",
           "kubernetes",
           "linux administration",
+          "monitoring",
+          "platform engineering",
           "prometheus",
-          "terraform"
+          "reliability engineering",
+          "terraform",
+          "version control"
         ],
         "actual_missing": [
           "ai-assisted ci/cd",
-          "alerting",
           "artifact management",
-          "automation",
           "backup and disaster recovery",
           "build automation",
           "capacity planning",
           "centralized logging",
-          "ci/cd pipelines",
           "cloud networking",
-          "configuration management",
           "container networking",
-          "containerization",
           "cost optimization",
           "devsecops",
           "dns",
@@ -1657,41 +1868,38 @@
           "helm",
           "iam",
           "incident response",
-          "infrastructure as code",
           "internal developer platforms",
           "jenkins",
           "load balancing",
-          "monitoring",
           "networking fundamentals",
           "nginx",
           "opentelemetry fundamentals",
-          "platform engineering",
           "policy as code",
           "python",
-          "reliability engineering",
           "scripting",
           "secrets management",
           "security hardening",
           "shell scripting",
           "tls",
           "troubleshooting",
-          "version control",
           "vulnerability scanning"
         ],
-        "match_percentage": 28,
+        "match_percentage": 50,
         "scoring_breakdown": {
           "scoring_model": "tier_weighted_predefined",
           "total_weight": 74.0,
-          "matched_weight": 21.0,
-          "critical_gaps_count": 3,
+          "matched_weight": 37.0,
+          "critical_gaps_count": 0,
           "core_gaps_count": 3,
-          "critical_gaps": [
-            "ci/cd pipelines",
-            "infrastructure as code",
-            "containerization"
-          ]
+          "critical_gaps": []
         },
         "match_explanations": [
+          {
+            "skill": "alerting",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "ansible",
             "match_type": "exact_match",
@@ -1699,10 +1907,34 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "automation",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "aws or azure or google cloud",
             "match_type": "disjunction_match",
             "matched_by": "AWS",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "ci/cd pipelines",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "configuration management",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "containerization",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           },
           {
             "skill": "docker",
@@ -1723,6 +1955,12 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "infrastructure as code",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "kubernetes",
             "match_type": "exact_match",
             "matched_by": "Kubernetes",
@@ -1735,24 +1973,46 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "monitoring",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "platform engineering",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "prometheus",
             "match_type": "exact_match",
             "matched_by": "Prometheus",
             "confidence": "confirmed"
           },
           {
+            "skill": "reliability engineering",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "terraform",
             "match_type": "exact_match",
             "matched_by": "Terraform",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "version control",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
-          "ci/cd pipelines",
-          "infrastructure as code",
-          "containerization",
-          "helm",
-          "python"
+          "shell scripting",
+          "python",
+          "helm"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -1767,35 +2027,48 @@
       {
         "case_id": "case_05_career_switcher_frontend",
         "match_metrics": {
-          "precision": 0.875,
-          "recall": 1.0,
-          "f1": 0.9333,
+          "precision": 1.0,
+          "recall": 0.9333,
+          "f1": 0.9655,
           "true_positives": [
+            "component lifecycle",
+            "component testing",
             "css",
+            "dom",
+            "es6+",
+            "event loop",
             "git",
             "html",
             "javascript",
             "jest or vitest",
+            "npm or pnpm",
             "react",
-            "responsive design"
+            "responsive design",
+            "unit testing"
           ],
-          "false_positives": [
-            "npm or pnpm"
+          "false_positives": [],
+          "false_negatives": [
+            "jest"
           ],
-          "false_negatives": [],
-          "tp_count": 7,
-          "fp_count": 1,
-          "fn_count": 0
+          "tp_count": 14,
+          "fp_count": 0,
+          "fn_count": 1
         },
         "actual_matched": [
+          "component lifecycle",
+          "component testing",
           "css",
+          "dom",
+          "es6+",
+          "event loop",
           "git",
           "html",
           "javascript",
           "jest or vitest",
           "npm or pnpm",
           "react",
-          "responsive design"
+          "responsive design",
+          "unit testing"
         ],
         "actual_missing": [
           "accessibility and wcag",
@@ -1806,8 +2079,6 @@
           "browser devtools",
           "code splitting",
           "communication",
-          "component lifecycle",
-          "component testing",
           "context api",
           "core web vitals",
           "cross-browser testing",
@@ -1816,9 +2087,6 @@
           "debugging",
           "deployment",
           "design systems",
-          "dom",
-          "es6+",
-          "event loop",
           "figma handoff",
           "flexbox",
           "form validation",
@@ -1838,27 +2106,56 @@
           "seo fundamentals",
           "state management",
           "typescript",
-          "unit testing",
           "vite or webpack",
           "web performance"
         ],
-        "match_percentage": 28,
+        "match_percentage": 38,
         "scoring_breakdown": {
           "scoring_model": "tier_weighted_predefined",
           "total_weight": 68.0,
-          "matched_weight": 19.0,
+          "matched_weight": 26.0,
           "critical_gaps_count": 1,
-          "core_gaps_count": 4,
+          "core_gaps_count": 3,
           "critical_gaps": [
             "typescript"
           ]
         },
         "match_explanations": [
           {
+            "skill": "component lifecycle",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "component testing",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "css",
             "match_type": "exact_match",
             "matched_by": "CSS",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "dom",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "es6+",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "event loop",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           },
           {
             "skill": "git",
@@ -1901,14 +2198,19 @@
             "match_type": "exact_match",
             "matched_by": "Responsive Design",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "unit testing",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
           "typescript",
-          "state management",
           "browser APIs",
-          "web performance",
-          "dom"
+          "state management",
+          "web performance"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -2061,28 +2363,36 @@
         "case_id": "case_08_minimal_evidence_grad",
         "match_metrics": {
           "precision": 1.0,
-          "recall": 0.5,
-          "f1": 0.6667,
+          "recall": 0.7143,
+          "f1": 0.8333,
           "true_positives": [
-            "git"
+            "branching and merge workflows",
+            "git",
+            "object oriented programming",
+            "programming fundamentals",
+            "team collaboration"
           ],
           "false_positives": [],
           "false_negatives": [
+            "command line",
             "python"
           ],
-          "tp_count": 1,
+          "tp_count": 5,
           "fp_count": 0,
-          "fn_count": 1
+          "fn_count": 2
         },
         "actual_matched": [
-          "git"
+          "branching and merge workflows",
+          "git",
+          "object-oriented programming",
+          "programming fundamentals",
+          "team collaboration"
         ],
         "actual_missing": [
           "agentic ai architecture basics",
           "agile methodologies",
           "ai-assisted coding and code review",
           "api design",
-          "branching and merge workflows",
           "build tools",
           "ci/cd",
           "clean code",
@@ -2106,13 +2416,11 @@
           "llm integration patterns",
           "networking fundamentals",
           "nosql concepts",
-          "object-oriented programming",
           "observability engineering",
           "operating systems fundamentals",
           "parallelism",
           "performance analysis",
           "problem solving",
-          "programming fundamentals",
           "refactoring",
           "relational databases",
           "requirements analysis",
@@ -2123,22 +2431,45 @@
           "solid principles",
           "sql",
           "system design",
-          "team collaboration",
           "test-driven development",
           "unit testing"
         ],
-        "match_percentage": 2,
+        "match_percentage": 10,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 1,
+          "matched_count": 5,
           "total_count": 49
         },
         "match_explanations": [
+          {
+            "skill": "branching and merge workflows",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "git",
             "match_type": "exact_match",
             "matched_by": "Git",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "object-oriented programming",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "programming fundamentals",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "team collaboration",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
@@ -2146,7 +2477,7 @@
           "agile methodologies",
           "ai-assisted coding and code review",
           "api design",
-          "branching and merge workflows"
+          "build tools"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -2161,57 +2492,73 @@
       {
         "case_id": "case_09_overlapping_skills_data_engineer",
         "match_metrics": {
-          "precision": 1.0,
-          "recall": 0.875,
-          "f1": 0.9333,
+          "precision": 0.8889,
+          "recall": 0.9412,
+          "f1": 0.9143,
           "true_positives": [
+            "airflow",
             "apache kafka",
             "apache spark",
+            "aws or azure or google cloud",
+            "batch processing",
+            "data ingestion",
+            "data lakes",
+            "distributed systems",
             "docker",
+            "object storage",
             "postgresql",
             "pyspark",
             "python",
-            "sql"
+            "relational database design",
+            "sql",
+            "stream processing"
           ],
-          "false_positives": [],
+          "false_positives": [
+            "data warehousing",
+            "workflow orchestration"
+          ],
           "false_negatives": [
             "apache airflow"
           ],
-          "tp_count": 7,
-          "fp_count": 0,
+          "tp_count": 16,
+          "fp_count": 2,
           "fn_count": 1
         },
         "actual_matched": [
+          "airflow",
           "apache kafka",
           "apache spark",
+          "aws or azure or google cloud",
+          "batch processing",
+          "data ingestion",
+          "data lakes",
+          "data warehousing",
+          "distributed systems",
           "docker",
+          "object storage",
           "postgresql",
           "pyspark",
           "python",
-          "sql"
+          "relational database design",
+          "sql",
+          "stream processing",
+          "workflow orchestration"
         ],
         "actual_missing": [
           "access control",
           "ai agents for data workflows",
-          "airflow",
-          "aws or azure or google cloud",
-          "batch processing",
           "ci/cd",
           "cloud data platforms",
           "data contracts",
           "data governance",
-          "data ingestion",
-          "data lakes",
           "data modeling",
           "data observability",
           "data quality",
           "data structures",
           "data transformation",
           "data validation",
-          "data warehousing",
           "dbt",
           "dimensional modeling",
-          "distributed systems",
           "documentation",
           "elt",
           "etl",
@@ -2223,28 +2570,30 @@
           "monitoring and alerting",
           "mysql",
           "nosql fundamentals",
-          "object storage",
           "parquet and columnar formats",
           "pipeline optimization",
-          "relational database design",
           "retrieval augmented generation pipelines",
           "schema evolution",
           "semantic layer design",
           "snowflake or bigquery or redshift",
           "star and snowflake schemas",
-          "stream processing",
           "terraform fundamentals",
           "validating ai-generated pipelines",
-          "vector databases",
-          "workflow orchestration"
+          "vector databases"
         ],
-        "match_percentage": 13,
+        "match_percentage": 34,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 7,
+          "matched_count": 18,
           "total_count": 53
         },
         "match_explanations": [
+          {
+            "skill": "airflow",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "apache kafka",
             "match_type": "exact_match",
@@ -2258,10 +2607,52 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "aws or azure or google cloud",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "batch processing",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "data ingestion",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "data lakes",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "data warehousing",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "distributed systems",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "docker",
             "match_type": "exact_match",
             "matched_by": "Docker",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "object storage",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           },
           {
             "skill": "postgresql",
@@ -2282,18 +2673,36 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "relational database design",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "sql",
             "match_type": "exact_match",
             "matched_by": "SQL",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "stream processing",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "workflow orchestration",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
           "access control",
           "ai agents for data workflows",
-          "airflow",
-          "aws or azure or google cloud",
-          "batch processing"
+          "ci/cd",
+          "cloud data platforms",
+          "data contracts"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -2418,16 +2827,18 @@
           "recall": 1.0,
           "f1": 1.0,
           "true_positives": [
+            "automated testing",
             "git",
             "python"
           ],
           "false_positives": [],
           "false_negatives": [],
-          "tp_count": 2,
+          "tp_count": 3,
           "fp_count": 0,
           "fn_count": 0
         },
         "actual_matched": [
+          "automated testing",
           "git",
           "python"
         ],
@@ -2435,7 +2846,6 @@
           "agentic ai systems",
           "ai evaluation and observability",
           "airflow",
-          "automated testing",
           "batch inference",
           "calculus",
           "ci/cd",
@@ -2485,13 +2895,19 @@
           "vector databases",
           "workflow orchestration"
         ],
-        "match_percentage": 4,
+        "match_percentage": 6,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 2,
+          "matched_count": 3,
           "total_count": 54
         },
         "match_explanations": [
+          {
+            "skill": "automated testing",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "git",
             "match_type": "exact_match",
@@ -2509,8 +2925,8 @@
           "agentic ai systems",
           "ai evaluation and observability",
           "airflow",
-          "automated testing",
-          "batch inference"
+          "batch inference",
+          "calculus"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -2590,34 +3006,66 @@
         "case_id": "case_13_nlp_engineer_candidate",
         "match_metrics": {
           "precision": 1.0,
-          "recall": 0.375,
-          "f1": 0.5455,
+          "recall": 1.0,
+          "f1": 1.0,
           "true_positives": [
-            "git",
-            "python",
-            "pytorch"
-          ],
-          "false_positives": [],
-          "false_negatives": [
+            "attention mechanisms",
             "bert",
-            "huggingface transformers",
+            "bert and encoder models",
+            "fine tuning",
+            "git",
+            "hugging face transformers",
+            "information extraction",
+            "language modeling",
+            "large language models",
+            "linguistics fundamentals",
+            "named entity recognition",
+            "natural language processing",
             "nltk",
+            "python",
+            "pytorch",
+            "sentence embeddings",
+            "sentiment analysis",
             "spacy",
+            "text classification",
+            "text preprocessing",
+            "tokenization",
+            "transformers",
             "word2vec"
           ],
-          "tp_count": 3,
+          "false_positives": [],
+          "false_negatives": [],
+          "tp_count": 23,
           "fp_count": 0,
-          "fn_count": 5
+          "fn_count": 0
         },
         "actual_matched": [
+          "attention mechanisms",
+          "bert",
+          "bert and encoder models",
+          "fine-tuning",
           "git",
+          "hugging face transformers",
+          "information extraction",
+          "language modeling",
+          "large language models",
+          "linguistics fundamentals",
+          "named entity recognition",
+          "natural language processing",
+          "nltk",
           "python",
-          "pytorch"
+          "pytorch",
+          "sentence embeddings",
+          "sentiment analysis",
+          "spacy",
+          "text classification",
+          "text preprocessing",
+          "tokenization",
+          "transformers",
+          "word2vec"
         ],
         "actual_missing": [
           "agentic nlp systems",
-          "attention mechanisms",
-          "bert and encoder models",
           "context engineering",
           "data privacy",
           "datasets",
@@ -2625,23 +3073,15 @@
           "dependency parsing",
           "docker",
           "fastapi",
-          "fine-tuning",
           "hallucination assessment",
-          "hugging face transformers",
           "inference optimization",
-          "information extraction",
           "information retrieval",
           "instruction tuning fundamentals",
-          "language modeling",
-          "large language models",
-          "linguistics fundamentals",
           "llm evaluation",
           "lora and qlora",
           "model deployment",
           "model evaluation",
           "multi-agent orchestration",
-          "named entity recognition",
-          "natural language processing",
           "pandas",
           "parameter-efficient fine-tuning",
           "part-of-speech tagging",
@@ -2651,29 +3091,95 @@
           "responsible ai",
           "retrieval augmented generation",
           "semantic search",
-          "sentence embeddings",
-          "sentiment analysis",
           "sql",
           "stemming and lemmatization",
           "tensorflow",
-          "text classification",
-          "text preprocessing",
-          "tokenization",
-          "transformers",
           "vector databases",
           "word embeddings"
         ],
-        "match_percentage": 6,
+        "match_percentage": 43,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 3,
-          "total_count": 50
+          "matched_count": 23,
+          "total_count": 54
         },
         "match_explanations": [
+          {
+            "skill": "attention mechanisms",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "bert",
+            "match_type": "exact_match",
+            "matched_by": "BERT",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "bert and encoder models",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "fine-tuning",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "git",
             "match_type": "exact_match",
             "matched_by": "Git",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "hugging face transformers",
+            "match_type": "alias_match",
+            "matched_by": "HuggingFace Transformers",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "information extraction",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "language modeling",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "large language models",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "linguistics fundamentals",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "named entity recognition",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "natural language processing",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "nltk",
+            "match_type": "exact_match",
+            "matched_by": "NLTK",
             "confidence": "confirmed"
           },
           {
@@ -2687,14 +3193,62 @@
             "match_type": "exact_match",
             "matched_by": "PyTorch",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "sentence embeddings",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "sentiment analysis",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "spacy",
+            "match_type": "exact_match",
+            "matched_by": "SpaCy",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "text classification",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "text preprocessing",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "tokenization",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "transformers",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "word2vec",
+            "match_type": "exact_match",
+            "matched_by": "Word2Vec",
+            "confidence": "confirmed"
           }
         ],
         "top_impact_gaps": [
           "agentic nlp systems",
-          "attention mechanisms",
-          "bert and encoder models",
           "context engineering",
-          "data privacy"
+          "data privacy",
+          "datasets",
+          "decoder-only language models"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -2710,28 +3264,49 @@
         "case_id": "case_14_cybersecurity_analyst",
         "match_metrics": {
           "precision": 1.0,
-          "recall": 0.25,
-          "f1": 0.4,
+          "recall": 0.9375,
+          "f1": 0.9677,
           "true_positives": [
             "cryptography fundamentals",
-            "linux"
-          ],
-          "false_positives": [],
-          "false_negatives": [
+            "encryption",
+            "intrusion detection and prevention",
+            "linux",
+            "log analysis",
             "metasploit",
             "network security",
             "nmap",
-            "python",
+            "penetration testing fundamentals",
+            "security information and event management",
+            "security monitoring",
             "snort",
+            "splunk or sentinel",
+            "tcp/ip",
             "wireshark"
           ],
-          "tp_count": 2,
+          "false_positives": [],
+          "false_negatives": [
+            "scripting with python or powershell"
+          ],
+          "tp_count": 15,
           "fp_count": 0,
-          "fn_count": 6
+          "fn_count": 1
         },
         "actual_matched": [
           "cryptography fundamentals",
-          "linux"
+          "encryption",
+          "intrusion detection and prevention",
+          "linux",
+          "log analysis",
+          "metasploit",
+          "network security",
+          "nmap",
+          "penetration testing fundamentals",
+          "security information and event management",
+          "security monitoring",
+          "snort",
+          "splunk or sentinel",
+          "tcp/ip",
+          "wireshark"
         ],
         "actual_missing": [
           "adversarial machine learning",
@@ -2744,21 +3319,17 @@
           "cybersecurity fundamentals",
           "digital forensics fundamentals",
           "dns",
-          "encryption",
           "endpoint detection and response",
           "ethical conduct",
           "firewalls",
           "http and tls",
           "identity and access management",
           "incident response",
-          "intrusion detection and prevention",
-          "log analysis",
           "malware fundamentals",
           "multi-factor authentication",
           "networking",
           "owasp top 10",
           "patch management",
-          "penetration testing fundamentals",
           "phishing analysis",
           "prompt injection defense",
           "report writing",
@@ -2766,11 +3337,7 @@
           "scripting with python or powershell",
           "securing llm applications (owasp llm top 10)",
           "security awareness",
-          "security information and event management",
-          "security monitoring",
           "security policies",
-          "splunk or sentinel",
-          "tcp/ip",
           "threat intelligence",
           "threat modeling",
           "vulnerability management",
@@ -2778,11 +3345,11 @@
           "web application security",
           "windows"
         ],
-        "match_percentage": 4,
+        "match_percentage": 30,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 2,
-          "total_count": 45
+          "matched_count": 15,
+          "total_count": 50
         },
         "match_explanations": [
           {
@@ -2792,9 +3359,87 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "encryption",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "intrusion detection and prevention",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "linux",
             "match_type": "exact_match",
             "matched_by": "Linux",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "log analysis",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "metasploit",
+            "match_type": "exact_match",
+            "matched_by": "Metasploit",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "network security",
+            "match_type": "exact_match",
+            "matched_by": "Network Security",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "nmap",
+            "match_type": "exact_match",
+            "matched_by": "Nmap",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "penetration testing fundamentals",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "security information and event management",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "security monitoring",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "snort",
+            "match_type": "exact_match",
+            "matched_by": "Snort",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "splunk or sentinel",
+            "match_type": "alias_match",
+            "matched_by": "SIEM (Splunk)",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "tcp/ip",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "wireshark",
+            "match_type": "exact_match",
+            "matched_by": "Wireshark",
             "confidence": "confirmed"
           }
         ],
@@ -2819,39 +3464,58 @@
         "case_id": "case_15_embedded_iot_engineer",
         "match_metrics": {
           "precision": 1.0,
-          "recall": 0.7,
-          "f1": 0.8235,
+          "recall": 0.9474,
+          "f1": 0.973,
           "true_positives": [
+            "arm architecture",
+            "arm cortex m",
             "c",
             "c++",
+            "device drivers",
             "embedded linux",
+            "firmware development",
+            "freertos",
             "git",
+            "gpio",
+            "hardware software integration",
             "i2c",
+            "oscilloscope and logic analyzer",
+            "peripheral interfaces",
             "spi",
-            "uart"
+            "stm32",
+            "uart",
+            "version control"
           ],
           "false_positives": [],
           "false_negatives": [
-            "arm cortex m",
-            "freertos",
-            "stm32"
+            "communication protocols"
           ],
-          "tp_count": 7,
+          "tp_count": 18,
           "fp_count": 0,
-          "fn_count": 3
+          "fn_count": 1
         },
         "actual_matched": [
+          "arm architecture",
+          "arm cortex-m",
           "c",
           "c++",
+          "device drivers",
           "embedded linux",
+          "firmware development",
+          "freertos",
           "git",
+          "gpio",
+          "hardware-software integration",
           "i2c",
+          "oscilloscope and logic analyzer",
+          "peripheral interfaces",
           "spi",
-          "uart"
+          "stm32",
+          "uart",
+          "version control"
         ],
         "actual_missing": [
           "analog electronics fundamentals",
-          "arm architecture",
           "bootloaders",
           "build systems",
           "can bus",
@@ -2860,24 +3524,18 @@
           "cross-compilation",
           "data structures",
           "debugging with jtag or swd",
-          "device drivers",
           "digital logic",
           "documentation",
           "edge ai and tinyml",
           "electronics fundamentals",
           "embedded programming",
-          "firmware development",
-          "gpio",
           "hardware-in-the-loop testing",
-          "hardware-software integration",
           "interrupts",
           "linkers and memory maps",
           "memory management",
           "microcontroller architecture",
           "on-device inference optimization",
-          "oscilloscope and logic analyzer",
           "pcb fundamentals",
-          "peripheral interfaces",
           "power management",
           "real-time systems",
           "rtos",
@@ -2885,16 +3543,27 @@
           "security in embedded devices",
           "timers and counters",
           "unit testing",
-          "usb fundamentals",
-          "version control"
+          "usb fundamentals"
         ],
-        "match_percentage": 16,
+        "match_percentage": 38,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 7,
-          "total_count": 44
+          "matched_count": 18,
+          "total_count": 47
         },
         "match_explanations": [
+          {
+            "skill": "arm architecture",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "arm cortex-m",
+            "match_type": "exact_match",
+            "matched_by": "ARM Cortex-M",
+            "confidence": "confirmed"
+          },
           {
             "skill": "c",
             "match_type": "exact_match",
@@ -2908,9 +3577,27 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "device drivers",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "embedded linux",
             "match_type": "exact_match",
             "matched_by": "Embedded Linux",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "firmware development",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "freertos",
+            "match_type": "exact_match",
+            "matched_by": "FreeRTOS",
             "confidence": "confirmed"
           },
           {
@@ -2920,10 +3607,34 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "gpio",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "hardware-software integration",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "i2c",
             "match_type": "exact_match",
             "matched_by": "I2C",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "oscilloscope and logic analyzer",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "peripheral interfaces",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           },
           {
             "skill": "spi",
@@ -2932,18 +3643,30 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "stm32",
+            "match_type": "exact_match",
+            "matched_by": "STM32",
+            "confidence": "confirmed"
+          },
+          {
             "skill": "uart",
             "match_type": "exact_match",
             "matched_by": "UART",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "version control",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
           "analog electronics fundamentals",
-          "arm architecture",
           "bootloaders",
           "build systems",
-          "can bus"
+          "can bus",
+          "communication protocols"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -2958,30 +3681,36 @@
       {
         "case_id": "case_16_mobile_react_native",
         "match_metrics": {
-          "precision": 0.6667,
-          "recall": 0.2857,
-          "f1": 0.4,
+          "precision": 0.875,
+          "recall": 0.875,
+          "f1": 0.875,
           "true_positives": [
             "flutter or react native",
-            "git"
-          ],
-          "false_positives": [
+            "git",
+            "ios sdk",
+            "networking",
+            "release management",
+            "responsive layouts",
             "rest api integration"
           ],
-          "false_negatives": [
-            "android",
-            "ios",
-            "javascript",
-            "rest apis",
-            "typescript"
+          "false_positives": [
+            "app store connect"
           ],
-          "tp_count": 2,
+          "false_negatives": [
+            "state management"
+          ],
+          "tp_count": 7,
           "fp_count": 1,
-          "fn_count": 5
+          "fn_count": 1
         },
         "actual_matched": [
+          "app store connect",
           "flutter or react native",
           "git",
+          "ios sdk",
+          "networking",
+          "release management",
+          "responsive layouts",
           "rest api integration"
         ],
         "actual_missing": [
@@ -2993,7 +3722,6 @@
           "android sdk",
           "android studio",
           "app signing",
-          "app store connect",
           "appium or platform testing",
           "authentication",
           "background processing",
@@ -3002,7 +3730,6 @@
           "dart",
           "debugging",
           "google play console",
-          "ios sdk",
           "java",
           "jetpack compose",
           "kotlin",
@@ -3011,15 +3738,12 @@
           "mobile security",
           "mobile ui design",
           "navigation",
-          "networking",
           "offline-first design",
           "on-device ai/ml (core ml, ml kit)",
           "performance optimization",
           "permissions",
           "privacy compliance",
           "push notifications",
-          "release management",
-          "responsive layouts",
           "room or core data",
           "secure storage",
           "sqlite",
@@ -3031,16 +3755,22 @@
           "unit testing",
           "xml layouts"
         ],
-        "match_percentage": 6,
+        "match_percentage": 17,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 3,
+          "matched_count": 8,
           "total_count": 48
         },
         "match_explanations": [
           {
+            "skill": "app store connect",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "flutter or react native",
-            "match_type": "disjunction_match",
+            "match_type": "alias_match",
             "matched_by": "React Native",
             "confidence": "confirmed"
           },
@@ -3051,8 +3781,32 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "ios sdk",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "networking",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "release management",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "responsive layouts",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "rest api integration",
-            "match_type": "root_competency_match",
+            "match_type": "alias_match",
             "matched_by": "REST APIs",
             "confidence": "confirmed"
           }
@@ -3077,54 +3831,70 @@
       {
         "case_id": "case_17_bi_analyst_powerbi",
         "match_metrics": {
-          "precision": 0.6667,
-          "recall": 0.6667,
-          "f1": 0.6667,
+          "precision": 0.9412,
+          "recall": 0.8889,
+          "f1": 0.9143,
           "true_positives": [
+            "calculated fields",
+            "data visualization",
             "data warehousing",
             "dax",
+            "etl",
+            "etl concepts",
+            "excel",
+            "pivot tables",
             "power bi",
-            "sql"
+            "power bi service",
+            "power query",
+            "self service analytics",
+            "semantic models",
+            "snowflake",
+            "sql",
+            "star schema"
           ],
           "false_positives": [
-            "excel",
-            "power query"
+            "dashboard design"
           ],
           "false_negatives": [
-            "etl",
-            "snowflake"
+            "advanced sql",
+            "joins"
           ],
-          "tp_count": 4,
-          "fp_count": 2,
+          "tp_count": 16,
+          "fp_count": 1,
           "fn_count": 2
         },
         "actual_matched": [
+          "calculated fields",
+          "dashboard design",
+          "data visualization",
           "data warehousing",
           "dax",
+          "etl",
+          "etl concepts",
           "excel",
+          "pivot tables",
           "power bi",
+          "power bi service",
           "power query",
-          "sql"
+          "self-service analytics",
+          "semantic models",
+          "snowflake",
+          "sql",
+          "star schema"
         ],
         "actual_missing": [
           "advanced sql",
           "business metrics",
-          "calculated fields",
           "critical thinking",
-          "dashboard design",
           "data governance",
           "data modeling",
           "data quality",
           "data storytelling",
-          "data visualization",
           "documentation",
-          "etl concepts",
           "financial metrics fundamentals",
           "joins",
           "kpi design",
           "pandas fundamentals",
-          "pivot tables",
-          "power bi service",
           "presentation skills",
           "privacy",
           "python fundamentals",
@@ -3132,21 +3902,36 @@
           "report automation",
           "report writing",
           "requirements gathering",
-          "self-service analytics",
-          "semantic models",
           "stakeholder management",
-          "star schema",
           "statistics fundamentals",
           "tableau",
           "window functions"
         ],
-        "match_percentage": 16,
+        "match_percentage": 42,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 6,
-          "total_count": 38
+          "matched_count": 17,
+          "total_count": 40
         },
         "match_explanations": [
+          {
+            "skill": "calculated fields",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "dashboard design",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "data visualization",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "data warehousing",
             "match_type": "exact_match",
@@ -3160,10 +3945,28 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "etl",
+            "match_type": "exact_match",
+            "matched_by": "ETL",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "etl concepts",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "excel",
             "match_type": "exact_match",
             "matched_by": "Excel",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "pivot tables",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           },
           {
             "skill": "power bi",
@@ -3172,9 +3975,33 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "power bi service",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "power query",
             "match_type": "exact_match",
             "matched_by": "Power Query",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "self-service analytics",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "semantic models",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "snowflake",
+            "match_type": "exact_match",
+            "matched_by": "Snowflake",
             "confidence": "confirmed"
           },
           {
@@ -3182,14 +4009,20 @@
             "match_type": "exact_match",
             "matched_by": "SQL",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "star schema",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
           "advanced sql",
           "business metrics",
-          "calculated fields",
           "critical thinking",
-          "dashboard design"
+          "data governance",
+          "data modeling"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -3204,75 +4037,88 @@
       {
         "case_id": "case_18_technical_writer",
         "match_metrics": {
-          "precision": 0.75,
-          "recall": 0.4286,
-          "f1": 0.5455,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
           "true_positives": [
             "api documentation",
-            "git",
-            "markdown"
-          ],
-          "false_positives": [
-            "static site generators"
-          ],
-          "false_negatives": [
+            "code literacy",
+            "collaboration",
             "confluence",
+            "developer documentation",
             "dita",
+            "docs as code",
+            "documentation platforms",
+            "git",
             "html",
-            "openapi"
+            "markdown",
+            "openapi",
+            "openapi and swagger",
+            "reference documentation",
+            "static site generators",
+            "structured authoring",
+            "technical writing",
+            "user documentation",
+            "version control"
           ],
-          "tp_count": 3,
-          "fp_count": 1,
-          "fn_count": 4
+          "false_positives": [],
+          "false_negatives": [],
+          "tp_count": 19,
+          "fp_count": 0,
+          "fn_count": 0
         },
         "actual_matched": [
           "api documentation",
+          "code literacy",
+          "collaboration",
+          "confluence",
+          "developer documentation",
+          "dita",
+          "docs as code",
+          "documentation platforms",
           "git",
+          "html",
           "markdown",
-          "static site generators"
+          "openapi",
+          "openapi and swagger",
+          "reference documentation",
+          "static site generators",
+          "structured authoring",
+          "technical writing",
+          "user documentation",
+          "version control"
         ],
         "actual_missing": [
           "accessibility in documentation",
           "asciidoc",
           "audience analysis",
-          "code literacy",
-          "collaboration",
           "content reuse",
           "content strategy",
           "content testing",
-          "developer documentation",
           "diagrams and flowcharts",
-          "docs as code",
           "documentation planning",
-          "documentation platforms",
           "editing and proofreading",
           "grammar and style",
           "how-to guides",
           "information architecture",
-          "openapi and swagger",
           "plain language writing",
           "programming fundamentals",
           "project management",
-          "reference documentation",
           "release notes",
           "restructuredtext",
           "screenshot and image editing",
           "SME interviews",
           "software development lifecycle",
-          "structured authoring",
           "technical research",
-          "technical writing",
           "terminology management",
           "tutorial writing",
-          "usability testing",
-          "user documentation",
-          "version control"
+          "usability testing"
         ],
-        "match_percentage": 10,
+        "match_percentage": 44,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 4,
-          "total_count": 39
+          "matched_count": 19,
+          "total_count": 43
         },
         "match_explanations": [
           {
@@ -3282,9 +4128,57 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "code literacy",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "collaboration",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "confluence",
+            "match_type": "exact_match",
+            "matched_by": "Confluence",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "developer documentation",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "dita",
+            "match_type": "exact_match",
+            "matched_by": "DITA",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "docs as code",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "documentation platforms",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "git",
             "match_type": "exact_match",
             "matched_by": "Git",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "html",
+            "match_type": "exact_match",
+            "matched_by": "HTML",
             "confidence": "confirmed"
           },
           {
@@ -3294,18 +4188,60 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "openapi",
+            "match_type": "alias_match",
+            "matched_by": "Swagger / OpenAPI",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "openapi and swagger",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "reference documentation",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "static site generators",
             "match_type": "exact_match",
             "matched_by": "Static Site Generators",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "structured authoring",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "technical writing",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "user documentation",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "version control",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
           "accessibility in documentation",
           "asciidoc",
           "audience analysis",
-          "code literacy",
-          "collaboration"
+          "content reuse",
+          "content strategy"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -3320,50 +4256,76 @@
       {
         "case_id": "case_19_qa_automation_tester",
         "match_metrics": {
-          "precision": 1.0,
-          "recall": 0.7778,
-          "f1": 0.875,
+          "precision": 0.9583,
+          "recall": 1.0,
+          "f1": 0.9787,
           "true_positives": [
+            "api testing",
+            "bug reporting",
+            "ci/cd integration",
+            "cicd",
             "cypress",
+            "defect lifecycle",
+            "end to end testing",
             "git",
             "javascript or python",
             "jira",
             "postman",
+            "programming fundamentals",
+            "pytest",
             "pytest or junit",
-            "selenium"
+            "python",
+            "selenium",
+            "software development lifecycle",
+            "test automation",
+            "test case design",
+            "test frameworks",
+            "test planning",
+            "testrail",
+            "unit testing"
           ],
-          "false_positives": [],
-          "false_negatives": [
-            "cicd",
-            "testrail"
+          "false_positives": [
+            "functional testing"
           ],
-          "tp_count": 7,
-          "fp_count": 0,
-          "fn_count": 2
+          "false_negatives": [],
+          "tp_count": 23,
+          "fp_count": 1,
+          "fn_count": 0
         },
         "actual_matched": [
+          "api testing",
+          "bug reporting",
+          "ci/cd integration",
+          "cicd",
           "cypress",
+          "defect lifecycle",
+          "end-to-end testing",
+          "functional testing",
           "git",
           "javascript or python",
           "jira",
           "postman",
+          "programming fundamentals",
+          "pytest",
           "pytest or junit",
-          "selenium"
+          "python",
+          "selenium",
+          "software development lifecycle",
+          "test automation",
+          "test case design",
+          "test frameworks",
+          "test planning",
+          "testrail",
+          "unit testing"
         ],
         "actual_missing": [
           "accessibility testing",
           "ai-assisted test generation",
-          "api testing",
-          "bug reporting",
-          "ci/cd integration",
           "communication",
           "compatibility testing",
           "database testing",
-          "defect lifecycle",
           "documentation",
-          "end-to-end testing",
           "exploratory testing",
-          "functional testing",
           "integration testing",
           "load testing",
           "manual testing",
@@ -3371,7 +4333,6 @@
           "non-functional testing",
           "performance testing",
           "playwright",
-          "programming fundamentals",
           "quality engineering strategy",
           "regression testing",
           "rest api fundamentals",
@@ -3380,32 +4341,68 @@
           "security testing fundamentals",
           "self-healing test frameworks",
           "smoke testing",
-          "software development lifecycle",
           "software testing principles",
           "sql",
-          "test automation",
-          "test case design",
           "test data management",
-          "test frameworks",
-          "test planning",
           "test scenarios",
           "test strategy",
           "testing ai-powered and non-deterministic features",
-          "unit testing",
           "usability testing"
         ],
-        "match_percentage": 14,
+        "match_percentage": 45,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 7,
-          "total_count": 49
+          "matched_count": 24,
+          "total_count": 53
         },
         "match_explanations": [
+          {
+            "skill": "api testing",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "bug reporting",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "ci/cd integration",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "cicd",
+            "match_type": "alias_match",
+            "matched_by": "CI/CD",
+            "confidence": "confirmed"
+          },
           {
             "skill": "cypress",
             "match_type": "exact_match",
             "matched_by": "Cypress",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "defect lifecycle",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "end-to-end testing",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "functional testing",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           },
           {
             "skill": "git",
@@ -3432,9 +4429,27 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "programming fundamentals",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "pytest",
+            "match_type": "exact_match",
+            "matched_by": "Pytest",
+            "confidence": "confirmed"
+          },
+          {
             "skill": "pytest or junit",
             "match_type": "disjunction_match",
             "matched_by": "Pytest",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "python",
+            "match_type": "exact_match",
+            "matched_by": "Python",
             "confidence": "confirmed"
           },
           {
@@ -3442,14 +4457,56 @@
             "match_type": "alias_match",
             "matched_by": "Selenium WebDriver",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "software development lifecycle",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "test automation",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "test case design",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "test frameworks",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "test planning",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "testrail",
+            "match_type": "exact_match",
+            "matched_by": "TestRail",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "unit testing",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
           "accessibility testing",
           "ai-assisted test generation",
-          "api testing",
-          "bug reporting",
-          "ci/cd integration"
+          "communication",
+          "compatibility testing",
+          "database testing"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -3465,54 +4522,76 @@
         "case_id": "case_20_site_reliability_sre",
         "match_metrics": {
           "precision": 1.0,
-          "recall": 0.7,
-          "f1": 0.8235,
+          "recall": 0.913,
+          "f1": 0.9545,
           "true_positives": [
+            "alerting",
+            "ansible",
+            "automation",
+            "cloud platforms",
+            "configuration management",
             "docker",
+            "error budgets",
             "go",
             "grafana",
             "incident management",
             "kubernetes",
+            "observability",
+            "on call operations",
+            "platform engineering",
             "python",
+            "root cause analysis",
+            "service level agreements",
+            "service level indicators",
+            "service level objectives",
+            "slo/sli",
             "terraform"
           ],
           "false_positives": [],
           "false_negatives": [
-            "ansible",
-            "linux",
-            "slo/sli"
+            "distributed systems",
+            "linux"
           ],
-          "tp_count": 7,
+          "tp_count": 21,
           "fp_count": 0,
-          "fn_count": 3
+          "fn_count": 2
         },
         "actual_matched": [
+          "alerting",
+          "ansible",
+          "automation",
+          "cloud platforms",
+          "configuration management",
           "docker",
+          "error budgets",
           "go",
           "grafana",
           "incident management",
           "kubernetes",
+          "observability",
+          "on-call operations",
+          "platform engineering",
           "python",
+          "root cause analysis",
+          "service level agreements",
+          "service level indicators",
+          "service level objectives",
+          "slo/sli",
           "terraform"
         ],
         "actual_missing": [
           "agentops and ai agent reliability",
           "aiops",
-          "alerting",
-          "automation",
           "backup and disaster recovery",
           "bash",
           "capacity planning",
           "chaos engineering fundamentals",
           "ci/cd",
-          "cloud platforms",
           "communication",
-          "configuration management",
           "data structures",
           "distributed systems",
           "distributed tracing",
           "dns",
-          "error budgets",
           "finops",
           "http",
           "linux internals",
@@ -3520,35 +4599,64 @@
           "logging",
           "metrics",
           "networking",
-          "observability",
-          "on-call operations",
           "opentelemetry",
           "performance engineering",
-          "platform engineering",
           "postmortem writing",
           "prometheus",
           "reliability engineering",
-          "root cause analysis",
           "security fundamentals",
-          "service level agreements",
-          "service level indicators",
-          "service level objectives",
           "system design",
           "tcp/ip",
           "troubleshooting"
         ],
-        "match_percentage": 15,
+        "match_percentage": 43,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 7,
-          "total_count": 47
+          "matched_count": 21,
+          "total_count": 49
         },
         "match_explanations": [
+          {
+            "skill": "alerting",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "ansible",
+            "match_type": "exact_match",
+            "matched_by": "Ansible",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "automation",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "cloud platforms",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "configuration management",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "docker",
             "match_type": "exact_match",
             "matched_by": "Docker",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "error budgets",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           },
           {
             "skill": "go",
@@ -3575,9 +4683,57 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "observability",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "on-call operations",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "platform engineering",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "python",
             "match_type": "exact_match",
             "matched_by": "Python",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "root cause analysis",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "service level agreements",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "service level indicators",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "service level objectives",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "slo/sli",
+            "match_type": "exact_match",
+            "matched_by": "SLO/SLI",
             "confidence": "confirmed"
           },
           {
@@ -3590,9 +4746,9 @@
         "top_impact_gaps": [
           "agentops and ai agent reliability",
           "aiops",
-          "alerting",
-          "automation",
-          "backup and disaster recovery"
+          "backup and disaster recovery",
+          "bash",
+          "capacity planning"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -3779,33 +4935,35 @@
       {
         "case_id": "case_23_junior_web_developer",
         "match_metrics": {
-          "precision": 0.8,
-          "recall": 0.5714,
-          "f1": 0.6667,
+          "precision": 1.0,
+          "recall": 0.7778,
+          "f1": 0.875,
           "true_positives": [
             "css",
+            "css layout",
             "git",
             "html",
-            "javascript"
+            "javascript",
+            "responsive web design",
+            "semantic html"
           ],
-          "false_positives": [
-            "responsive web design"
-          ],
+          "false_positives": [],
           "false_negatives": [
             "bootstrap",
-            "jquery",
-            "responsive design"
+            "jquery"
           ],
-          "tp_count": 4,
-          "fp_count": 1,
-          "fn_count": 3
+          "tp_count": 7,
+          "fp_count": 0,
+          "fn_count": 2
         },
         "actual_matched": [
           "css",
+          "css layout",
           "git",
           "html",
           "javascript",
-          "responsive web design"
+          "responsive web design",
+          "semantic html"
         ],
         "actual_missing": [
           "accessibility",
@@ -3820,7 +4978,6 @@
           "component-based architecture",
           "cross-browser compatibility",
           "css grid",
-          "css layout",
           "debugging",
           "deployment",
           "dom manipulation",
@@ -3840,7 +4997,6 @@
           "rest api integration",
           "reviewing and validating ai-generated code",
           "routing",
-          "semantic html",
           "seo fundamentals",
           "state management",
           "typescript",
@@ -3850,10 +5006,10 @@
           "web performance",
           "web security fundamentals"
         ],
-        "match_percentage": 11,
+        "match_percentage": 15,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 5,
+          "matched_count": 7,
           "total_count": 46
         },
         "match_explanations": [
@@ -3862,6 +5018,12 @@
             "match_type": "alias_match",
             "matched_by": "CSS3",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "css layout",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           },
           {
             "skill": "git",
@@ -3886,6 +5048,12 @@
             "match_type": "exact_match",
             "matched_by": "Responsive Web Design",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "semantic html",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
@@ -3908,43 +5076,52 @@
       {
         "case_id": "case_24_abbreviation_heavy_resume",
         "match_metrics": {
-          "precision": 0.8571,
-          "recall": 0.75,
-          "f1": 0.8,
+          "precision": 0.8333,
+          "recall": 0.8333,
+          "f1": 0.8333,
           "true_positives": [
+            "ci/cd",
+            "cloud platforms",
             "deep learning",
+            "embeddings",
             "git",
             "large language models",
             "machine learning",
+            "programming fundamentals",
             "python",
             "retrieval augmented generation"
           ],
           "false_positives": [
-            "ci/cd"
+            "prompt engineering",
+            "semantic search"
           ],
           "false_negatives": [
             "amazon web services",
             "cicd"
           ],
-          "tp_count": 6,
-          "fp_count": 1,
+          "tp_count": 10,
+          "fp_count": 2,
           "fn_count": 2
         },
         "actual_matched": [
           "ci/cd",
+          "cloud platforms",
           "deep learning",
+          "embeddings",
           "git",
           "large language models",
           "machine learning",
+          "programming fundamentals",
+          "prompt engineering",
           "python",
-          "retrieval augmented generation"
+          "retrieval augmented generation",
+          "semantic search"
         ],
         "actual_missing": [
           "agent memory",
           "agentic ai architecture",
           "ai observability and agentops",
           "calculus fundamentals",
-          "cloud platforms",
           "computer vision fundamentals",
           "context engineering",
           "cross-validation",
@@ -3952,7 +5129,6 @@
           "data privacy",
           "data structures and algorithms",
           "docker",
-          "embeddings",
           "experiment tracking",
           "exploratory data analysis",
           "fastapi",
@@ -3971,18 +5147,17 @@
           "multi-agent orchestration",
           "natural language processing",
           "neural networks",
+          "numpy",
           "object-oriented programming",
+          "pandas",
           "probability",
           "problem solving",
-          "programming fundamentals",
-          "prompt engineering",
           "prompt injection and llm security",
           "pytorch",
           "reranking",
           "responsible ai",
           "rest api development",
           "scikit-learn",
-          "semantic search",
           "sql",
           "statistics",
           "supervised learning",
@@ -3994,17 +5169,17 @@
           "unsupervised learning",
           "vector databases"
         ],
-        "match_percentage": 22,
+        "match_percentage": 27,
         "scoring_breakdown": {
           "scoring_model": "tier_weighted_predefined",
-          "total_weight": 83.0,
-          "matched_weight": 18.0,
+          "total_weight": 85.0,
+          "matched_weight": 23.0,
           "critical_gaps_count": 3,
           "core_gaps_count": 6,
           "critical_gaps": [
-            "pytorch",
+            "vector databases",
             "tensorflow",
-            "vector databases"
+            "pytorch"
           ]
         },
         "match_explanations": [
@@ -4015,10 +5190,22 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "cloud platforms",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "deep learning",
             "match_type": "alias_match",
             "matched_by": "DL",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "embeddings",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           },
           {
             "skill": "git",
@@ -4039,6 +5226,18 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "programming fundamentals",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "prompt engineering",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "python",
             "match_type": "alias_match",
             "matched_by": "Py",
@@ -4049,14 +5248,20 @@
             "match_type": "alias_match",
             "matched_by": "RAG",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "semantic search",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
-          "pytorch",
-          "tensorflow",
           "vector databases",
+          "tensorflow",
+          "pytorch",
           "mlops fundamentals",
-          "feature engineering"
+          "docker"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -4075,16 +5280,18 @@
           "recall": 1.0,
           "f1": 1.0,
           "true_positives": [
-            "python"
+            "python",
+            "python syntax and semantics"
           ],
           "false_positives": [],
           "false_negatives": [],
-          "tp_count": 1,
+          "tp_count": 2,
           "fp_count": 0,
           "fn_count": 0
         },
         "actual_matched": [
-          "python"
+          "python",
+          "python syntax and semantics"
         ],
         "actual_missing": [
           "ai-assisted coding tools (copilot, cursor)",
@@ -4129,7 +5336,6 @@
           "postgresql",
           "problem solving",
           "pytest",
-          "python syntax and semantics",
           "relational database concepts",
           "request validation",
           "rest api design",
@@ -4144,21 +5350,20 @@
           "uv or modern python packaging",
           "virtual environments"
         ],
-        "match_percentage": 4,
+        "match_percentage": 7,
         "scoring_breakdown": {
           "scoring_model": "tier_weighted_predefined",
           "total_weight": 83.0,
-          "matched_weight": 3.0,
-          "critical_gaps_count": 7,
+          "matched_weight": 6.0,
+          "critical_gaps_count": 6,
           "core_gaps_count": 10,
           "critical_gaps": [
+            "object-oriented programming",
+            "functions and modules",
+            "exception handling",
             "data structures and algorithms",
             "control flow",
-            "data types and collections",
-            "object-oriented programming",
-            "python syntax and semantics",
-            "exception handling",
-            "functions and modules"
+            "data types and collections"
           ]
         },
         "match_explanations": [
@@ -4167,14 +5372,20 @@
             "match_type": "exact_match",
             "matched_by": "Python",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "python syntax and semantics",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
-          "data structures and algorithms",
-          "control flow",
-          "data types and collections",
           "object-oriented programming",
-          "python syntax and semantics"
+          "functions and modules",
+          "exception handling",
+          "data structures and algorithms",
+          "control flow"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -4275,22 +5486,19 @@
       {
         "case_id": "case_27_custom_jd_preferred_only",
         "match_metrics": {
-          "precision": 0.6667,
-          "recall": 0.6667,
-          "f1": 0.6667,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
           "true_positives": [
             "apache kafka",
+            "aws",
             "kubernetes"
           ],
-          "false_positives": [
-            "aws"
-          ],
-          "false_negatives": [
-            "amazon web services"
-          ],
-          "tp_count": 2,
-          "fp_count": 1,
-          "fn_count": 1
+          "false_positives": [],
+          "false_negatives": [],
+          "tp_count": 3,
+          "fp_count": 0,
+          "fn_count": 0
         },
         "actual_matched": [
           "Apache Kafka",
@@ -4479,21 +5687,25 @@
           "recall": 1.0,
           "f1": 1.0,
           "true_positives": [
+            "control flow",
             "data structures and algorithms",
             "exception handling",
             "object oriented programming",
+            "problem solving",
             "python"
           ],
           "false_positives": [],
           "false_negatives": [],
-          "tp_count": 4,
+          "tp_count": 6,
           "fp_count": 0,
           "fn_count": 0
         },
         "actual_matched": [
+          "control flow",
           "data structures and algorithms",
           "exception handling",
           "object-oriented programming",
+          "problem solving",
           "python"
         ],
         "actual_missing": [
@@ -4510,7 +5722,6 @@
           "configuration management",
           "container fundamentals",
           "context managers",
-          "control flow",
           "data types and collections",
           "database transactions",
           "debugging",
@@ -4534,7 +5745,6 @@
           "performance profiling",
           "pip and packaging",
           "postgresql",
-          "problem solving",
           "pytest",
           "python syntax and semantics",
           "relational database concepts",
@@ -4551,21 +5761,26 @@
           "uv or modern python packaging",
           "virtual environments"
         ],
-        "match_percentage": 14,
+        "match_percentage": 19,
         "scoring_breakdown": {
           "scoring_model": "tier_weighted_predefined",
           "total_weight": 83.0,
-          "matched_weight": 12.0,
-          "critical_gaps_count": 4,
+          "matched_weight": 16.0,
+          "critical_gaps_count": 3,
           "core_gaps_count": 10,
           "critical_gaps": [
-            "control flow",
-            "data types and collections",
+            "functions and modules",
             "python syntax and semantics",
-            "functions and modules"
+            "data types and collections"
           ]
         },
         "match_explanations": [
+          {
+            "skill": "control flow",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "data structures and algorithms",
             "match_type": "exact_match",
@@ -4585,6 +5800,12 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "problem solving",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "python",
             "match_type": "exact_match",
             "matched_by": "Python",
@@ -4592,11 +5813,11 @@
           }
         ],
         "top_impact_gaps": [
-          "control flow",
-          "data types and collections",
-          "python syntax and semantics",
           "functions and modules",
-          "type hints"
+          "python syntax and semantics",
+          "data types and collections",
+          "type hints",
+          "docker"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": []
@@ -4605,23 +5826,37 @@
         "case_id": "case_31_academic_only_ai_candidate",
         "match_metrics": {
           "precision": 1.0,
-          "recall": 0.6667,
-          "f1": 0.8,
+          "recall": 1.0,
+          "f1": 1.0,
           "true_positives": [
+            "deep learning",
+            "linear algebra",
+            "machine learning",
+            "neural networks",
+            "numpy",
+            "object oriented programming",
+            "programming fundamentals",
             "python",
-            "pytorch"
+            "pytorch",
+            "supervised learning"
           ],
           "false_positives": [],
-          "false_negatives": [
-            "numpy"
-          ],
-          "tp_count": 2,
+          "false_negatives": [],
+          "tp_count": 10,
           "fp_count": 0,
-          "fn_count": 1
+          "fn_count": 0
         },
         "actual_matched": [
+          "deep learning",
+          "linear algebra",
+          "machine learning",
+          "neural networks",
+          "numpy",
+          "object-oriented programming",
+          "programming fundamentals",
           "python",
-          "pytorch"
+          "pytorch",
+          "supervised learning"
         ],
         "actual_missing": [
           "agent memory",
@@ -4636,7 +5871,6 @@
           "data preprocessing",
           "data privacy",
           "data structures and algorithms",
-          "deep learning",
           "docker",
           "embeddings",
           "experiment tracking",
@@ -4649,21 +5883,17 @@
           "inference optimization",
           "langchain or llamaindex",
           "large language models",
-          "linear algebra",
           "linux",
           "llm evaluation",
-          "machine learning",
           "mlops fundamentals",
           "model evaluation",
           "model monitoring",
           "model quantization",
           "multi-agent orchestration",
           "natural language processing",
-          "neural networks",
-          "object-oriented programming",
+          "pandas",
           "probability",
           "problem solving",
-          "programming fundamentals",
           "prompt engineering",
           "prompt injection and llm security",
           "reranking",
@@ -4674,7 +5904,6 @@
           "semantic search",
           "sql",
           "statistics",
-          "supervised learning",
           "technical communication",
           "tensorflow",
           "testing",
@@ -4683,23 +5912,63 @@
           "unsupervised learning",
           "vector databases"
         ],
-        "match_percentage": 7,
+        "match_percentage": 21,
         "scoring_breakdown": {
           "scoring_model": "tier_weighted_predefined",
-          "total_weight": 83.0,
-          "matched_weight": 6.0,
-          "critical_gaps_count": 6,
+          "total_weight": 85.0,
+          "matched_weight": 18.0,
+          "critical_gaps_count": 4,
           "core_gaps_count": 7,
           "critical_gaps": [
-            "tensorflow",
-            "retrieval augmented generation",
-            "large language models",
             "vector databases",
-            "machine learning",
-            "deep learning"
+            "large language models",
+            "retrieval augmented generation",
+            "tensorflow"
           ]
         },
         "match_explanations": [
+          {
+            "skill": "deep learning",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "linear algebra",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "machine learning",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "neural networks",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "numpy",
+            "match_type": "exact_match",
+            "matched_by": "NumPy",
+            "confidence": "confirmed"
+          },
+          {
+            "skill": "object-oriented programming",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "programming fundamentals",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "python",
             "match_type": "exact_match",
@@ -4711,14 +5980,20 @@
             "match_type": "exact_match",
             "matched_by": "PyTorch",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "supervised learning",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
-          "tensorflow",
-          "retrieval augmented generation",
-          "large language models",
           "vector databases",
-          "machine learning"
+          "large language models",
+          "retrieval augmented generation",
+          "tensorflow",
+          "mlops fundamentals"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": []
@@ -4726,26 +6001,49 @@
       {
         "case_id": "case_32_professional_backend_fastapi",
         "match_metrics": {
-          "precision": 1.0,
+          "precision": 0.8667,
           "recall": 1.0,
-          "f1": 1.0,
+          "f1": 0.9286,
           "true_positives": [
+            "container fundamentals",
             "docker",
             "fastapi",
+            "functions and modules",
+            "http fundamentals",
+            "iterators and generators",
+            "json",
             "postgresql",
-            "python"
+            "python",
+            "relational database concepts",
+            "request validation",
+            "rest api design",
+            "sql"
           ],
-          "false_positives": [],
+          "false_positives": [
+            "decorators",
+            "dependency management"
+          ],
           "false_negatives": [],
-          "tp_count": 4,
-          "fp_count": 0,
+          "tp_count": 13,
+          "fp_count": 2,
           "fn_count": 0
         },
         "actual_matched": [
+          "container fundamentals",
+          "decorators",
+          "dependency management",
           "docker",
           "fastapi",
+          "functions and modules",
+          "http fundamentals",
+          "iterators and generators",
+          "json",
           "postgresql",
-          "python"
+          "python",
+          "relational database concepts",
+          "request validation",
+          "rest api design",
+          "sql"
         ],
         "actual_missing": [
           "ai-assisted coding tools (copilot, cursor)",
@@ -4759,24 +6057,17 @@
           "collaboration",
           "communication",
           "configuration management",
-          "container fundamentals",
           "context managers",
           "control flow",
           "data structures and algorithms",
           "data types and collections",
           "database transactions",
           "debugging",
-          "decorators",
-          "dependency management",
           "design patterns",
           "environment variables",
           "exception handling",
           "file handling",
-          "functions and modules",
           "git",
-          "http fundamentals",
-          "iterators and generators",
-          "json",
           "linux command line",
           "llm api integration basics",
           "logging",
@@ -4788,11 +6079,7 @@
           "problem solving",
           "pytest",
           "python syntax and semantics",
-          "relational database concepts",
-          "request validation",
-          "rest api design",
           "ruff or modern linting",
-          "sql",
           "sqlalchemy",
           "standard library",
           "technical documentation",
@@ -4802,24 +6089,41 @@
           "uv or modern python packaging",
           "virtual environments"
         ],
-        "match_percentage": 11,
+        "match_percentage": 28,
         "scoring_breakdown": {
           "scoring_model": "tier_weighted_predefined",
           "total_weight": 83.0,
-          "matched_weight": 9.0,
-          "critical_gaps_count": 7,
-          "core_gaps_count": 7,
+          "matched_weight": 23.0,
+          "critical_gaps_count": 6,
+          "core_gaps_count": 6,
           "critical_gaps": [
+            "object-oriented programming",
+            "exception handling",
             "data structures and algorithms",
             "control flow",
-            "data types and collections",
-            "object-oriented programming",
             "python syntax and semantics",
-            "exception handling",
-            "functions and modules"
+            "data types and collections"
           ]
         },
         "match_explanations": [
+          {
+            "skill": "container fundamentals",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "decorators",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "dependency management",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "docker",
             "match_type": "exact_match",
@@ -4833,6 +6137,30 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "functions and modules",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "http fundamentals",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "iterators and generators",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "json",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "postgresql",
             "match_type": "exact_match",
             "matched_by": "PostgreSQL",
@@ -4843,13 +6171,37 @@
             "match_type": "exact_match",
             "matched_by": "Python",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "relational database concepts",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "request validation",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "rest api design",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "sql",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
+          "object-oriented programming",
+          "exception handling",
           "data structures and algorithms",
           "control flow",
-          "data types and collections",
-          "object-oriented programming",
           "python syntax and semantics"
         ],
         "false_positive_matches": [],
@@ -4921,18 +6273,28 @@
           "recall": 1.0,
           "f1": 1.0,
           "true_positives": [
+            "container fundamentals",
             "docker",
-            "python"
+            "memory management",
+            "object oriented programming",
+            "python",
+            "python syntax and semantics",
+            "relational database concepts"
           ],
           "false_positives": [],
           "false_negatives": [],
-          "tp_count": 2,
+          "tp_count": 7,
           "fp_count": 0,
           "fn_count": 0
         },
         "actual_matched": [
+          "container fundamentals",
           "docker",
-          "python"
+          "memory management",
+          "object-oriented programming",
+          "python",
+          "python syntax and semantics",
+          "relational database concepts"
         ],
         "actual_missing": [
           "ai-assisted coding tools (copilot, cursor)",
@@ -4946,7 +6308,6 @@
           "collaboration",
           "communication",
           "configuration management",
-          "container fundamentals",
           "context managers",
           "control flow",
           "data structures and algorithms",
@@ -4968,16 +6329,12 @@
           "linux command line",
           "llm api integration basics",
           "logging",
-          "memory management",
-          "object-oriented programming",
           "orm concepts",
           "performance profiling",
           "pip and packaging",
           "postgresql",
           "problem solving",
           "pytest",
-          "python syntax and semantics",
-          "relational database concepts",
           "request validation",
           "rest api design",
           "ruff or modern linting",
@@ -4991,24 +6348,28 @@
           "uv or modern python packaging",
           "virtual environments"
         ],
-        "match_percentage": 6,
+        "match_percentage": 17,
         "scoring_breakdown": {
           "scoring_model": "tier_weighted_predefined",
           "total_weight": 83.0,
-          "matched_weight": 5.0,
-          "critical_gaps_count": 7,
+          "matched_weight": 14.0,
+          "critical_gaps_count": 5,
           "core_gaps_count": 9,
           "critical_gaps": [
+            "functions and modules",
+            "exception handling",
             "data structures and algorithms",
             "control flow",
-            "data types and collections",
-            "object-oriented programming",
-            "python syntax and semantics",
-            "exception handling",
-            "functions and modules"
+            "data types and collections"
           ]
         },
         "match_explanations": [
+          {
+            "skill": "container fundamentals",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
           {
             "skill": "docker",
             "match_type": "exact_match",
@@ -5016,18 +6377,42 @@
             "confidence": "confirmed"
           },
           {
+            "skill": "memory management",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "object-oriented programming",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
             "skill": "python",
             "match_type": "exact_match",
             "matched_by": "Python",
             "confidence": "confirmed"
+          },
+          {
+            "skill": "python syntax and semantics",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
+          },
+          {
+            "skill": "relational database concepts",
+            "match_type": "semantic_match",
+            "matched_by": "Demonstrated competency in related candidate skills",
+            "confidence": "likely"
           }
         ],
         "top_impact_gaps": [
+          "functions and modules",
+          "exception handling",
           "data structures and algorithms",
           "control flow",
-          "data types and collections",
-          "object-oriented programming",
-          "python syntax and semantics"
+          "data types and collections"
         ],
         "false_positive_matches": [],
         "non_equivalent_checks": [
@@ -5100,26 +6485,26 @@
     "scoring": [
       {
         "case_id": "case_01_fresh_grad_cs_ai",
-        "base_score": 14,
+        "base_score": 16,
         "expected_score": null,
         "expected_score_matched": true,
         "is_bounded": true,
         "monotonicity_preserved": true,
         "neutrality_preserved": true,
         "deduplication_preserved": true,
-        "score_with_added_missing": 16,
+        "score_with_added_missing": 18,
         "scoring_breakdown": {
           "scoring_model": "tier_weighted_predefined",
-          "total_weight": 83.0,
-          "matched_weight": 12.0,
+          "total_weight": 85.0,
+          "matched_weight": 14.0,
           "critical_gaps_count": 6,
           "core_gaps_count": 5,
           "critical_gaps": [
-            "tensorflow",
-            "retrieval augmented generation",
-            "large language models",
             "vector databases",
+            "large language models",
             "machine learning",
+            "retrieval augmented generation",
+            "tensorflow",
             "deep learning"
           ]
         }
@@ -5141,13 +6526,13 @@
           "critical_gaps_count": 7,
           "core_gaps_count": 4,
           "critical_gaps": [
+            "object-oriented programming",
+            "functions and modules",
+            "exception handling",
             "data structures and algorithms",
             "control flow",
-            "data types and collections",
-            "object-oriented programming",
             "python syntax and semantics",
-            "exception handling",
-            "functions and modules"
+            "data types and collections"
           ]
         }
       },
@@ -5184,8 +6569,8 @@
           "critical_gaps_count": 3,
           "core_gaps_count": 3,
           "critical_gaps": [
-            "ci/cd pipelines",
             "infrastructure as code",
+            "ci/cd pipelines",
             "containerization"
           ]
         }
@@ -5325,38 +6710,22 @@
       },
       {
         "case_id": "case_13_nlp_engineer_candidate",
-        "base_score": 6,
+        "base_score": 15,
         "expected_score": null,
         "expected_score_matched": true,
         "is_bounded": true,
         "monotonicity_preserved": true,
         "neutrality_preserved": true,
         "deduplication_preserved": true,
-        "score_with_added_missing": 8,
+        "score_with_added_missing": 17,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 3,
-          "total_count": 50
+          "matched_count": 8,
+          "total_count": 54
         }
       },
       {
         "case_id": "case_14_cybersecurity_analyst",
-        "base_score": 4,
-        "expected_score": null,
-        "expected_score_matched": true,
-        "is_bounded": true,
-        "monotonicity_preserved": true,
-        "neutrality_preserved": true,
-        "deduplication_preserved": true,
-        "score_with_added_missing": 7,
-        "scoring_breakdown": {
-          "scoring_model": "equal_weighted",
-          "matched_count": 2,
-          "total_count": 45
-        }
-      },
-      {
-        "case_id": "case_15_embedded_iot_engineer",
         "base_score": 16,
         "expected_score": null,
         "expected_score_matched": true,
@@ -5367,8 +6736,24 @@
         "score_with_added_missing": 18,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 7,
-          "total_count": 44
+          "matched_count": 8,
+          "total_count": 50
+        }
+      },
+      {
+        "case_id": "case_15_embedded_iot_engineer",
+        "base_score": 21,
+        "expected_score": null,
+        "expected_score_matched": true,
+        "is_bounded": true,
+        "monotonicity_preserved": true,
+        "neutrality_preserved": true,
+        "deduplication_preserved": true,
+        "score_with_added_missing": 23,
+        "scoring_breakdown": {
+          "scoring_model": "equal_weighted",
+          "matched_count": 10,
+          "total_count": 47
         }
       },
       {
@@ -5389,66 +6774,66 @@
       },
       {
         "case_id": "case_17_bi_analyst_powerbi",
-        "base_score": 16,
+        "base_score": 20,
         "expected_score": null,
         "expected_score_matched": true,
         "is_bounded": true,
         "monotonicity_preserved": true,
         "neutrality_preserved": true,
         "deduplication_preserved": true,
-        "score_with_added_missing": 18,
+        "score_with_added_missing": 22,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 6,
-          "total_count": 38
+          "matched_count": 8,
+          "total_count": 40
         }
       },
       {
         "case_id": "case_18_technical_writer",
-        "base_score": 10,
+        "base_score": 19,
         "expected_score": null,
         "expected_score_matched": true,
         "is_bounded": true,
         "monotonicity_preserved": true,
         "neutrality_preserved": true,
         "deduplication_preserved": true,
-        "score_with_added_missing": 13,
+        "score_with_added_missing": 21,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 4,
-          "total_count": 39
+          "matched_count": 8,
+          "total_count": 43
         }
       },
       {
         "case_id": "case_19_qa_automation_tester",
-        "base_score": 14,
+        "base_score": 21,
         "expected_score": null,
         "expected_score_matched": true,
         "is_bounded": true,
         "monotonicity_preserved": true,
         "neutrality_preserved": true,
         "deduplication_preserved": true,
-        "score_with_added_missing": 16,
+        "score_with_added_missing": 23,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 7,
-          "total_count": 49
+          "matched_count": 11,
+          "total_count": 53
         }
       },
       {
         "case_id": "case_20_site_reliability_sre",
-        "base_score": 15,
+        "base_score": 18,
         "expected_score": null,
         "expected_score_matched": true,
         "is_bounded": true,
         "monotonicity_preserved": true,
         "neutrality_preserved": true,
         "deduplication_preserved": true,
-        "score_with_added_missing": 17,
+        "score_with_added_missing": 20,
         "scoring_breakdown": {
           "scoring_model": "equal_weighted",
-          "matched_count": 7,
-          "total_count": 47
+          "matched_count": 9,
+          "total_count": 49
         }
       },
       {
@@ -5501,24 +6886,24 @@
       },
       {
         "case_id": "case_24_abbreviation_heavy_resume",
-        "base_score": 22,
+        "base_score": 21,
         "expected_score": null,
         "expected_score_matched": true,
         "is_bounded": true,
         "monotonicity_preserved": true,
         "neutrality_preserved": true,
         "deduplication_preserved": true,
-        "score_with_added_missing": 23,
+        "score_with_added_missing": 22,
         "scoring_breakdown": {
           "scoring_model": "tier_weighted_predefined",
-          "total_weight": 83.0,
+          "total_weight": 85.0,
           "matched_weight": 18.0,
           "critical_gaps_count": 3,
           "core_gaps_count": 6,
           "critical_gaps": [
-            "pytorch",
+            "vector databases",
             "tensorflow",
-            "vector databases"
+            "pytorch"
           ]
         }
       },
@@ -5539,13 +6924,13 @@
           "critical_gaps_count": 7,
           "core_gaps_count": 10,
           "critical_gaps": [
+            "object-oriented programming",
+            "functions and modules",
+            "exception handling",
             "data structures and algorithms",
             "control flow",
-            "data types and collections",
-            "object-oriented programming",
             "python syntax and semantics",
-            "exception handling",
-            "functions and modules"
+            "data types and collections"
           ]
         }
       },
@@ -5665,35 +7050,35 @@
           "critical_gaps_count": 4,
           "core_gaps_count": 10,
           "critical_gaps": [
+            "functions and modules",
             "control flow",
-            "data types and collections",
             "python syntax and semantics",
-            "functions and modules"
+            "data types and collections"
           ]
         }
       },
       {
         "case_id": "case_31_academic_only_ai_candidate",
-        "base_score": 7,
+        "base_score": 8,
         "expected_score": null,
         "expected_score_matched": true,
         "is_bounded": true,
         "monotonicity_preserved": true,
         "neutrality_preserved": true,
         "deduplication_preserved": true,
-        "score_with_added_missing": 8,
+        "score_with_added_missing": 9,
         "scoring_breakdown": {
           "scoring_model": "tier_weighted_predefined",
-          "total_weight": 83.0,
-          "matched_weight": 6.0,
+          "total_weight": 85.0,
+          "matched_weight": 7.0,
           "critical_gaps_count": 6,
           "core_gaps_count": 7,
           "critical_gaps": [
-            "tensorflow",
-            "retrieval augmented generation",
-            "large language models",
             "vector databases",
+            "large language models",
             "machine learning",
+            "retrieval augmented generation",
+            "tensorflow",
             "deep learning"
           ]
         }
@@ -5715,13 +7100,13 @@
           "critical_gaps_count": 7,
           "core_gaps_count": 7,
           "critical_gaps": [
+            "object-oriented programming",
+            "functions and modules",
+            "exception handling",
             "data structures and algorithms",
             "control flow",
-            "data types and collections",
-            "object-oriented programming",
             "python syntax and semantics",
-            "exception handling",
-            "functions and modules"
+            "data types and collections"
           ]
         }
       },
@@ -5764,13 +7149,13 @@
           "critical_gaps_count": 7,
           "core_gaps_count": 9,
           "critical_gaps": [
+            "object-oriented programming",
+            "functions and modules",
+            "exception handling",
             "data structures and algorithms",
             "control flow",
-            "data types and collections",
-            "object-oriented programming",
             "python syntax and semantics",
-            "exception handling",
-            "functions and modules"
+            "data types and collections"
           ]
         }
       },

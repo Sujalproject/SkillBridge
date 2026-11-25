@@ -36,6 +36,7 @@ Desktop.ini
 sample.md
 Sujal_Kumar_Patwa_Resume.pdf
 images/*
+evaluation/scratch/
 
 # Streamlit (optional legacy secrets)
 .streamlit/secrets.toml

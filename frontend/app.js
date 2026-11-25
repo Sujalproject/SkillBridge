@@ -27,6 +27,8 @@ const state = {
 
 // Storage Keys for Controlled Persistence
 const STORAGE_KEYS = {
+  THEME: "skillbridge_theme",
+  SERVER_BOOT_ID: "skillbridge_server_boot_id",
   SESSION_ANALYSIS: "skillbridge_session_analysis",
   SESSION_ROADMAP: "skillbridge_session_roadmap",
   PREFIX_TOPICS: "skillbridge_topics_",
@@ -96,6 +98,12 @@ function safeSessionGet(key) {
   }
 }
 
+function safeSessionRemove(key) {
+  try {
+    sessionStorage.removeItem(key);
+  } catch (_) {}
+}
+
 // DOM Elements
 const elements = {
   systemStatus: document.getElementById("systemStatus"),
@@ -137,6 +145,13 @@ const elements = {
   missingCount: document.getElementById("missingCount"),
   totalRequiredCount: document.getElementById("totalRequiredCount"),
 
+  // Skill Extraction & Benchmark Comparison Studio
+  extractedCandidateCount: document.getElementById("extractedCandidateCount"),
+  extractedCandidateTags: document.getElementById("extractedCandidateTags"),
+  benchmarkColHeading: document.getElementById("benchmarkColHeading"),
+  extractedRequiredCount: document.getElementById("extractedRequiredCount"),
+  extractedRequiredTags: document.getElementById("extractedRequiredTags"),
+
   candidateAvatar: document.getElementById("candidateAvatar"),
   candidateName: document.getElementById("candidateName"),
   candidateEmail: document.getElementById("candidateEmail"),
@@ -167,6 +182,7 @@ const elements = {
   milestonesStream: document.getElementById("milestonesStream"),
 
   toastContainer: document.getElementById("toastContainer"),
+  themeToggleBtn: document.getElementById("themeToggleBtn"),
 };
 
 // ============================================================================
@@ -174,14 +190,51 @@ const elements = {
 // ============================================================================
 
 document.addEventListener("DOMContentLoaded", () => {
+  initTheme();
   checkBackendHealth();
   loadCareers();
   initDropzone();
   initFormListeners();
   initFilterListeners();
   initRoadmapListeners();
-  initRestoredState();
 });
+
+function initTheme() {
+  let isDark = true;
+  try {
+    const saved = localStorage.getItem(STORAGE_KEYS.THEME);
+    if (saved) {
+      isDark = saved === "dark";
+    }
+  } catch (_) {}
+
+  applyTheme(isDark);
+
+  if (elements.themeToggleBtn) {
+    elements.themeToggleBtn.addEventListener("click", () => {
+      const currentlyDark = document.body.classList.contains("dark-mode");
+      const nextDark = !currentlyDark;
+      applyTheme(nextDark);
+      try {
+        localStorage.setItem(STORAGE_KEYS.THEME, nextDark ? "dark" : "light");
+      } catch (_) {}
+    });
+  }
+}
+
+function applyTheme(isDark) {
+  document.body.classList.toggle("dark-mode", isDark);
+  if (elements.themeToggleBtn) {
+    const icon = elements.themeToggleBtn.querySelector(".theme-toggle-icon");
+    const label = elements.themeToggleBtn.querySelector(".theme-toggle-label");
+    if (icon) {
+      icon.className = isDark ? "fa-solid fa-sun theme-toggle-icon" : "fa-solid fa-moon theme-toggle-icon";
+    }
+    if (label) {
+      label.textContent = isDark ? "Light" : "Dark";
+    }
+  }
+}
 
 function initRestoredState() {
   const savedAnalysis = safeSessionGet(STORAGE_KEYS.SESSION_ANALYSIS);
@@ -210,6 +263,28 @@ async function checkBackendHealth() {
       const data = await res.json();
       if (data.status === "ok") {
         updateSystemStatus(true, "Backend Online");
+
+        // Server Restart vs Normal Page Refresh Detection
+        if (data.boot_id) {
+          const lastBootId = safeSessionGet(STORAGE_KEYS.SERVER_BOOT_ID);
+          if (!lastBootId) {
+            safeSessionSet(STORAGE_KEYS.SERVER_BOOT_ID, data.boot_id);
+            initRestoredState();
+          } else if (lastBootId !== data.boot_id) {
+            // New server instance detected (server was restarted)!
+            // Clear previous session data for a 100% fresh start
+            safeSessionRemove(STORAGE_KEYS.SESSION_ANALYSIS);
+            safeSessionRemove(STORAGE_KEYS.SESSION_ROADMAP);
+            safeSessionSet(STORAGE_KEYS.SERVER_BOOT_ID, data.boot_id);
+            if (elements.dashboardSection) elements.dashboardSection.classList.add("hidden");
+            if (elements.roadmapDisplayWrapper) elements.roadmapDisplayWrapper.classList.add("hidden");
+          } else {
+            // Same server instance (normal page refresh) -> preserve active analysis!
+            initRestoredState();
+          }
+        } else {
+          initRestoredState();
+        }
         return;
       }
     }
@@ -535,22 +610,22 @@ function renderDashboard(data) {
   // Qualitative Grade
   if (percentage >= 75) {
     elements.readinessGradeBadge.textContent = "High Match — Strong Foundation";
-    elements.readinessGradeBadge.style.color = "var(--accent-emerald)";
+    elements.readinessGradeBadge.style.color = "var(--tint-green-text)";
     elements.readinessSummaryText.textContent =
-      "Your demonstrated skills strongly align with this career benchmark. Minor targeted upskilling will make you an exceptional candidate.";
+      "Your demonstrated experience aligns well with this role's requirements. Targeted upskilling in a few areas will strengthen your candidacy.";
     elements.scoreCircle.style.stroke = "var(--accent-emerald)";
   } else if (percentage >= 45) {
     elements.readinessGradeBadge.textContent = "Moderate Fit — Bridgeable Gap";
-    elements.readinessGradeBadge.style.color = "var(--accent-amber)";
+    elements.readinessGradeBadge.style.color = "var(--tint-amber-text)";
     elements.readinessSummaryText.textContent =
-      "You have key foundational abilities, but key industry-standard tools or frameworks are missing. Complete the roadmap below to close the gap.";
+      "You have foundational competencies, but several industry-expected tools or frameworks are missing. The learning roadmap below addresses each gap.";
     elements.scoreCircle.style.stroke = "var(--accent-amber)";
   } else {
-    elements.readinessGradeBadge.textContent = "Foundational Growth Needed";
-    elements.readinessGradeBadge.style.color = "var(--accent-rose)";
+    elements.readinessGradeBadge.textContent = "Significant Growth Needed";
+    elements.readinessGradeBadge.style.color = "var(--tint-amber-text)";
     elements.readinessSummaryText.textContent =
-      "A significant skill delta exists for this role. Follow the tailored curriculum to systematically build and demonstrate these competencies.";
-    elements.scoreCircle.style.stroke = "var(--accent-cyan)";
+      "A meaningful skill delta exists for this role. Follow the structured curriculum below to systematically build and demonstrate these competencies.";
+    elements.scoreCircle.style.stroke = "var(--accent-indigo)";
   }
 
   // Counters
@@ -597,8 +672,77 @@ function renderDashboard(data) {
   // Projects & Experience Timeline
   renderExperience(profile.experience, profile.projects);
 
+  // Skill Extraction & Benchmark Comparison Studio
+  renderExtractionComparison(data);
+
   // Render Skill Cloud
   renderSkillsCloud();
+}
+
+function renderExtractionComparison(data) {
+  if (!elements.extractedCandidateTags || !elements.extractedRequiredTags) return;
+
+  const candidateSkills = (data.profile && Array.isArray(data.profile.skills)) ? data.profile.skills : [];
+  const requiredSkills = Array.isArray(data.required_skills) ? data.required_skills : [];
+  const matchedSkills = Array.isArray(data.matched_skills) ? data.matched_skills : [];
+
+  // Create a lowercase set for fast matching comparison
+  const matchedSet = new Set(matchedSkills.map((s) => String(s).toLowerCase().trim()));
+
+  // 1. Candidate Extracted Skills Column
+  if (elements.extractedCandidateCount) {
+    elements.extractedCandidateCount.textContent = `${candidateSkills.length} ${candidateSkills.length === 1 ? "skill" : "skills"}`;
+  }
+  elements.extractedCandidateTags.innerHTML = "";
+
+  if (candidateSkills.length === 0) {
+    elements.extractedCandidateTags.innerHTML =
+      '<div class="extraction-empty-state"><i class="fa-solid fa-circle-info"></i> No specific skills were extracted from this resume.</div>';
+  } else {
+    candidateSkills.forEach((skill) => {
+      const isMatched = matchedSet.has(String(skill).toLowerCase().trim());
+      const tag = document.createElement("span");
+      tag.className = `extraction-tag ${isMatched ? "matched" : ""}`;
+      tag.title = isMatched ? "Matches target benchmark requirement" : "Demonstrated candidate competency";
+
+      const iconHtml = isMatched
+        ? '<i class="fa-solid fa-check"></i> '
+        : '<i class="fa-solid fa-id-badge"></i> ';
+
+      tag.innerHTML = `${iconHtml}${escapeHtml(skill)}`;
+      elements.extractedCandidateTags.appendChild(tag);
+    });
+  }
+
+  // 2. Required / Benchmark Skills Column
+  const isJd = Boolean(data.jd_analysis);
+  if (elements.benchmarkColHeading) {
+    elements.benchmarkColHeading.textContent = isJd ? "Job Description Requirements" : "Role Benchmark Requirements";
+  }
+
+  if (elements.extractedRequiredCount) {
+    elements.extractedRequiredCount.textContent = `${requiredSkills.length} ${requiredSkills.length === 1 ? "skill" : "skills"}`;
+  }
+  elements.extractedRequiredTags.innerHTML = "";
+
+  if (requiredSkills.length === 0) {
+    elements.extractedRequiredTags.innerHTML =
+      '<div class="extraction-empty-state"><i class="fa-solid fa-circle-info"></i> No required benchmark skills found.</div>';
+  } else {
+    requiredSkills.forEach((skill) => {
+      const isMatched = matchedSet.has(String(skill).toLowerCase().trim());
+      const tag = document.createElement("span");
+      tag.className = `extraction-tag ${isMatched ? "matched" : "missing"}`;
+      tag.title = isMatched ? "Fulfilled by candidate" : "Missing gap to bridge";
+
+      const iconHtml = isMatched
+        ? '<i class="fa-solid fa-check"></i> '
+        : '<i class="fa-solid fa-triangle-exclamation"></i> ';
+
+      tag.innerHTML = `${iconHtml}${escapeHtml(skill)}`;
+      elements.extractedRequiredTags.appendChild(tag);
+    });
+  }
 }
 
 function renderExperience(experience = [], projects = []) {
@@ -771,18 +915,18 @@ function showEvidenceInspector(skillName, prof, skillType) {
     else if (tier === "academic") tierHuman = "Academic Coursework";
 
     elements.evidenceTierPill.textContent = `${conf} • ${tierHuman}`;
-    elements.evidenceTierPill.style.color = (tier === "professional" || tier === "project") ? "var(--accent-emerald)" : "var(--accent-cyan)";
+    elements.evidenceTierPill.style.color = (tier === "professional" || tier === "project") ? "var(--tint-green-text)" : "var(--tint-indigo-text)";
     elements.evidenceQuoteText.textContent = prof.supporting_evidence
       ? `"${prof.supporting_evidence}"`
       : "Verified across candidate profile credentials.";
   } else if (skillType === "matched") {
     elements.evidenceTierPill.textContent = "MATCHED COMPETENCY";
-    elements.evidenceTierPill.style.color = "var(--accent-emerald)";
+    elements.evidenceTierPill.style.color = "var(--tint-green-text)";
     elements.evidenceQuoteText.textContent = "Demonstrated across candidate resume credentials.";
   } else {
     elements.evidenceTierPill.textContent = "TARGET SKILL GAP";
-    elements.evidenceTierPill.style.color = "var(--accent-amber)";
-    elements.evidenceQuoteText.textContent = "This required competency was not found in your resume. Check your generated learning roadmap below for tailored study milestones and verified learning resources.";
+    elements.evidenceTierPill.style.color = "var(--tint-amber-text)";
+    elements.evidenceQuoteText.textContent = "This required competency was not identified in your resume. Review the generated learning roadmap below for structured study milestones and curated resources.";
   }
 
   elements.evidenceInspector.classList.remove("hidden");

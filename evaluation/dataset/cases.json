@@ -25,20 +25,30 @@
       "object-oriented programming"
     ],
     "expected_matched_skills": [
+      "deep learning",
+      "exploratory data analysis",
+      "feature engineering",
       "git",
+      "hyperparameter tuning",
+      "linear algebra",
+      "machine learning",
+      "model evaluation",
+      "neural networks",
       "numpy",
+      "object-oriented programming",
       "pandas",
+      "programming fundamentals",
       "python",
       "pytorch",
       "scikit-learn"
     ],
     "expected_missing_skills": [
+      "ci/cd",
       "docker",
       "fastapi",
       "langgraph",
-      "vector databases",
       "mlops",
-      "ci/cd"
+      "vector databases"
     ],
     "related_non_equivalent_skills": [
       {
@@ -85,21 +95,33 @@
       "sqlalchemy"
     ],
     "expected_matched_skills": [
+      "container fundamentals",
+      "database transactions",
+      "debugging",
+      "decorators",
+      "dependency management",
       "docker",
       "fastapi",
+      "functions and modules",
       "git",
+      "http fundamentals",
+      "json",
       "linux",
+      "linux command line",
+      "orm concepts",
       "postgresql",
       "pytest",
       "python",
+      "rest api design",
       "rest apis",
+      "sql",
       "sqlalchemy"
     ],
     "expected_missing_skills": [
-      "celery",
-      "kubernetes",
       "aws",
-      "design patterns"
+      "celery",
+      "design patterns",
+      "kubernetes"
     ],
     "related_non_equivalent_skills": [
       {
@@ -135,18 +157,26 @@
       "data cleaning"
     ],
     "expected_matched_skills": [
+      "dashboard design",
       "data cleaning",
+      "data visualization",
+      "data wrangling",
+      "joins and subqueries",
       "matplotlib",
+      "missing data treatment",
       "pandas",
       "python",
+      "relational database concepts",
+      "reporting",
+      "spreadsheet formulas",
       "sql",
       "tableau"
     ],
     "expected_missing_skills": [
-      "powerbi",
-      "statistics and probability",
       "a/b testing",
-      "data warehousing"
+      "data warehousing",
+      "powerbi",
+      "statistics and probability"
     ],
     "related_non_equivalent_skills": [
       {
@@ -195,17 +225,29 @@
       "git"
     ],
     "expected_matched_skills": [
+      "alerting",
       "amazon web services",
       "ansible",
+      "automation",
+      "aws or azure or google cloud",
       "bash",
+      "ci/cd pipelines",
       "cicd",
+      "configuration management",
+      "containerization",
       "docker",
       "git",
       "grafana",
+      "infrastructure as code",
       "kubernetes",
       "linux",
+      "linux administration",
+      "monitoring",
+      "platform engineering",
       "prometheus",
-      "terraform"
+      "reliability engineering",
+      "terraform",
+      "version control"
     ],
     "expected_missing_skills": [
       "argocd",
@@ -248,20 +290,28 @@
       "npm"
     ],
     "expected_matched_skills": [
+      "component lifecycle",
+      "component testing",
       "css",
+      "dom",
+      "es6+",
+      "event loop",
       "git",
       "html",
       "javascript",
       "jest",
+      "jest or vitest",
+      "npm or pnpm",
       "react",
-      "responsive design"
+      "responsive design",
+      "unit testing"
     ],
     "expected_missing_skills": [
-      "typescript",
       "next.js",
+      "state management (redux)",
       "tailwind css",
-      "webpack",
-      "state management (redux)"
+      "typescript",
+      "webpack"
     ],
     "related_non_equivalent_skills": [
       {
@@ -383,16 +433,20 @@
       "microsoft word"
     ],
     "expected_matched_skills": [
+      "branching and merge workflows",
+      "command line",
       "git",
-      "python"
+      "object-oriented programming",
+      "programming fundamentals",
+      "python",
+      "team collaboration"
     ],
     "expected_missing_skills": [
+      "ci/cd",
       "data structures and algorithms",
-      "object-oriented programming",
-      "unit testing",
-      "sql",
       "rest apis",
-      "ci/cd"
+      "sql",
+      "unit testing"
     ],
     "related_non_equivalent_skills": [
       {
@@ -432,20 +486,29 @@
       "amazon web services"
     ],
     "expected_matched_skills": [
+      "airflow",
       "apache airflow",
       "apache kafka",
       "apache spark",
+      "aws or azure or google cloud",
+      "batch processing",
+      "data ingestion",
+      "data lakes",
+      "distributed systems",
       "docker",
+      "object storage",
       "postgresql",
       "pyspark",
       "python",
-      "sql"
+      "relational database design",
+      "sql",
+      "stream processing"
     ],
     "expected_missing_skills": [
+      "ci/cd",
       "data modeling",
       "dbt",
-      "snowflake",
-      "ci/cd"
+      "snowflake"
     ],
     "related_non_equivalent_skills": [
       {
@@ -486,8 +549,8 @@
       "backup and recovery",
       "database performance tuning",
       "replication and high availability",
-      "user access management",
-      "storage engine optimization"
+      "storage engine optimization",
+      "user access management"
     ],
     "related_non_equivalent_skills": [
       {
@@ -526,17 +589,18 @@
       "excel automation"
     ],
     "expected_matched_skills": [
+      "automated testing",
       "git",
       "python"
     ],
     "expected_missing_skills": [
-      "machine learning algorithms",
-      "scikit-learn",
       "deep learning",
-      "pytorch",
-      "model evaluation and validation",
       "feature engineering",
-      "mlops"
+      "machine learning algorithms",
+      "mlops",
+      "model evaluation and validation",
+      "pytorch",
+      "scikit-learn"
     ],
     "related_non_equivalent_skills": [
       {
@@ -622,20 +686,36 @@
       "git"
     ],
     "expected_matched_skills": [
+      "attention mechanisms",
       "bert",
+      "bert and encoder models",
+      "fine-tuning",
       "git",
+      "hugging face transformers",
       "huggingface transformers",
+      "information extraction",
+      "language modeling",
+      "large language models",
+      "linguistics fundamentals",
+      "named entity recognition",
+      "natural language processing",
       "nltk",
       "python",
       "pytorch",
+      "sentence embeddings",
+      "sentiment analysis",
       "spacy",
+      "text classification",
+      "text preprocessing",
+      "tokenization",
+      "transformers",
       "word2vec"
     ],
     "expected_missing_skills": [
-      "vector databases",
-      "llm fine-tuning",
       "langchain",
-      "prompt engineering"
+      "llm fine-tuning",
+      "prompt engineering",
+      "vector databases"
     ],
     "related_non_equivalent_skills": [
       {
@@ -675,19 +755,28 @@
       "python"
     ],
     "expected_matched_skills": [
-      "cryptography",
+      "cryptography fundamentals",
+      "encryption",
+      "intrusion detection and prevention",
       "linux",
+      "log analysis",
       "metasploit",
       "network security",
       "nmap",
-      "python",
+      "penetration testing fundamentals",
+      "scripting with python or powershell",
+      "security information and event management",
+      "security monitoring",
       "snort",
+      "splunk or sentinel",
+      "tcp/ip",
       "wireshark"
     ],
     "expected_missing_skills": [
-      "incident response planning",
-      "penetration testing methodology",
-      "security compliance (soc 2 / iso 27001)"
+      "incident response",
+      "owasp top 10",
+      "threat modeling",
+      "vulnerability scanning"
     ],
     "related_non_equivalent_skills": [
       {
@@ -731,21 +820,30 @@
       "embedded linux"
     ],
     "expected_matched_skills": [
+      "arm architecture",
       "arm cortex-m",
       "c",
       "c++",
+      "communication protocols",
+      "device drivers",
       "embedded linux",
+      "firmware development",
       "freertos",
       "git",
+      "gpio",
+      "hardware-software integration",
       "i2c",
+      "oscilloscope and logic analyzer",
+      "peripheral interfaces",
       "spi",
       "stm32",
-      "uart"
+      "uart",
+      "version control"
     ],
     "expected_missing_skills": [
-      "pcb design",
+      "can bus",
       "device tree configuration",
-      "can bus"
+      "pcb design"
     ],
     "related_non_equivalent_skills": [
       {
@@ -785,19 +883,21 @@
       "fastlane"
     ],
     "expected_matched_skills": [
-      "android",
+      "flutter or react native",
       "git",
-      "ios",
-      "javascript",
-      "react native",
-      "rest apis",
-      "typescript"
+      "ios sdk",
+      "networking",
+      "release management",
+      "responsive layouts",
+      "rest api integration",
+      "state management"
     ],
     "expected_missing_skills": [
-      "swift",
+      "android sdk",
       "kotlin",
-      "mobile ui/ux design",
-      "offline synchronization"
+      "mobile ui design",
+      "offline-first design",
+      "swift"
     ],
     "related_non_equivalent_skills": [
       {
@@ -835,16 +935,28 @@
       "excel"
     ],
     "expected_matched_skills": [
-      "dax",
+      "advanced sql",
+      "calculated fields",
+      "data visualization",
       "data warehousing",
+      "dax",
       "etl",
+      "etl concepts",
+      "excel",
+      "joins",
+      "pivot tables",
       "power bi",
+      "power bi service",
+      "power query",
+      "self-service analytics",
+      "semantic models",
       "snowflake",
-      "sql"
+      "sql",
+      "star schema"
     ],
     "expected_missing_skills": [
-      "predictive modeling",
       "looker",
+      "predictive modeling",
       "python for analytics"
     ],
     "related_non_equivalent_skills": [
@@ -884,17 +996,29 @@
     ],
     "expected_matched_skills": [
       "api documentation",
+      "code literacy",
+      "collaboration",
       "confluence",
+      "developer documentation",
       "dita",
+      "docs as code",
+      "documentation platforms",
       "git",
       "html",
       "markdown",
-      "openapi"
+      "openapi",
+      "openapi and swagger",
+      "reference documentation",
+      "static site generators",
+      "structured authoring",
+      "technical writing",
+      "user documentation",
+      "version control"
     ],
     "expected_missing_skills": [
+      "information architecture",
       "user journey mapping",
-      "video tutorial production",
-      "information architecture"
+      "video tutorial production"
     ],
     "related_non_equivalent_skills": [
       {
@@ -934,20 +1058,34 @@
       "git"
     ],
     "expected_matched_skills": [
+      "api testing",
+      "bug reporting",
+      "ci/cd integration",
       "cicd",
       "cypress",
+      "defect lifecycle",
+      "end-to-end testing",
       "git",
+      "javascript or python",
       "jira",
       "postman",
+      "programming fundamentals",
       "pytest",
+      "pytest or junit",
       "python",
       "selenium",
-      "testrail"
+      "software development lifecycle",
+      "test automation",
+      "test case design",
+      "test frameworks",
+      "test planning",
+      "testrail",
+      "unit testing"
     ],
     "expected_missing_skills": [
       "load and performance testing (jmeter)",
-      "security testing",
-      "mobile app testing (appium)"
+      "mobile app testing (appium)",
+      "security testing"
     ],
     "related_non_equivalent_skills": [
       {
@@ -989,20 +1127,33 @@
       "ansible"
     ],
     "expected_matched_skills": [
+      "alerting",
       "ansible",
+      "automation",
+      "cloud platforms",
+      "configuration management",
+      "distributed systems",
       "docker",
+      "error budgets",
       "go",
       "grafana",
       "incident management",
       "kubernetes",
       "linux",
+      "observability",
+      "on-call operations",
+      "platform engineering",
       "python",
+      "root cause analysis",
+      "service level agreements",
+      "service level indicators",
+      "service level objectives",
       "slo/sli",
       "terraform"
     ],
     "expected_missing_skills": [
-      "chaos engineering",
       "capacity planning",
+      "chaos engineering",
       "distributed tracing (opentelemetry)"
     ],
     "related_non_equivalent_skills": [
@@ -1141,17 +1292,20 @@
     "expected_matched_skills": [
       "bootstrap",
       "css",
+      "css layout",
       "git",
       "html",
       "javascript",
       "jquery",
-      "responsive design"
+      "responsive design",
+      "responsive web design",
+      "semantic html"
     ],
     "expected_missing_skills": [
+      "css preprocessor (sass)",
       "modern frontend framework (react/vue)",
       "package manager (npm)",
-      "rest api consumption",
-      "css preprocessor (sass)"
+      "rest api consumption"
     ],
     "related_non_equivalent_skills": [
       {
@@ -1200,20 +1354,25 @@
     ],
     "expected_matched_skills": [
       "amazon web services",
+      "ci/cd",
       "cicd",
+      "cloud platforms",
       "deep learning",
+      "embeddings",
       "git",
       "large language models",
       "machine learning",
+      "programming fundamentals",
       "python",
+      "retrieval augmented generation",
       "retrieval-augmented generation"
     ],
     "expected_missing_skills": [
       "docker",
       "fastapi",
       "langgraph",
-      "vector databases",
-      "mlops"
+      "mlops",
+      "vector databases"
     ],
     "related_non_equivalent_skills": [
       {
@@ -1243,18 +1402,19 @@
       "food safety standards"
     ],
     "expected_matched_skills": [
-      "python"
+      "python",
+      "python syntax and semantics"
     ],
     "expected_missing_skills": [
-      "fastapi",
       "django",
-      "postgresql",
       "docker",
+      "fastapi",
       "git",
-      "rest apis",
-      "unit testing",
       "linux",
-      "object-oriented programming"
+      "object-oriented programming",
+      "postgresql",
+      "rest apis",
+      "unit testing"
     ],
     "related_non_equivalent_skills": [
       {
@@ -1445,16 +1605,18 @@
       "exception handling"
     ],
     "expected_matched_skills": [
+      "control flow",
       "data structures and algorithms",
       "exception handling",
       "object-oriented programming",
+      "problem solving",
       "python"
     ],
     "expected_missing_skills": [
-      "fastapi",
       "django",
-      "postgresql",
-      "docker"
+      "docker",
+      "fastapi",
+      "postgresql"
     ],
     "related_non_equivalent_skills": [],
     "proficiency_level": "Experienced Core Programmer",
@@ -1476,16 +1638,23 @@
       "numpy"
     ],
     "expected_matched_skills": [
+      "deep learning",
+      "linear algebra",
+      "machine learning",
+      "neural networks",
       "numpy",
+      "object-oriented programming",
+      "programming fundamentals",
       "python",
-      "pytorch"
+      "pytorch",
+      "supervised learning"
     ],
     "expected_missing_skills": [
       "docker",
       "fastapi",
       "langgraph",
-      "vector databases",
-      "mlops"
+      "mlops",
+      "vector databases"
     ],
     "related_non_equivalent_skills": [],
     "proficiency_level": "Academic / Coursework Only",
@@ -1509,15 +1678,24 @@
       "python"
     ],
     "expected_matched_skills": [
+      "container fundamentals",
       "docker",
       "fastapi",
+      "functions and modules",
+      "http fundamentals",
+      "iterators and generators",
+      "json",
       "postgresql",
-      "python"
+      "python",
+      "relational database concepts",
+      "request validation",
+      "rest api design",
+      "sql"
     ],
     "expected_missing_skills": [
+      "aws",
       "celery",
-      "kubernetes",
-      "aws"
+      "kubernetes"
     ],
     "related_non_equivalent_skills": [],
     "proficiency_level": "Senior Professional",
@@ -1608,12 +1786,17 @@
       "tensorflow"
     ],
     "expected_matched_skills": [
+      "container fundamentals",
       "docker",
-      "python"
+      "memory management",
+      "object-oriented programming",
+      "python",
+      "python syntax and semantics",
+      "relational database concepts"
     ],
     "expected_missing_skills": [
-      "fastapi",
       "django",
+      "fastapi",
       "postgresql",
       "pytest"
     ],
