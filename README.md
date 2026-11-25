@@ -245,56 +245,60 @@ See the Swagger UI at `/docs` for request schemas, parameters, and response mode
 
 ## 🧪 Evaluation & quality
 
-SkillBridge includes a custom evaluation framework with **35 synthetic evaluation cases**. It measures skill normalization, semantic matching, false-positive guardrails, scoring integrity, and proficiency-evidence classification.
+SkillBridge ships with a custom evaluation framework covering **35 synthetic test cases**. The dashboard below separates normalization quality, semantic matching quality, and scoring-integrity checks so that the metrics are not mixed together.
 
 ### Evaluation dashboard
 
 <p align="center">
-  <img src="docs/assets/evaluation-dashboard.svg" alt="SkillBridge evaluation dashboard showing normalization, macro and micro semantic matching metrics across 35 synthetic cases" width="100%">
+  <img src="docs/assets/evaluation-dashboard.svg" alt="SkillBridge evaluation dashboard: 35 cases, 99.68 percent normalization macro F1, 96.64 percent skill matching macro F1, 95.59 percent micro F1, 336 true positives, 9 false positives, 22 false negatives, and zero scoring anomalies" width="100%">
 </p>
 
-### Latest committed evaluation snapshot
+#### At a glance
 
-<sub>Report: `evaluation/results/evaluation_report.json` · 35 synthetic cases</sub>
+<table>
+  <tr>
+    <td align="center" width="25%"><strong>35</strong><br><sub>Evaluation cases</sub></td>
+    <td align="center" width="25%"><strong>99.68%</strong><br><sub>Normalization macro F1</sub></td>
+    <td align="center" width="25%"><strong>96.64%</strong><br><sub>Matching macro F1</sub></td>
+    <td align="center" width="25%"><strong>95.59%</strong><br><sub>Matching micro F1</sub></td>
+  </tr>
+</table>
 
-| Metric | Result |
-|---|---:|
-| **Normalization — macro precision** | **99.68%** |
-| **Normalization — macro recall** | **99.68%** |
-| **Normalization — macro F1** | **99.68%** |
-| **Skill matching — macro precision** | **98.18%** |
-| **Skill matching — macro recall** | **95.44%** |
-| **Skill matching — macro F1** | **96.64%** |
-| **Skill matching — micro precision** | **97.39%** |
-| **Skill matching — micro recall** | **93.85%** |
-| **Skill matching — micro F1** | **95.59%** |
-| **Micro true positives** | **336** |
-| **Micro false positives** | **9** |
-| **Micro false negatives** | **22** |
-| Targeted non-equivalent false-positive checks | **0 detected** |
-| Scoring anomalies | **0** |
-| Scoring-property audit | **Passed** |
+#### Quality metrics
 
-### How to interpret these results
+| Evaluation area | Precision | Recall | F1 score |
+|---|---:|---:|---:|
+| **Skill normalization · macro** | 99.68% | 99.68% | **99.68%** |
+| **Semantic matching · macro** | 98.18% | 95.44% | **96.64%** |
+| **Semantic matching · micro** | 97.39% | 93.85% | **95.59%** |
 
-- **Macro metrics** calculate precision, recall, and F1 per case, then average across the 35 cases. Each case has equal weight.
-- **Micro metrics** aggregate true positives, false positives, and false negatives across all evaluated skills before calculating the scores. Larger cases therefore contribute more.
-- The **9 micro false positives** are matching-metric false positives across the full expected-versus-actual skill sets. The separate targeted non-equivalent check count is **0**; it tracks a narrower set of explicitly annotated related-but-not-equivalent skills. These are different checks and should not be conflated.
-- Scoring audits check boundedness, monotonicity, neutrality to unrelated skills, duplicate resilience, and expected-score calibration where a case defines a target.
-- The proficiency distribution in this report is **18 Project Experience** and **17 Mentioned / Keyword Listing** classifications.
+#### Matching outcome breakdown
 
-### What is evaluated?
+| True positives | False positives | False negatives |
+|:---:|:---:|:---:|
+| **336** | **9** | **22** |
 
-- **Normalization:** canonicalization of extracted skill names, abbreviations, and known aliases.
-- **Semantic matching:** macro and micro precision, recall, F1, plus targeted checks for related-but-not-equivalent skills.
-- **Scoring integrity:** boundedness, monotonicity, neutrality to unrelated skills, duplicate resilience, and expected-score calibration.
-- **Proficiency evidence:** classification of evidence found in resume text and structured candidate sections.
+These counts are the micro-aggregated matching outcomes. The **9 false positives are not zero**: they are counted in the overall matching metrics. Separately, the targeted check for explicitly annotated related-but-not-equivalent skill pairs detected **0** such errors. These are different measurements.
 
-> **Evaluation note:** These figures come from the repository's synthetic test dataset. They are a repeatable development baseline, not a claim of production accuracy or validation against recruiter decisions. LLM-assisted semantic results can vary with model behavior, prompts, and dataset changes. The committed JSON report is the source of the displayed snapshot.
+#### Scoring and evidence checks
 
-### Run tests and evaluation
+| Check | Result | What it means |
+|---|---:|---|
+| Targeted non-equivalent false-positive checks | **0 detected** | No false matches were detected in the specifically annotated non-equivalent pairs. This does not mean the overall FP count is zero. |
+| Scoring anomalies | **0** | No scoring anomalies were recorded by the evaluation run. |
+| Scoring-property audit | **Passed** | Boundedness, monotonicity, neutrality to unrelated skills, duplicate resilience, and expected-score calibration checks passed. |
+| Proficiency evidence distribution | **18 Project · 17 Mentioned** | The 35 cases classified evidence as project experience or mention / keyword listing. |
 
-From the repository root:
+#### How to read the metrics
+
+- **Macro averages** calculate a metric for each test case and then average the case-level results. Each case contributes equally, regardless of its size.
+- **Micro averages** pool all true positives, false positives, and false negatives before calculating precision, recall, and F1. Larger cases therefore contribute more.
+- **Precision** measures how many predicted matches were correct; **recall** measures how many expected matches were found; **F1** balances the two.
+- **Normalization** evaluates canonicalization of skill names, abbreviations, and known aliases. **Semantic matching** evaluates whether candidate skills correctly satisfy required skills.
+
+> **Evaluation scope:** This is a repeatable development baseline on a synthetic dataset, not a claim of production accuracy or validation against recruiter decisions. LLM-assisted semantic judgments can vary with model behavior, prompts, and dataset changes. The committed JSON report is the source of truth for this snapshot.
+
+#### Run tests and regenerate the report
 
 ```bash
 pytest
@@ -308,7 +312,7 @@ python -m evaluation.run --verbose
 python -m evaluation.run --output evaluation/results/evaluation_report.json
 ```
 
-The evaluation runner writes the detailed JSON report to `evaluation/results/evaluation_report.json` by default.
+The evaluation runner writes `evaluation/results/evaluation_report.json` by default.
 
 ## ⚖️ Design considerations & current limitations
 
