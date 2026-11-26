@@ -200,40 +200,108 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function initTheme() {
-  let isDark = true;
+  let mode = "system";
   try {
     const saved = localStorage.getItem(STORAGE_KEYS.THEME);
-    if (saved) {
-      isDark = saved === "dark";
+    if (saved === "light" || saved === "dark" || saved === "system") {
+      mode = saved;
     }
   } catch (_) {}
 
-  applyTheme(isDark);
+  applyThemeMode(mode);
 
+  // Wire 3-way segmented buttons if present
+  const themeBtns = document.querySelectorAll(".theme-select-btn");
+  themeBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const selectedMode = btn.getAttribute("data-theme-mode") || "system";
+      applyThemeMode(selectedMode);
+      try {
+        localStorage.setItem(STORAGE_KEYS.THEME, selectedMode);
+      } catch (_) {}
+    });
+  });
+
+  // Preserve compatibility with elements.themeToggleBtn (cycles through light -> dark -> system)
   if (elements.themeToggleBtn) {
     elements.themeToggleBtn.addEventListener("click", () => {
-      const currentlyDark = document.body.classList.contains("dark-mode");
-      const nextDark = !currentlyDark;
-      applyTheme(nextDark);
+      let currentMode = "system";
       try {
-        localStorage.setItem(STORAGE_KEYS.THEME, nextDark ? "dark" : "light");
+        currentMode = localStorage.getItem(STORAGE_KEYS.THEME) || "system";
+      } catch (_) {}
+
+      let nextMode = "light";
+      if (currentMode === "light") nextMode = "dark";
+      else if (currentMode === "dark") nextMode = "system";
+      else nextMode = "light";
+
+      applyThemeMode(nextMode);
+      try {
+        localStorage.setItem(STORAGE_KEYS.THEME, nextMode);
       } catch (_) {}
     });
   }
+
+  // Listen to OS system color-scheme changes
+  if (window.matchMedia) {
+    const colorSchemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = () => {
+      let currentMode = "system";
+      try {
+        currentMode = localStorage.getItem(STORAGE_KEYS.THEME) || "system";
+      } catch (_) {}
+      if (currentMode === "system") {
+        applyThemeMode("system", false);
+      }
+    };
+    if (colorSchemeQuery.addEventListener) {
+      colorSchemeQuery.addEventListener("change", handler);
+    } else if (colorSchemeQuery.addListener) {
+      colorSchemeQuery.addListener(handler);
+    }
+  }
 }
 
-function applyTheme(isDark) {
+function applyThemeMode(mode, save = true) {
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const isDark = mode === "dark" || (mode === "system" && prefersDark);
+
+  document.documentElement.classList.toggle("dark-mode", isDark);
   document.body.classList.toggle("dark-mode", isDark);
+
+  // Update segmented buttons
+  const themeBtns = document.querySelectorAll(".theme-select-btn");
+  themeBtns.forEach((btn) => {
+    if (btn.getAttribute("data-theme-mode") === mode) {
+      btn.classList.add("active");
+    } else {
+      btn.classList.remove("active");
+    }
+  });
+
+  // Update legacy themeToggleBtn icon & label for backward compatibility
   if (elements.themeToggleBtn) {
     const icon = elements.themeToggleBtn.querySelector(".theme-toggle-icon");
     const label = elements.themeToggleBtn.querySelector(".theme-toggle-label");
     if (icon) {
-      icon.className = isDark ? "fa-solid fa-sun theme-toggle-icon" : "fa-solid fa-moon theme-toggle-icon";
+      if (mode === "system") {
+        icon.className = "fa-solid fa-desktop theme-toggle-icon";
+      } else {
+        icon.className = isDark ? "fa-solid fa-moon theme-toggle-icon" : "fa-solid fa-sun theme-toggle-icon";
+      }
     }
     if (label) {
-      label.textContent = isDark ? "Light" : "Dark";
+      if (mode === "system") {
+        label.textContent = "System";
+      } else {
+        label.textContent = isDark ? "Dark" : "Light";
+      }
     }
   }
+}
+
+function applyTheme(isDark) {
+  applyThemeMode(isDark ? "dark" : "light");
 }
 
 function initRestoredState() {
